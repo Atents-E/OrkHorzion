@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour
     public int monsterHp = 100;
 
     public float AttackDemage = 10.0f;
+
     public float AttackDelay = 5.0f;
 
     Rigidbody rigid;
