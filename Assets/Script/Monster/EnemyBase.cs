@@ -8,15 +8,21 @@ public class EnemyBase : MonoBehaviour
     public float moveSpeed = 1.0f;
     public int monsterHp = 100;
 
+    public float AttackRadius = 2.3f;
     public float AttackDemage = 10.0f;
-
     public float AttackDelay = 5.0f;
+    float currentAngle = 0.0f;
+    public float turnSpeed = 5.0f;
 
     Rigidbody rigid;
 
     Animator anim;
-    
-    bool isMove = false;
+
+    Transform playerTarget = null;
+    Vector3 monsterToplayerDir;
+
+    bool isMove = true;
+    bool looktargetOn = true;
 
     public int MonsterHP
     {
@@ -26,7 +32,8 @@ public class EnemyBase : MonoBehaviour
             monsterHp = value;
 
             if (monsterHp < 0)
-            { 
+            {
+                monsterHp = 0;
                 Die();
             }
         }
@@ -41,19 +48,19 @@ public class EnemyBase : MonoBehaviour
     private void Start()
     {
         AttackFalse();
-        isMove = false;
+        isMove = true;
+
+        //SphereCollider coll = GetComponent<SphereCollider>();
+        //coll.radius = AttackRadius;
     }
 
     private void FixedUpdate()
     {
-        if (!isMove)
+        LookTarget();
+        MonsterHP -= 10;
+        if (isMove)
         {
             rigid.MovePosition(transform.position + moveSpeed * Time.fixedDeltaTime * transform.forward);
-            MonsterHP -= 10;
-        }
-        else
-        {
-           
         }
     }
 
@@ -61,8 +68,9 @@ public class EnemyBase : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerTarget = other.transform;
+            
             AttackTrue();
-
         }
     }
 
@@ -70,26 +78,67 @@ public class EnemyBase : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerTarget = null;
             AttackFalse();
         }
     }
 
     void Die()
     {
+        isMove = false;
+        looktargetOn = false;
         anim.SetTrigger("Die");
-        isMove = true;
-        Destroy(gameObject,2.0f);
+        anim.SetBool("Attack", false);
+        Destroy(gameObject,5.0f);
     }
 
     void AttackTrue()
     {
-        isMove = true;
+        isMove = false;
         anim.SetBool("Attack",true);
     }
+
     void AttackFalse()
     {
-        isMove = false;
+        isMove = true;
         anim.SetBool("Attack", false);
     }
 
+
+    void LookTarget()
+    {
+        if (looktargetOn)
+        {
+            if (playerTarget != null)
+            {
+
+                monsterToplayerDir = playerTarget.position - transform.position;
+                monsterToplayerDir.y = 0;
+
+                float betweenAngle = Vector3.SignedAngle(transform.forward, monsterToplayerDir, transform.up);
+
+                Vector3 resultDir;
+
+                if (Mathf.Abs(betweenAngle) < 30.0f)
+                {
+                    float rotateDir = 1.0f;
+
+                    if (betweenAngle < 0)
+                    {
+                        rotateDir = -1.0f;
+                    }
+
+                    currentAngle += (rotateDir * turnSpeed * Time.fixedDeltaTime);
+
+                    resultDir = Quaternion.Euler(0, currentAngle, 0) * transform.forward;
+                }
+                else
+                {
+                    resultDir = monsterToplayerDir;
+                }
+                transform.rotation = Quaternion.LookRotation(resultDir);
+            }
+
+        }
+    }
 }
