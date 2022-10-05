@@ -21,7 +21,6 @@ public class Character : MonoBehaviour
             if (hp <= 0) // 현재 체력이 0 이거나 0 이하힐 때 ex) 현재 체력보다 더 큰 데미지를 입을 때
             {
                 hp = 0; // 체력을 0으로 만들기
-                Dead();
             }
         }
     }
@@ -35,14 +34,53 @@ public class Character : MonoBehaviour
             maxHp = value;
         }
     }
-    protected float def; // 캐릭터 방어력
+    protected int def; // 캐릭터 방어력
+    public int DEF // 캐릭터 체력 프로퍼티
+    {
+        get => def;
 
-    protected float atk; // 캐릭터 공격력
+        set
+        {
+            def = value;
+        }
+    }
+
+    protected int atk; // 캐릭터 공격력
+    public int ATK // 캐릭터 체력 프로퍼티
+    {
+        get => atk;
+
+        set
+        {
+            atk = value;
+        }
+    }
+
     protected float atkSpeed; // 캐릭터 공격속도
+    public float ATKSpeed // 캐릭터 체력 프로퍼티
+    {
+        get => atkSpeed;
+
+        set
+        {
+            atkSpeed = value;
+        }
+    }
+
     protected float moveSpeed; // 캐릭터 이동속도
+    public float MoveSpeed // 캐릭터 체력 프로퍼티
+    {
+        get => moveSpeed;
+
+        set
+        {
+            moveSpeed = value;
+        }
+    }
 
     private void Dead()
     {
         isDead = true;
     }
+
 }
