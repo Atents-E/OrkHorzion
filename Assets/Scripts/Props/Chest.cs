@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    // ¾Ö´Ï¸ŞÀÌÅÍ ¼±¾ğ
+    // ì• ë‹ˆë©”ì´í„° ì„ ì–¸
     Animator anim;
     ParticleSystem particle;
 
     private void Awake()
     {
-        // ¾Ö´Ï¸ŞÀÌÅÍ Ãß°¡
+        // ì• ë‹ˆë©”ì´í„° ì¶”ê°€
         anim = GetComponent<Animator>();
         particle = GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // "Player"¶ó´Â ÅÂ±×°¡ ´êÀ¸¸é
+        // "Player"ë¼ëŠ” íƒœê·¸ê°€ ë‹¿ìœ¼ë©´
         if (other.CompareTag("Player"))
         {
-            // Open ¾Ö´Ï¸ŞÀÌ¼Ç È°¼ºÈ­
+            // Open ì• ë‹ˆë©”ì´ì…˜ í™œì„±í™”
             anim.SetTrigger("Open");
             particle.Play();
 
-            // È°¼ºÈ­ ÈÄ 0.5ÃÊ ÈÄ »ç¶óÁü
+            // í™œì„±í™” í›„ 0.5ì´ˆ í›„ ì‚¬ë¼ì§
             Destroy(this.gameObject, 1.3f);
         }
     }
