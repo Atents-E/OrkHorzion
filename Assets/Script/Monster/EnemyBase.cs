@@ -1,27 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-
-    public float moveSpeed = 1.0f;
-    public int monsterHp = 100;
+    public float moveSpeed = 3.0f;
+    public int monsterHp = 5000;
 
     public float AttackRadius = 2.3f;
     public float AttackDemage = 10.0f;
     public float AttackDelay = 5.0f;
-    float currentAngle = 0.0f;
     public float turnSpeed = 5.0f;
-
-    Rigidbody rigid;
+    float currentAngle = 0.0f;
 
     Animator anim;
 
     Transform playerTarget = null;
+    public Action<bool> OnMoving;
+
     Vector3 monsterToplayerDir;
 
-    bool isMove = true;
     bool looktargetOn = true;
 
     public int MonsterHP
@@ -41,27 +40,21 @@ public class EnemyBase : MonoBehaviour
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
 
     private void Start()
     {
         AttackFalse();
-        isMove = true;
 
         //SphereCollider coll = GetComponent<SphereCollider>();
         //coll.radius = AttackRadius;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         LookTarget();
         MonsterHP -= 10;
-        if (isMove)
-        {
-            rigid.MovePosition(transform.position + moveSpeed * Time.fixedDeltaTime * transform.forward);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -85,22 +78,22 @@ public class EnemyBase : MonoBehaviour
 
     void Die()
     {
-        isMove = false;
+        OnMoving?.Invoke(false);
         looktargetOn = false;
         anim.SetTrigger("Die");
         anim.SetBool("Attack", false);
-        Destroy(gameObject,5.0f);
+        Destroy(gameObject,3.0f);
     }
 
     void AttackTrue()
     {
-        isMove = false;
+        OnMoving?.Invoke(false);
         anim.SetBool("Attack",true);
     }
 
     void AttackFalse()
     {
-        isMove = true;
+        OnMoving?.Invoke(true);
         anim.SetBool("Attack", false);
     }
 
@@ -119,7 +112,7 @@ public class EnemyBase : MonoBehaviour
 
                 Vector3 resultDir;
 
-                if (Mathf.Abs(betweenAngle) < 30.0f)
+                if (Mathf.Abs(betweenAngle) < 10.0f)
                 {
                     float rotateDir = 1.0f;
 
