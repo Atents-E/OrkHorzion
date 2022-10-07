@@ -10,58 +10,25 @@ public class TowerBase : MonoBehaviour
     /// 타워 가격
     /// </summary>
     public int goal = 10;
+    public float turnSpeed = 5.0f;          // 타워의 회전속도
+    public float sightRadius = 5.0f;        // 타워의 범위
 
-    /// <summary>
-    /// 타워의 회전속도
-    /// </summary>
-    public float turnSpeed = 5.0f;
-
-    /// <summary>
-    /// 타워의 범위
-    /// </summary>
-    public float sightRadius = 5.0f;
-
-    /// <summary>
-    /// 타워의 공격 속도
-    /// </summary>
-    public float attackSpeed = 2.0f;
-
-    /// <summary>
-    /// 타워의 공격 각도
-    /// </summary>
-    public float fireAngle = 10.0f;     
-    
-    /// <summary>
-    /// 총구의 처음 각도
-    /// </summary>
-    float currentAngle = 0.0f;
-
-    /// <summary>
-    /// 발사 중인지 확인
-    /// </summary>
-    bool isFiring = false;
-
+    public GameObject shotPrefab;           //총알 프리팹
+    public float attackSpeed = 2.0f;        // 타워의 공격 속도
+    public float fireAngle = 10.0f;         // 타워의 공격 각도
+    float currentAngle = 0.0f;              // 총구의 처음 각도
+    bool isFiring = false;                  // 발사 중인지 확인
 
     Transform fireTransform;            // 총알의 트랜스폼(총알의 위치와 방향 필요)
     IEnumerator fireCoroutine;          // 코루틴을 끄려면 변수로 가지고 있어야 함.
-
-    /// <summary>
-    ///  총알의 트랜스폼
-    /// </summary>
-    Transform shotTransform;
-
-    /// <summary>
-    /// 총알의 방향
-    /// </summary>
-    Transform direction;
+    Transform shotTransform;                //  총알의 트랜스폼
 
     /// <summary>
     /// 타겟x
     /// </summary>
     Transform target = null;        
     Vector3 initialForward;
-
-    public GameObject bulletPrefab;     // 총알 프리팹 //
+    
     
     //기능
     // 설치가 가능한 곳인지 확인
@@ -72,8 +39,8 @@ public class TowerBase : MonoBehaviour
 
     private void Awake()
     {
-        direction = transform.GetChild(1);     // 움직일 총구를 받아옴
-        shotTransform = direction.GetChild(0); // 총알 발사 위치 받아옴
+        shotTransform = transform.GetChild(1);     // 움직일 총구를 받아옴
+        shotTransform = shotTransform.GetChild(0); // 총알 발사 위치 받아옴
 
         //fireCoroutine = PeriodFire();
     }
@@ -152,11 +119,11 @@ public class TowerBase : MonoBehaviour
         if (target != null)
         {
             // 각도를 사용하는 경우(등속도로 회전)
-            Vector3 barrelToPlayerDir = target.position - direction.position;  // 총구에서 플레이어의 위치로 가는 방향 벡터 계산
-            barrelToPlayerDir.y = 0;
+            Vector3 shotToMonsterDir = target.position - shotTransform.position;  // 총구에서 플레이어의 위치로 가는 방향 벡터 계산
+            shotToMonsterDir.y = 0;
 
             // 정방향일 때 0~180도. 역방향일 떄 0~-180도        //왼손 좌표계에서 엄지 손가락이 나를 향할 때, 다른 손가락은 시계 방향으로 감긴다.
-            float betweenAngle = Vector3.SignedAngle(direction.forward, barrelToPlayerDir, direction.up);
+            float betweenAngle = Vector3.SignedAngle(shotTransform.forward, shotToMonsterDir, shotTransform.up);
 
             Vector3 resultDir;
             if (Mathf.Abs(betweenAngle) > 0.05f)    // 사이각이 일정 각도 이하인지 체크
@@ -177,9 +144,9 @@ public class TowerBase : MonoBehaviour
             else
             {
                 //사이각이 거의 0인 경우
-                resultDir = barrelToPlayerDir;
+                resultDir = shotToMonsterDir;
             }
-            direction.rotation = Quaternion.LookRotation(resultDir);
+            shotTransform.rotation = Quaternion.LookRotation(resultDir);
 
             
 
@@ -197,14 +164,14 @@ public class TowerBase : MonoBehaviour
 
     bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
     {
-        Vector3 dir = target.position - direction.position;
+        Vector3 dir = target.position - shotTransform.position;
         dir.y = 0;
-        return Vector3.Angle(direction.forward, dir) < fireAngle;
+        return Vector3.Angle(shotTransform.forward, dir) < fireAngle;
     }
 
     private void Fire()
     {
-        Instantiate(bulletPrefab, fireTransform.position, fireTransform.rotation);
+        Instantiate(shotPrefab, fireTransform.position, fireTransform.rotation);
     }
 
     IEnumerator PeriodFire()

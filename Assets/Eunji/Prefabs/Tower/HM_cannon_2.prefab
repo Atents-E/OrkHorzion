@@ -302,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4168932714287992}
   - component: {fileID: 6189899162835428121}
+  - component: {fileID: 2009914076289283309}
   - component: {fileID: -6398892058053437854}
   - component: {fileID: 7272326497595330518}
   m_Layer: 0
@@ -346,6 +347,21 @@ MonoBehaviour:
   attackSpeed: 2
   fireAngle: 10
   bulletPrefab: {fileID: 0}
+--- !u!114 &2009914076289283309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829664690148712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4423a4bb3ac76794c8d9036173eb61f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 10
+  shotSpeed: 0.3
+  shotCreate: 0.1
 --- !u!136 &-6398892058053437854
 CapsuleCollider:
   m_ObjectHideFlags: 0

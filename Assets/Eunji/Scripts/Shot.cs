@@ -19,7 +19,7 @@ public class Shot : MonoBehaviour
 
     private void Awake()
     {
-        shot = transform.GetChild(3);     // 움직일 총알을 받아옴
+        shot = transform.GetChild(1).transform.GetChild(0);     // 총알의 위치 받아옴
     }
 
 
