@@ -2,28 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
-    public float moveSpeed = 3.0f;
-    public int monsterHp = 5000;
+    public float moveSpeed = 3.0f;      // 몬스터가 움직이는 속도
+    public int monsterHp = 100;         // 몬스터 최대 HP
 
-    public float AttackRadius = 2.3f;
-    public float AttackDemage = 10.0f;
-    public float AttackDelay = 5.0f;
-    public float turnSpeed = 5.0f;
-    float currentAngle = 0.0f;
+    public float AttackRadius = 2.3f;   // 몬스터가 공격가능한 범위
+    public float AttackDemage = 10.0f;  // 몬스터가 공격할때의 데미지
+    public float AttackDelay = 5.0f;    // 몬스터가 공격한 뒤 다음 공격까지의 텀
+    public float turnSpeed = 5.0f;      // 몬스터가 회전하는 속도 
+    float currentAngle = 0.0f;          // 초당 바뀌는 각도
 
+    Transform playerTarget = null;       // 플레이어가 없다
+
+    Vector3 monsterToplayerDir;          // 몬스터와 플레이어 사이의 거리
+
+    bool looktargetOn = false;            // 몬스터가 플레이어를 바라보는지 
+
+    NavMeshAgent agent;                  // 네비매시
+
+    public Transform target;             // 네비매시 타겟
+    
     Animator anim;
 
-    Transform playerTarget = null;
-    public Action<bool> OnMoving;
+    float random;
+    public float Random { get => UnityEngine.Random.Range(0, 1); }      // 어택2용 랜덤값 할당
 
-    Vector3 monsterToplayerDir;
-
-    bool looktargetOn = true;
-
-    public int MonsterHP
+    public int MonsterHP        // HP 프로퍼티
     {
         get => monsterHp;
         set
@@ -40,63 +47,72 @@ public class EnemyBase : MonoBehaviour
 
     private void Awake()
     {
+        agent = GetComponent<NavMeshAgent>();   // 네비매시
         anim = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        AttackFalse();
-
         //SphereCollider coll = GetComponent<SphereCollider>();
         //coll.radius = AttackRadius;
     }
 
     private void Update()
     {
-        LookTarget();
+        agent.SetDestination(target.position);
+
+        if (looktargetOn)
+        {
+            LookTarget();
+        }
+
         MonsterHP -= 10;
     }
+    
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)     // 트리거 안에 들어왔을 때
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            playerTarget = other.transform;
-            
-            AttackTrue();
+            Debug.Log("들어옴");
+            anim.SetTrigger("Attack");
+            looktargetOn = true;
+            playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
+            OffMoving();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)      // 트리거를 빠져 나갔을 때
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))  
         {
-            playerTarget = null;
-            AttackFalse();
+            Debug.Log("나감");
+            OnMoving();
+            looktargetOn = false;
+            playerTarget = null;                    // playerTarget이 null이 되었다.
+            
         }
+    }
+
+    void OnMoving()
+    {
+        agent.isStopped = false;
+        
+    }
+
+    void OffMoving()
+    {
+        //isMoving = false;
+        agent.isStopped = true;
+        
+
     }
 
     void Die()
     {
-        OnMoving?.Invoke(false);
-        looktargetOn = false;
         anim.SetTrigger("Die");
-        anim.SetBool("Attack", false);
-        Destroy(gameObject,3.0f);
+        Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
     }
-
-    void AttackTrue()
-    {
-        OnMoving?.Invoke(false);
-        anim.SetBool("Attack",true);
-    }
-
-    void AttackFalse()
-    {
-        OnMoving?.Invoke(true);
-        anim.SetBool("Attack", false);
-    }
-
 
     void LookTarget()
     {
@@ -104,7 +120,6 @@ public class EnemyBase : MonoBehaviour
         {
             if (playerTarget != null)
             {
-
                 monsterToplayerDir = playerTarget.position - transform.position;
                 monsterToplayerDir.y = 0;
 
