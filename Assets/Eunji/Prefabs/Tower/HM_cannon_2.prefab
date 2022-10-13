@@ -202,12 +202,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565112939876086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.66200006, z: 0.789}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2.1086912, z: 0.67065}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4190500450512216}
-  m_RootOrder: 0
+  m_Father: {fileID: 4168932714287992}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811537569649358
 GameObject:
@@ -326,6 +326,7 @@ Transform:
   m_Children:
   - {fileID: 4680636701678832}
   - {fileID: 4190500450512216}
+  - {fileID: 4188590568255158}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -344,9 +345,9 @@ MonoBehaviour:
   goal: 10
   turnSpeed: 5
   sightRadius: 5
+  shotPrefab: {fileID: 0}
   attackSpeed: 2
   fireAngle: 10
-  bulletPrefab: {fileID: 0}
 --- !u!114 &2009914076289283309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,8 +420,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.5459911, z: 0}
   m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4188590568255158}
+  m_Children: []
   m_Father: {fileID: 4168932714287992}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

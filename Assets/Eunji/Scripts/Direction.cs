@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Direction : MonoBehaviour
 {
-    //속도, 목적지, 
-
     public float initialSpeed = 20.0f;
-    Rigidbody rigid;        //물리량 계산 시, Rigidbody로 사용하는게 편리
+    Rigidbody rigid;
 
     private void Awake()
     {
@@ -21,10 +19,11 @@ public class Direction : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Monster"))
+        if (collision.gameObject.CompareTag("Monster")) // Monster와 만나면
         {
           
         }
-        Destroy(this.gameObject, 2.0f); // 2초 후에 없어져라
+        Destroy(this.gameObject, 2.0f); // 2초 후에 총알 gameObjcet 삭제
     }
+
 }

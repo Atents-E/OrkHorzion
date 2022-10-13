@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4168932714287992, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4168932714287992, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,6 +182,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4190500450512216, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
+      propertyPath: turnSpeed
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
+      propertyPath: shotPrefab
+      value: 
+      objectReference: {fileID: 1986884198281658, guid: cc41f1ebc8f2e674aa03516f1473662d, type: 3}
     - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
       propertyPath: bulletPrefab
       value: 
@@ -460,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 388476416, guid: 7df524699deb44341b3693c8538df185, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 388476416, guid: 7df524699deb44341b3693c8538df185, type: 3}
       propertyPath: m_LocalPosition.x
