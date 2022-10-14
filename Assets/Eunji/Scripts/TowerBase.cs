@@ -24,8 +24,8 @@ public class TowerBase : MonoBehaviour
 
     private void Awake()
     {
-        direction = transform.GetChild(1);     // 움직일 총구를 받아옴
-        shotTransform = direction.GetChild(0); // 총알 발사 위치 받아옴
+        direction = transform.GetChild(0);     // 움직일 총구를 받아옴
+        shotTransform = direction.GetChild(3); // 총알 발사 위치 받아옴
     }
 
     private void Start()

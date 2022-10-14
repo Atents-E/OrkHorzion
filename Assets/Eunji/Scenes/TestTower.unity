@@ -130,10 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1565112939876086, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1829664690148712, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
       propertyPath: m_Name
       value: HM_cannon_2
@@ -182,44 +178,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4190500450512216, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
-      propertyPath: turnSpeed
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
-      propertyPath: shotPrefab
-      value: 
-      objectReference: {fileID: 1986884198281658, guid: cc41f1ebc8f2e674aa03516f1473662d, type: 3}
-    - target: {fileID: 6189899162835428121, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 1986884198281658, guid: cc41f1ebc8f2e674aa03516f1473662d, type: 3}
     m_RemovedComponents:
-    - {fileID: 114596166313668302, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
+    - {fileID: 1817006867, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
 --- !u!1 &1244296182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1989008322473734, guid: 5946bad49542c9f48b29c509c695f977, type: 3}
   m_PrefabInstance: {fileID: 1138319457}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1244296187
-CapsuleCollider:
+--- !u!54 &1244296191
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244296182}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 1.1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1319881649
 GameObject:
   m_ObjectHideFlags: 0

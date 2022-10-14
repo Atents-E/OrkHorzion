@@ -15,7 +15,7 @@ public class Shot : MonoBehaviour
 
     private void Awake()
     {
-        shot = transform.GetChild(1).transform.GetChild(0);     // ÃÑ¾ËÀÇ À§Ä¡ ¹Þ¾Æ¿È
+        shot = transform.GetChild(0).transform.GetChild(3);     // ÃÑ¾ËÀÇ À§Ä¡ ¹Þ¾Æ¿È
     }
 
 
