@@ -25,7 +25,7 @@ public class Chest : MonoBehaviour
             particle.Play();
 
             // 활성화 후 0.5초 후 사라짐
-            Destroy(this.gameObject, 1.3f);
+            Destroy(this.gameObject, 1.5f);
         }
     }
 
