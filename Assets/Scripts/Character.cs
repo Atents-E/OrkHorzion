@@ -5,6 +5,15 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     protected string characterName; // 캐릭터 이름
+    public string CharacterName // 캐릭터 체력 프로퍼티
+    {
+        get => CharacterName;
+
+        set
+        { 
+            CharacterName = value;
+        }
+    }
     protected bool isDead = false; // 캐릭터 사망 확인용
     protected int hp; // 캐릭터 체력
     public int HP // 캐릭터 체력 프로퍼티
@@ -82,5 +91,6 @@ public class Character : MonoBehaviour
     {
         isDead = true;
     }
+
 
 }
