@@ -41,7 +41,7 @@ public class EnemyBase : MonoBehaviour
             {
                 monsterHp = 0;
 
-                Die();
+                // Die(); 사망 처리 함수 호출
             }
         }
     }
@@ -49,7 +49,7 @@ public class EnemyBase : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();   // 네비매시
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();        // 애니메이터
     }
 
     private void Start()
@@ -61,7 +61,7 @@ public class EnemyBase : MonoBehaviour
 
     private void Update()
     {
-        agent.SetDestination(target.position);
+        agent.SetDestination(target.position);      
 
         if (looktargetOn)
         {
