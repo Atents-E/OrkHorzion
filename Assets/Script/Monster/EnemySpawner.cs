@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        
         StartCoroutine(SpawnEnemy());
     }
 
@@ -25,7 +26,8 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            
+            Instantiate(enemyPrefab, transform.position, Quaternion.Euler(0.0f,-90.0f,0.0f));
 
             yield return new WaitForSeconds(spawnTime);
         }
