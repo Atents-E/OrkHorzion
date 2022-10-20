@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Player : Character
 {
-    int default_MaxHp = 100;
-    int default_Def = 20;
-    int default_Atk = 80;
-    float default_AtkSpeed = 40;
-    float default_MoveSpeed = 30;
+    public int default_MaxHp = 100;
+    public int default_Def = 20;
+    public int default_Atk = 80;
+    public float default_AtkSpeed = 40.0f;
+    public float default_MoveSpeed = 30.0f;
 
 
     private void Awake()
