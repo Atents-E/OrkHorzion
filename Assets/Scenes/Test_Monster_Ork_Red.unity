@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: e8adab10af6d8da4b98ea59904ad0e57, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2c708c12f08ce16498c4881bae5a8cd6, type: 2}
 --- !u!4 &149977888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3844084126927809055, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
@@ -932,6 +932,10 @@ PrefabInstance:
       propertyPath: spawnTime
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1623589481961224430, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6633018158188901904, guid: 9f3b0c490134a344884ea75f3186302a, type: 3}
     - target: {fileID: 1623589481961224431, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: m_Name
       value: EnemySpawner

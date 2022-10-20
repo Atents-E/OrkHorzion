@@ -14,7 +14,7 @@ public class EnemyBase : MonoBehaviour
     public int monsterHp = 100;         // 몬스터 최대 HP
     public float AttackRadius = 2.3f;   // 몬스터가 공격가능한 범위(반지름)
     public float AttackDemage = 10.0f;  // 몬스터가 공격할때의 데미지
-    float currentAngle = 5.0f;          // 초당 바뀌는 각도
+    float currentAngle = 30.0f;          // 초당 바뀌는 각도
     protected bool looktargetOn = false;           // 몬스터가 플레이어를 바라보는지 
     public float sightHalfAngle = 50.0f;           // 반지름
 
@@ -41,31 +41,18 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    protected virtual void Awake()
-    {
-    }
-
-    protected virtual void Start()
-    { 
-    }
-
     protected virtual void Update()
     {
-
-        if (looktargetOn)
-        {
-            Looktarget();
-        }
-
         MonsterHP -= 10;
     }
+
     void Die()
     {
         looktargetOn = false;
         Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
     }
 
-    bool SearchPlayer()
+    protected bool SearchPlayer()
     {
         bool result = false;
         Collider[] colliders = Physics.OverlapSphere(transform.position, AttackRadius, LayerMask.GetMask("Player"));
@@ -87,13 +74,13 @@ public class EnemyBase : MonoBehaviour
         return result;
     }
 
-    bool IsInsightAngle(Vector3 toPlayerDir)
+    protected bool IsInsightAngle(Vector3 toPlayerDir)
     {
         float angle = Vector3.Angle(transform.position, toPlayerDir);   // forward 벡터와 플레이어로 가는 방향 벡터의 사이각 구하기
         return (AttackRadius > angle);
     }
 
-    bool IsSightBlocked(Vector3 toPlayerDir)
+    protected bool IsSightBlocked(Vector3 toPlayerDir)
     {
         bool result = true;
 

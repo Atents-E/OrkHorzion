@@ -53,7 +53,8 @@ public class Ork_Basic : EnemyBase
                         break;
 
                     case EnemyStateOrk.Run:
-                        agent.SetDestination(wayPoint.Current.position);
+                        //agent.SetDestination(wayPoint.Current.position);
+                        agent.isStopped = false;
                         stateUpdate = NextMoving;
                         break;
 
@@ -78,14 +79,14 @@ public class Ork_Basic : EnemyBase
         }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
         anim = GetComponent<Animator>();        // 애니메이터
         agent = GetComponent<NavMeshAgent>();   // 네비매시
 
         wayPoint = FindObjectOfType<WayPoint>();
     }
-    protected override void Start()
+    protected void Start()
     {
         //if (wayPoint != null)
         //{
@@ -97,13 +98,15 @@ public class Ork_Basic : EnemyBase
         //}
 
         State = EnemyStateOrk.Run;
+
+        SearchPlayer();
     }
 
     protected override void Update()
     {
-        
+        base.Update();
+        Looktarget();
     }
-
     private void FixedUpdate()
     {
         stateUpdate();
@@ -123,9 +126,10 @@ public class Ork_Basic : EnemyBase
     {
         if (other.CompareTag("Player"))
         {
-            State = EnemyStateOrk.wait;
             Debug.Log("들어옴");
+            looktargetOn = true;
             playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
+            anim.SetBool("Attack", true);
         }
     }
 
@@ -135,7 +139,8 @@ public class Ork_Basic : EnemyBase
         {
             Debug.Log("나감");
             playerTarget = null;                    // playerTarget이 null이 되었다.
-
+            looktargetOn = false;
+            anim.SetBool("Attack", false);
         }
     }
 

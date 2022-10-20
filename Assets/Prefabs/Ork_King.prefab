@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8534188409979622826}
   - component: {fileID: -3424320506228336019}
   m_Layer: 0
-  m_Name: Ork_Red
+  m_Name: Ork_King
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 6633018158188901904}
   m_LocalRotation: {x: 0, y: -0.70850605, z: 0, w: 0.70570475}
   m_LocalPosition: {x: 89.82, y: -0.3, z: 15.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7252205959878780881}
@@ -176,7 +176,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.5
-  m_Center: {x: 5.4936923e-12, y: 1.1290238, z: 0.028945984}
+  m_Center: {x: 5.493692e-12, y: 1.1290238, z: 0.028945984}
 --- !u!114 &-3424320506228336019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef6ae57f2718e79469c1b14e82535552, type: 2}
+  - {fileID: 2100000, guid: 8a9d069775a7da843ba99d1d3377d6af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
