@@ -53,7 +53,7 @@ public class Ork_Basic : EnemyBase
                         break;
 
                     case EnemyStateOrk.Run:
-                        //agent.SetDestination(wayPoint.Current.position);
+                        agent.SetDestination(wayPoint.Current.position);
                         agent.isStopped = false;
                         stateUpdate = NextMoving;
                         break;
