@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+//#if UNITY_EDITOR
+//using UnityEditor;
+//#endif
 
 public class EnemyBase : MonoBehaviour
 {
@@ -109,18 +109,18 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    protected void OnDrawGizmosSelected()
-    {
-#if UNITY_EDITOR
-        Handles.color = Color.green;
-        Handles.DrawWireDisc(transform.position, transform.up, AttackRadius);
+//    protected void OnDrawGizmosSelected()
+//    {
+//#if UNITY_EDITOR
+//        Handles.color = Color.red;
+//        Handles.DrawWireDisc(transform.position, transform.up, AttackRadius);
 
-        if (SearchPlayer())
-        {
-            Handles.color = Color.red;
-        }
-#endif
-    }
+//        if (SearchPlayer())
+//        {
+//            Handles.color = Color.yellow;
+//        }
+//#endif
+//    }
 
 
     //void LookTarget()       // 플레이어 방향 바라보기

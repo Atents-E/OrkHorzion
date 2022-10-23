@@ -22,7 +22,6 @@ public class WayPoint : MonoBehaviour
     public Transform MoveNext()
     {
         index++;                        // 1증가 시키고
-        index %= wayPoints.Length;      // 계속 반복을 위해 %연산을 사용
 
         return wayPoints[index];
     }

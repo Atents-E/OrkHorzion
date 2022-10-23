@@ -11,18 +11,16 @@ public class Ork_Basic : EnemyBase
     public Transform target;             // 네비매시 타겟
     protected NavMeshAgent agent;        // 네비매시
 
-    protected Transform moveTarget;                 // 적이 이동할 목표 지점의 트랜스 폼
+    protected Transform moveTarget;      // 적이 이동할 목표 지점의 트랜스 폼
     protected WayPoint wayPoint;
 
     Action stateUpdate;
-
 
     EnemyStateOrk state = EnemyStateOrk.wait;
     protected enum EnemyStateOrk
     {
         wait = 0,   // 대기 상태
         Run,        // 순찰 상태
-        Attack      // 추적 상태
     }
 
     /// <summary>
@@ -49,18 +47,13 @@ public class Ork_Basic : EnemyBase
                 {
                     case EnemyStateOrk.wait:
                         agent.isStopped = true;
-                        
                         break;
 
                     case EnemyStateOrk.Run:
-                        //agent.SetDestination(wayPoint.Current.position);
+                        agent.SetDestination(wayPoint.Current.position);
                         agent.isStopped = false;
                         stateUpdate = NextMoving;
-                        break;
-
-                    case EnemyStateOrk.Attack:
-                        
-                        break;
+                        break; 
 
                     default:
                         break;
@@ -98,7 +91,6 @@ public class Ork_Basic : EnemyBase
         //}
 
         State = EnemyStateOrk.Run;
-
         SearchPlayer();
     }
 
