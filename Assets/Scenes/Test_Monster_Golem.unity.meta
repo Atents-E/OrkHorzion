@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Test_Monster_Golem.unity.meta
 guid: c6613e643a480df4aa8eb32c790eea79
+========
+guid: 10b84b3102dbf07419813ee2d238b033
+>>>>>>>> 615364f57600b130fded7f8cb12f2339404a677d:Assets/Scenes/Test_Monster_Ork_Red 1.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

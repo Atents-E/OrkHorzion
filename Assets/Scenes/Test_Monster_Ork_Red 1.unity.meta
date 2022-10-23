@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Test_Monster_Ork_Red 1.unity.meta
 guid: 10b84b3102dbf07419813ee2d238b033
+========
+guid: 39e0610931f138f44a3a98c95bab3d16
+>>>>>>>> 615364f57600b130fded7f8cb12f2339404a677d:Assets/Scenes/Test_Monster_Ork_Little.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
