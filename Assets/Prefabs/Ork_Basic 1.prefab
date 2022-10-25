@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 6745811787575817681}
   - component: {fileID: 6745811787575817687}
   - component: {fileID: 8534188409979622826}
-  - component: {fileID: -3424320506228336019}
   - component: {fileID: 1297056893275519618}
+  - component: {fileID: 1750277084024987488}
   m_Layer: 0
-  m_Name: Ork_Basic
+  m_Name: Ork_Basic 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,23 +178,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 5.493692e-12, y: 1.1290238, z: 0.028945984}
---- !u!114 &-3424320506228336019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6633018158188901904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09915784722ee8a4f93ba29117369f32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  monsterHp: 100000
-  AttackRadius: 2.3
-  AttackDemage: 10
-  sightHalfAngle: 50
 --- !u!114 &1297056893275519618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +190,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dc034480a223a4b886aa12f4d318a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoint: {fileID: 5007932596857914401, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
+  WayPoint: {fileID: 3844084126927809055, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
+--- !u!114 &1750277084024987488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633018158188901904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09915784722ee8a4f93ba29117369f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  monsterHp: 100
+  AttackRadius: 2.3
+  AttackDemage: 10
+  sightHalfAngle: 50
 --- !u!1 &7252205959711020906
 GameObject:
   m_ObjectHideFlags: 0

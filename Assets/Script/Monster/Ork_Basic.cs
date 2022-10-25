@@ -8,11 +8,12 @@ public class Ork_Basic : EnemyBase
 {
     Animator anim;
 
-    public Transform target;             // 네비매시 타겟
-    protected NavMeshAgent agent;        // 네비매시
+    //public Transform target;             // 네비매시 타겟
+    //protected NavMeshAgent agent;        // 네비매시
 
-    protected Transform moveTarget;      // 적이 이동할 목표 지점의 트랜스 폼
-    protected WayPoint wayPoint;
+    //protected Transform moveTarget;      // 적이 이동할 목표 지점의 트랜스 폼
+    //protected WayPoint wayPoint;
+    Enemy_Navigation nav;
 
     Action stateUpdate;
 
@@ -26,14 +27,14 @@ public class Ork_Basic : EnemyBase
     /// <summary>
     /// 이동할 목적지를 나타내는 프로퍼티
     /// </summary>
-    protected Transform MoveTarget
-    {
-        get => moveTarget;
-        set
-        {
-            moveTarget = value;
-        }
-    }
+    //protected Transform MoveTarget
+    //{
+    //    get => moveTarget;
+    //    set
+    //    {
+    //        moveTarget = value;
+    //    }
+    //}
 
     protected EnemyStateOrk State
     {
@@ -46,13 +47,17 @@ public class Ork_Basic : EnemyBase
                 switch(state)
                 {
                     case EnemyStateOrk.wait:
-                        agent.isStopped = true;
+                        nav.Stopped(true);
+                        //agent.isStopped = true;
                         break;
 
                     case EnemyStateOrk.Run:
-                        agent.SetDestination(wayPoint.Current.position);
-                        agent.isStopped = false;
-                        stateUpdate = NextMoving;
+                        nav.Stopped(false);
+                        nav.Destination();
+                        stateUpdate = Update_Run;
+                        //agent.SetDestination(wayPoint.Current.position);
+                        //agent.isStopped = false;
+                        //stateUpdate = NextMoving;
                         break; 
 
                     default:
@@ -62,22 +67,29 @@ public class Ork_Basic : EnemyBase
         }
     }
 
-    void NextMoving()
+    void Update_Run()
     {
-        agent.SetDestination(wayPoint.Current.position);
-
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // 경로 계산이 완료됬고 아직 도착지점으로 인정되는 거리까지 이동하지 않았다.
-        {
-            MoveTarget = wayPoint.MoveNext();
-        }
+        nav.Update_Run();
+        state = EnemyStateOrk.Run;
     }
+
+    //void NextMoving()
+    //{
+    //    agent.SetDestination(wayPoint.Current.position);
+
+    //    if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // 경로 계산이 완료됬고 아직 도착지점으로 인정되는 거리까지 이동하지 않았다.
+    //    {
+    //        MoveTarget = wayPoint.MoveNext();
+    //    }
+    //}
 
     protected void Awake()
     {
         anim = GetComponent<Animator>();        // 애니메이터
-        agent = GetComponent<NavMeshAgent>();   // 네비매시
+        //agent = GetComponent<NavMeshAgent>();   // 네비매시
 
-        wayPoint = FindObjectOfType<WayPoint>();
+        //wayPoint = FindObjectOfType<WayPoint>();
+        nav = GetComponent<Enemy_Navigation>();
     }
     protected void Start()
     {
@@ -89,7 +101,6 @@ public class Ork_Basic : EnemyBase
         //{
         //    MoveTarget = transform;
         //}
-
         State = EnemyStateOrk.Run;
         SearchPlayer();
     }
@@ -102,16 +113,6 @@ public class Ork_Basic : EnemyBase
     private void FixedUpdate()
     {
         stateUpdate();
-    }
-
-    void NextMove()
-    {
-        wayPoint.MoveNext();
-
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // 경로 계산이 완료됬고 아직 도착지점으로 인정되는 거리까지 이동하지 않았다.
-        {
-            MoveTarget = wayPoint.MoveNext();
-        }
     }
 
     private void OnTriggerEnter(Collider other)     // 트리거 안에 들어왔을 때

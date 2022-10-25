@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Metadata;
 
 public class WayPoint : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class WayPoint : MonoBehaviour
     public Transform MoveNext()
     {
         index++;                        // 1증가 시키고
+        index %= wayPoints.Length;
 
         return wayPoints[index];
     }
