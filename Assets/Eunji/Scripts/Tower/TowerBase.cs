@@ -22,30 +22,31 @@ public class TowerBase : MonoBehaviour
     bool isFiring = false;                  // 발사 중인지 확인
 
     public float sightRange = 10.0f;
+    public float sightHalfAngle = 50.0f;
 
 
     IEnumerator fireCoroutine;              // 코루틴을 끄려면 변수로 가지고 있어야 함.
     Transform direction;                    // 타워 방향
     Transform directionTransform;           // 투사체 트랜스폼
 
-    Transform target = null;        
-    Vector3 initialForward;
+    Transform target = null;                // 타겟은 null
+    Vector3 initialForward;                 // 처음 앞
 
-    private void Awake()
+    private void Awake()    // 이 스크립트가 생성완료 된 후에 호출
     {
         direction = transform.GetChild(1);          // 움직일 방향 위치를 받아옴
         directionTransform = direction.GetChild(0); // 투사체 발사 위치 받아옴
         
-        fireCoroutine = PeriodFire();
+        //fireCoroutine = PeriodFire();
     }
 
-    private void Start()
+    private void Start()    // 첫번째 업데이트가 일어나기 전에 호출
     {
-        initialForward = transform.forward;
-        SphereCollider col = GetComponent<SphereCollider>();
-        col.radius = sightRadius;
+        initialForward = transform.forward;         // 처음 앞은 게임 오브젝트의 앞
+        SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
+        col.radius = sightRadius;                   // 
 
-        StartCoroutine(fireCoroutine);
+        StartCoroutine(fireCoroutine);              // 코루틴 시작
     }
 
     /// <summary>
@@ -62,7 +63,7 @@ public class TowerBase : MonoBehaviour
 
     private void Update()
     {
-        LookTarget();
+        LookTarget();       // 타겟을 봐라
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,13 +82,13 @@ public class TowerBase : MonoBehaviour
         }
     }
 
-    private void LookTarget()
+    private void LookTarget()   // 타겟을 봐라
     {
-        if (target != null)
+        if (target != null)     // 타겟이 있다면,
         {
             // 각도를 사용하는 경우(등속도로 회전)
             Vector3 shotToMonsterDir = target.position 
-                - direction.position;  // 총구에서 플레이어의 위치로 가는 방향 벡터 계산
+                - direction.position;  // 방향(타워)에서 적의 위치로 가는 방향 벡터 계산
             shotToMonsterDir.y = 0;
 
             // 정방향일 때 0~180도. 역방향일 떄 0~-180도        //왼손 좌표계에서 엄지 손가락이 나를 향할 때, 다른 손가락은 시계 방향으로 감긴다.
@@ -132,22 +133,21 @@ public class TowerBase : MonoBehaviour
     bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
     {
 
-        Vector3 dir = target.position - direction.position;
-        // Debug.Log(Vector3.Angle(direction.forward, dir));
-        return Vector3.Angle(direction.forward, dir) < fireAngle;
+        Vector3 dir = target.position - direction.position;         // 타겟 위치 - 방향 위치
+        return Vector3.Angle(direction.forward, dir) < fireAngle;   // 방향의 앞쪽과 dir사이의 내각이 발사각보다 작다
     }
 
-    private void Fire()
+    private void Fire()         // 발사
     {
-        Instantiate(projectile, directionTransform.position, directionTransform.rotation);
+        Instantiate(projectile, directionTransform.position, directionTransform.rotation);  // 투사체가 복사
     }
 
-    IEnumerator PeriodFire()
+    IEnumerator PeriodFire()    // 발사 기간
     {
-        while (true)
+        while (true)            // true일 동안에
         {
-            Fire();
-            yield return new WaitForSeconds(attackSpeed);
+            Fire();             // 발사
+            yield return new WaitForSeconds(attackSpeed);   // 공격 속도만큼 기다리고 새로 할당
         }
     }
 
@@ -163,13 +163,32 @@ public class TowerBase : MonoBehaviour
         isFiring = false;               // 발사 중이지 않으면
     }
 
-    private void OnDrawGizmos/*Selected*/()
+    private void OnDrawGizmos/*Selected*/() // 기즈모
     {
 #if UNITY_EDITOR
 
-        Handles.color = Color.green; 
-
+        
+        Handles.color = Color.green;    // 초록색으로 표시
         Handles.DrawWireDisc(transform.position, transform.up, sightRange, 3.0f);     //시야 반경만큼 원 그리기 //원이 하나만 보임
+        
+        if (target != null)             // 타겟이 있다면
+        {
+            Handles.color = Color.red;  // 이후에 작성된 코드들은 빨간색으로 표시
+        }
+
+        //Vector3 forward = direction.forward * sightRange ;          // 앞쪽 방향으로 시야 범위만큼 가는 벡터
+        //forward.y = transform.position.y;                           // 위의 벡터에서 높이만 타워의 높이로 설정하기
+
+        //Handles.DrawDottedLine(direction.position, direction.position + forward, 2.0f); // 중심선 그리기
+
+        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, direction.up);// up벡터를 축으로 반시계방향으로 sightHalfAngle만큼 회전
+        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, direction.up); // up벡터를 축으로 시계방향으로 sightHalfAngle만큼 회전
+
+        //Handles.DrawLine(direction.position, direction.position + q1 * forward);    // 중심선을 반시계방향으로 회전시켜서 그리기
+        //Handles.DrawLine(direction.position, direction.position + q2 * forward);    // 중심선을 시계방향으로 회전시켜서 그리기
+        //Handles.DrawWireArc(direction.position, direction.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // 호 그리기
+
+
 #endif  
     }
 
