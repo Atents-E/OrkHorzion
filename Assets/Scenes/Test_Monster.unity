@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 1.4
+    agentRadius: 1.3
     agentHeight: 1
     agentSlope: 45
     agentClimb: 0
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.46666667
+    cellSize: 0.4333333
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -215,7 +215,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &434609522 stripped
 GameObject:
@@ -355,7 +355,11 @@ PrefabInstance:
       objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 3844084126927809052, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
       propertyPath: m_Name
-      value: WatPoints
+      value: WayPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844084126927809052, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3844084126927809055, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
       propertyPath: m_RootOrder
@@ -468,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8957141737094525484, guid: be2b815e9d29fa2449709bef9bb1c5fe, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8957141737094525484, guid: be2b815e9d29fa2449709bef9bb1c5fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -808,6 +812,10 @@ PrefabInstance:
       propertyPath: spawnTime
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1623589481961224430, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6633018158188901904, guid: 5ce97ce29d5b1584c8c8d46168e5c828, type: 3}
     - target: {fileID: 1623589481961224431, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: m_Name
       value: EnemySpawner

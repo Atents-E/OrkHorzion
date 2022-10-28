@@ -14,7 +14,7 @@ public class EnemyBase : MonoBehaviour
     public int monsterHp = 100;         // 몬스터 최대 HP
     public float AttackRadius = 2.3f;   // 몬스터가 공격가능한 범위(반지름)
     public float AttackDemage = 10.0f;  // 몬스터가 공격할때의 데미지
-    float currentAngle = 30.0f;          // 초당 바뀌는 각도
+    public float currentAngle = 30.0f;             // 초당 바뀌는 각도
     protected bool looktargetOn = false;           // 몬스터가 플레이어를 바라보는지 
     public float sightHalfAngle = 50.0f;           // 반지름
 
@@ -41,10 +41,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
-    {
-        MonsterHP -= 10;
-    }
 
     void Die()
     {

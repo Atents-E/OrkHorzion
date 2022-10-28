@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435ec73bf0024824e9d17aa8d5afeb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 6633018158188901904, guid: 7af16fbf7b18c7b45a686d59d68d6767, type: 3}
+  enemyPrefab: {fileID: 6633018158188901904, guid: 5ce97ce29d5b1584c8c8d46168e5c828, type: 3}
   spawnTime: 2
 --- !u!65 &1623589481961224424
 BoxCollider:

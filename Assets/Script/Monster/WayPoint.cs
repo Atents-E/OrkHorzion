@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Metadata;
 
 public class WayPoint : MonoBehaviour
 {
-    Transform[] wayPoints;
-    int index = 0;
+    public Transform[] wayPoints;
 
-    public Transform Current => wayPoints[index];
+    public Transform Current => wayPoints[0];
 
     private void Awake()
     {
@@ -18,13 +16,5 @@ public class WayPoint : MonoBehaviour
         {
             wayPoints[i] = transform.GetChild(i);
         }
-    }
-
-    public Transform MoveNext()
-    {
-        index++;                        // 1증가 시키고
-        index %= wayPoints.Length;
-
-        return wayPoints[index];
     }
 }

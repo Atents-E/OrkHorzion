@@ -73,10 +73,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4211206721638297888}
   - component: {fileID: 4211206721638297891}
-  - component: {fileID: 6183939269821247896}
+  - component: {fileID: 3833356632566529886}
+  - component: {fileID: 8272958229146477016}
+  - component: {fileID: 8564670388593289457}
+  - component: {fileID: 48359167019003758}
+  - component: {fileID: 2434107015609239704}
   m_Layer: 0
-  m_Name: Polyart_Golem
-  m_TagString: Untagged
+  m_Name: Golem
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,8 +93,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4211206721638297890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.94432, y: -0.29999924, z: 9.449821}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4211206723330819957}
@@ -107,8 +111,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4211206721638297890}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0f2c5202b918687408ac5bc7429a03ea, type: 3}
-  m_Controller: {fileID: 9100000, guid: 64e2ef14a02f69a4b94edbee54ca296a, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 2b668f031a3322143815af8002656d68, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f0269424f544c24190c0bf2a850c2b5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -118,7 +122,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6183939269821247896
+--- !u!114 &3833356632566529886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,14 +131,84 @@ MonoBehaviour:
   m_GameObject: {fileID: 4211206721638297890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa0ae0b650854624d87cf97494842f89, type: 3}
+  m_Script: {fileID: 11500000, guid: 62dc034480a223a4b886aa12f4d318a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3844084126927809055, guid: 28620aae8fac7ca469f4f0dec53ed586, type: 3}
+--- !u!195 &8272958229146477016
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211206721638297890}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.3
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &8564670388593289457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211206721638297890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5acb4a1a62a084e82c5a3d154599d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  monsterHp: 900000
+  monsterHp: 100
   AttackRadius: 2.3
   AttackDemage: 10
+  currentAngle: 30
   sightHalfAngle: 50
+  Rock: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}
+  waitTime: 2
+  runWaitTime: 5
+  baseTarget: {fileID: 2621390799117063607, guid: fdd4c5a41e82f7f42a4329a2139c0091, type: 3}
+--- !u!136 &48359167019003758
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211206721638297890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0.25}
+--- !u!54 &2434107015609239704
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211206721638297890}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4211206721643365003
 GameObject:
   m_ObjectHideFlags: 0
