@@ -8,45 +8,64 @@ using UnityEngine.AI;
 //using UnityEditor;
 //#endif
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IBattle, IHealth
 {
-    public float moveSpeed = 3.0f;      // 몬스터가 움직이는 속도
-    public int monsterHp = 100;         // 몬스터 최대 HP
-    public float AttackRadius = 2.3f;   // 몬스터가 공격가능한 범위(반지름)
-    public float AttackDemage = 10.0f;  // 몬스터가 공격할때의 데미지
-    public float currentAngle = 30.0f;             // 초당 바뀌는 각도
-    protected bool looktargetOn = false;           // 몬스터가 플레이어를 바라보는지 
-    public float sightHalfAngle = 50.0f;           // 반지름
-
-    protected Transform playerTarget = null;       // 플레이어가 없다
+    //float moveSpeed = 3.0f;                     // 몬스터가 움직이는 속도
+    public float AttackRadius = 2.3f;             // 몬스터가 공격가능한 범위(반지름)
+    public float currentAngle = 30.0f;            // 초당 바뀌는 각도
+    protected bool looktargetOn = false;          // 몬스터가 플레이어를 바라보는지 
+    //float sightHalfAngle = 50.0f;               // 반지름
     
+    public float attackPower = 10.0f;             // 공격력
+    public float defencePower = 0.0f;             // 방어력
+    public float monsterHp = 100.0f;              // 몬스터 HP
+    public float monsterMaxHp = 100.0f;           // 몬스터 최대 HP
+
+
+    protected Transform playerTarget = null;      // 플레이어가 없다
     
 
     //float random;
     //public float Random { get => UnityEngine.Random.Range(0, 1); }      // 어택2용 랜덤값 할당
 
-    public int MonsterHP        // HP 프로퍼티
+    public float AttackPower => attackPower;
+    public float DefencePower => defencePower;
+
+    public float MaxHP => monsterMaxHp;
+
+    public float HP
     {
         get => monsterHp;
         set
         {
-            monsterHp = value;
-
-            if (monsterHp < 0)
+            if (monsterHp != value)
             {
-                monsterHp = 0;
+                monsterHp = value;
 
-                Die(); // 사망 처리 함수 호출
+                if (monsterHp < 0)
+                {
+                    monsterHp = 0;
+                    Die();
+                }
+
+                onHealthChange?.Invoke(monsterHp/monsterMaxHp);
+
+                monsterHp = Mathf.Clamp(monsterHp, 0.0f, monsterMaxHp);
             }
         }
     }
 
 
-    void Die()
-    {
-        looktargetOn = false;
-        Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
-    }
+    // 델리게이트
+    public Action<float> onHealthChange { get; set; }
+    public Action onDie { get; set; } 
+
+
+    //void Die()
+    //{
+    //    looktargetOn = false;
+    //    Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
+    //}
 
     protected bool SearchPlayer()
     {
@@ -105,18 +124,47 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-//    protected void OnDrawGizmosSelected()
-//    {
-//#if UNITY_EDITOR
-//        Handles.color = Color.red;
-//        Handles.DrawWireDisc(transform.position, transform.up, AttackRadius);
+    /// <summary>
+    /// 공격용 함수
+    /// </summary>
+    /// <param name="target">공격할 대상</param>
+    public void Attack(IBattle target)
+    {
+        target.TakeDamage(AttackPower);
+    }
 
-//        if (SearchPlayer())
-//        {
-//            Handles.color = Color.yellow;
-//        }
-//#endif
-//    }
+    /// <summary>
+    /// 방어용 함수
+    /// </summary>
+    /// <param name="damage">현재 입은 데미지</param>
+    public void TakeDamage(float damage)
+    {
+        // 기본 공식 : 실제 입는 데미지 = 적 공격 데미지 - 방어력
+        HP -= (damage - defencePower);
+    }
+
+    /// <summary>
+    /// 죽었을 때 실행될 함수
+    /// </summary>
+    public void Die()
+    {
+        onDie?.Invoke();
+    }
+
+
+
+    //    protected void OnDrawGizmosSelected()
+    //    {
+    //#if UNITY_EDITOR
+    //        Handles.color = Color.red;
+    //        Handles.DrawWireDisc(transform.position, transform.up, AttackRadius);
+
+    //        if (SearchPlayer())
+    //        {
+    //            Handles.color = Color.yellow;
+    //        }
+    //#endif
+    //    }
 
 
     //void LookTarget()       // 플레이어 방향 바라보기

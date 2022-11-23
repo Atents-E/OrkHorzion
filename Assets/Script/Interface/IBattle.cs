@@ -6,6 +6,7 @@ using UnityEngine;
 public interface IBattle
 {
     float AttackPower { get; }  // 공격력 읽는 프로퍼티
+    float DefencePower { get; }
 
     void Attack(IBattle target);    // 공격 함수
 
@@ -39,8 +40,8 @@ public interface IBattle
     }
     */
 
-
     void TakeDamage(float damage);  // 피해 함수
+
     
     // 인터페이스를 상속받을 클래스의 함수
     // 플레이어의 경우

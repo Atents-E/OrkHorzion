@@ -10,6 +10,7 @@ public class Enemy_Navigation : MonoBehaviour
     private WayPoint waypoint;
     public Transform target;             // 네비매시 타겟
     protected NavMeshAgent agent;          // 네비매시
+
     int index = 0;
 
     private void Awake()
@@ -29,6 +30,20 @@ public class Enemy_Navigation : MonoBehaviour
         agent.velocity = Vector3.zero;
     }
 
+    public void SpeedUp(bool isSpeed)
+    {
+       float moveSpeed = agent.speed;
+        if (isSpeed)
+        {
+            agent.speed = moveSpeed * 2;
+        }
+    }
+
+    public void IsEnabled()
+    {
+        agent.enabled = false;
+    }
+
     public void Update()
     {
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // 경로 계산이 완료됬고 아직 도착지점으로 인정되는 거리까지 이동하지 않았다.
@@ -39,4 +54,6 @@ public class Enemy_Navigation : MonoBehaviour
             agent.SetDestination(waypoint.wayPoints[index].position);   // 다음 웨이포인트를 향해 걸어간다.
         } 
     }
+
+    
 }

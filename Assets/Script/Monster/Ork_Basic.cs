@@ -2,23 +2,35 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Ork_Basic : EnemyBase
 {
     Animator anim;
+    Enemy_Navigation nav;
+    CapsuleCollider ccoll;
 
-    protected void Awake()
+    bool isDead = true;
+    public float testHpCount = 5.0f;
+
+    protected virtual void Awake()
     {
         anim = GetComponent<Animator>();        // 애니메이터
+        nav = GetComponent<Enemy_Navigation>();
+        ccoll = GetComponent<CapsuleCollider>();
     }
-    protected void Start()
+    protected virtual void Start()
     {
         SearchPlayer();         // 플레이어 찾기
+        monsterHp = monsterMaxHp;
+
+        onHealthChange += HP_Change;
+        onDie += Dead;
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
+        //HP -= testHpCount;    // 프레임마다 testHpCount만큼 HP를 줄인다
+
         Looktarget();           // 플레이어쪽을 쳐다본다.
     }
 
@@ -45,6 +57,27 @@ public class Ork_Basic : EnemyBase
         }
     }
 
+    protected virtual void Dead()
+    {
+        if (isDead)
+        {
+            isDead = false;
+            nav.Stopped(true);
+            anim.SetBool("Attack", false);
+            anim.SetTrigger("Die");
+            ccoll.enabled = false;
+            nav.enabled = false;
+            nav.IsEnabled();
+            Destroy(this.gameObject, 2.0f);
+            //Debug.Log("오크 죽음");
+        }
+    }
 
-
+    void HP_Change(float ratio)
+    {
+        if (isDead)
+        {
+            //Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경 되었습니다.");
+        }
+    }
 }
