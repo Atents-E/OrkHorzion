@@ -91,7 +91,7 @@ public class Golem : EnemyBase
         get => waitTimer;
         set
         {
-            waitTimer = value;
+            waitTimer = value;  
         }
     }
 

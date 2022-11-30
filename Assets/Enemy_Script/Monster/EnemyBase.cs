@@ -33,6 +33,9 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
     public float MaxHP => monsterMaxHp;
 
+    /// <summary>
+    /// HP 프로퍼티 몬스터의HP가 0보다 작아지면 죽는다.
+    /// </summary>
     public float HP
     {
         get => monsterHp;

@@ -161,7 +161,7 @@ public class Ork_King : Ork_Basic
     {
         // HP가 서서히 회복되게     
         StartCoroutine(HealingRegeneration());
-        if (HP > MaxHP)
+        if (HP >= MaxHP)
         {
             Debug.Log("HP가 MaxHP를 넘었습니다.");
             StopCoroutine(HealingRegeneration());
@@ -171,8 +171,7 @@ public class Ork_King : Ork_Basic
     }
 
     IEnumerator HealingRegeneration()
-    {
-        
+    {        
         //Debug.Log("코루틴시작");
         float regenPerSec = hptotal / duration;
         float timeElapsed = 0.0f;
@@ -181,8 +180,8 @@ public class Ork_King : Ork_Basic
         {
             timeElapsed += Time.deltaTime;
             HP += Time.deltaTime * regenPerSec;
-            yield return null;
             State = kingState.Delay;
+            yield return null;
         }
         heal.color = Color.clear;
     }

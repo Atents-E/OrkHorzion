@@ -23,7 +23,7 @@ public class Ork_Basic : EnemyBase
         SearchPlayer();         // 플레이어 찾기
         monsterHp = monsterMaxHp;
 
-        onHealthChange += HP_Change;
+        onHealthChange += HP_Change;   
         onDie += Dead;
     }
 
