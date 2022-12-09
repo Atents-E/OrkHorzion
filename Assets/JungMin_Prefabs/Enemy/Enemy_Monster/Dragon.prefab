@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &835370369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835370370}
+  - component: {fileID: 835370371}
+  - component: {fileID: 835370372}
+  m_Layer: 0
+  m_Name: DamageArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835370370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835370369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 10.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1981149531412273168}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &835370371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835370369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &835370372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835370369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fa5ebb34527054ba8020af72e03d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1981149531412465930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1995,6 +2053,7 @@ GameObject:
   - component: {fileID: -3511144175843165398}
   - component: {fileID: 1304016109}
   - component: {fileID: 1304016113}
+  - component: {fileID: 964151658096959776}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Untagged
@@ -2018,6 +2077,7 @@ Transform:
   - {fileID: 1981149531412304742}
   - {fileID: 1981149531412268146}
   - {fileID: 8552318806691069536}
+  - {fileID: 835370370}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -2064,7 +2124,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2088,14 +2148,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1298e913688930e40b15b32006006196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRadius: 2.3
   currentAngle: 30
   attackPower: 10
   defencePower: 0
   monsterHp: 100
-  monsterMaxHp: 100
-  waitTime: 3
-  delayTime: 3
+  monsterMaxHp: 10000
+  waitTime: 2
+  delayTime: 2
+--- !u!135 &964151658096959776
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981149531412573024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 9
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1981149531412573876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,6 +2325,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 550295133721770666}
     m_Modifications:
+    - target: {fileID: 6440756019955862334, guid: 68d3d1ab6eedf2649ae6e4c33d43a7d8, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6616759219522734804, guid: 68d3d1ab6eedf2649ae6e4c33d43a7d8, type: 3}
       propertyPath: m_RootOrder
       value: 0

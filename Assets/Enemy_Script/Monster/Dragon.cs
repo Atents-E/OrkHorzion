@@ -1,25 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Dragon : EnemyBase
 {
     Animator anim;
     Enemy_Navigation nav;
+    ParticleSystem particle;
+    GameObject breath;
+    BoxCollider breathArea;
 
     DragonState state = DragonState.Attack;  // 현재 드래곤의 상태
 
-    public float waitTime = 3.0f;   // 목적지에 도착했을 때 기다리는 시간
+    public float waitTime = 2.0f;   // 목적지에 도착했을 때 기다리는 시간
     float waitTimer = 0;            // 남아있는 기다려야 하는 시간 
 
-    public float delayTime = 3.0f;   // 목적지에 도착했을 때 기다리는 시간
+    public float delayTime = 2.0f;   // 목적지에 도착했을 때 기다리는 시간
     float delayTimer = 0;            // 남아있는 기다려야 하는 시간 
 
     bool isDead = true;              // 죽으면 한번만 실행되게 하는 변수
 
-    float hptotal = 10000.0f;        // HP 총 회복량
-    float duration = 1.0f;           // 총 회복하는데 걸리는 시간
+    float hptotal = 3000.0f;        // HP 총 회복량
+    float duration = 3.0f;           // 총 회복하는데 걸리는 시간
+
+    bool isBreath = false;
 
     /// <summary>
     /// 드래곤 상태 enum
@@ -30,7 +36,8 @@ public class Dragon : EnemyBase
         Delay,
         Breath,
         Heal,
-        Die
+        Move,
+        Die,
     }
 
     Action stateUpdate;
@@ -49,36 +56,43 @@ public class Dragon : EnemyBase
 
                 switch (state)
                 {
-
                     case DragonState.Attack:
-                        nav.Stopped(true);              // 네비게이션 멈추기
-                        anim.SetBool("IsMove", false);  // 움직이는 애니메이션 멈추기
                         anim.SetTrigger("Attack");      // 공격하는 애니메이션 실행
                         stateUpdate = Update_Attack;    // 상태를 공격하는 함수로 변경
                         break;
 
                     case DragonState.Delay:
-                        nav.Stopped(false);             // 네비게이션 움직이기
-                        anim.SetBool("IsMove", true);   // 움직이는 애니메이션 실행
-                        anim.SetBool("IsBreath", false);// 브레스 애니메이션 끄기
+                        particle.Stop();
+                        isBreath = true;
                         waitTimer = waitTime;           // waitTimer 시간초 충전
                         stateUpdate = Update_Delay;     // 상태를 기다리는 함수로 변경
                         break;
 
-                    case DragonState.Breath:            
-                        nav.Stopped(true);              // 네비게이션 멈추기
-                        anim.SetBool("IsBreath", true); // 브레스 애니메이션 실행
-                        delayTimer = delayTime;         // delayTimer 시간초 충전
-                        stateUpdate = Update_Breath;    // 상태를 브레스 함수로 변경
+                    case DragonState.Breath:   
+                        if (isBreath)
+                        {
+                            isBreath = false;
+                            nav.Stopped(true);              // 네비게이션 멈추기
+                            anim.SetTrigger("IsBreath"); // 브레스 애니메이션 실행
+                            breath.SetActive(true);
+                            breathArea.enabled = true;
+                            delayTimer = delayTime;         // delayTimer 시간초 충전
+                            stateUpdate = Update_Breath;    // 상태를 브레스 함수로 변경
+                        }
                         break;
 
-                    case DragonState.Heal:              
+                    case DragonState.Heal:
+                        nav.Stopped(false);
                         stateUpdate = Update_Heal;      // 상태를 회복하는 함수로 변경
                         break;
 
-                    case DragonState.Die:
-                        nav.Stopped(true);              // 네비게이션 멈추기
-                        anim.SetTrigger("IsDead");      // 죽는 애니메이션 실행
+                    case DragonState.Move:
+                        nav.Stopped(false);
+                        anim.SetTrigger("IsMove");
+                        break;
+
+                    case DragonState.Die:                        
+                        stateUpdate = Update_Die;
                         break;
                 }
             }
@@ -109,24 +123,34 @@ public class Dragon : EnemyBase
 
             if (waitTimer < 0)
             {
-                float random = UnityEngine.Random.Range(0.0f, 1.0f);
-                Debug.Log($"{random}");
-
                 // 스킬 사용
-                if (random < 0.3f)
+                if (playerTarget != null)
                 {
-                    Debug.Log("브레스 스킬 사용");
-                    State = DragonState.Breath;
-                }
-                else if (random < 0.6f)
-                {
-                    State = DragonState.Attack;
-                    Debug.Log("기본 공격 사용");
+                    float random = UnityEngine.Random.Range(0.0f, 1.0f);
+                    Debug.Log($"{random}");
+
+                    if (random < 0.4f)
+                    {
+                        Debug.Log("기본 공격");
+                        State = DragonState.Attack;                        
+                    }
+                    else if (random < 0.7f)
+                    {
+                        if (isBreath)
+                        {
+                            Debug.Log("브레스 스킬 사용");
+                            State = DragonState.Breath;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("체력 회복");
+                        State = DragonState.Heal;
+                    }
                 }
                 else
                 {
-                    Debug.Log("스킬 미정");
-                    State = DragonState.Heal;
+                    //Debug.Log("대기 상태");                    
                 }
             }
         }
@@ -136,27 +160,67 @@ public class Dragon : EnemyBase
     {
         anim = GetComponent<Animator>();
         nav = GetComponent<Enemy_Navigation>();
+        particle = GetComponentInChildren<ParticleSystem>();
+
+        breath = GameObject.Find("Breath");
+        breathArea = transform.GetChild(4).GetComponent<BoxCollider>();
     }
 
     private void Start()
     {
+        isBreath = true;
+        breathArea.enabled = false;
         State = DragonState.Delay;
+        SearchPlayer(); // 플레이어 찾기
 
         HP = MaxHP;
+        //particle.Stop();
 
         onHealthChange += HP_Change;
         onDie += Update_Die;
     }
 
+    private void Update()
+    {
+        Looktarget();   // 플레이어 바라보기
+    }
+
     private void FixedUpdate()
     {
-        HP -= Time.fixedDeltaTime * 100.0f;
+        HP -= Time.fixedDeltaTime * 500.0f;
         stateUpdate();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            looktargetOn = true;
+            playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
+            //State = DragonState.Delay;
+            State = DragonState.Attack;
+            Debug.Log("플레이어를 공격한다.");
+        }
+    }    
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerTarget = null;                    // playerTarget이 null이 되었다.
+            looktargetOn = false;
+            //State = DragonState.Move;
+            Debug.Log("플레이어가 도망갔다.");
+        }
     }
 
     private void Update_Attack()    // 공격용
     {
-        State = DragonState.Delay;
+        if (playerTarget != null)
+        {
+            Debug.Log("기본 공격 사용");
+            State = DragonState.Delay;
+        }
     }
 
     private void Update_Delay()     // n초간 기다리기
@@ -167,29 +231,34 @@ public class Dragon : EnemyBase
     private void Update_Breath()    // 브레스 스킬
     {
         DelayTimer -= Time.deltaTime;
-        bool dbreath = true;
-        if (delayTimer > 0.1)
+
+        if (delayTimer < 0.0f && !isBreath)
         {
-            if (dbreath)
-            {
-                dbreath = false;
-                
-            }
-        }
-        else
-        {
-            Debug.Log("브레스 사용 끝남");
+            isBreath = true;
+            nav.Stopped(false);
+            anim.SetBool("IsMove", true);
+            particle.Stop();
+            breath.SetActive(false);
+            breathArea.enabled = false;
+            Debug.Log("브레스 사용 끝남"); 
             State = DragonState.Delay;
         }
-        //anim.SetBool("IsBreath", false);
-        //State = DragonState.Delay;
     }
 
+    /// <summary>
+    /// 애니메이션 이벤트로 브레스 애니메이션이 실행되면 실행
+    /// </summary>
     public void DragonBreath()
     {
-        Debug.Log("브레스 사용 ");
-    }
+        Debug.Log("브레스 사용");
+        particle.Play();
 
+        delayTimer = delayTime;
+        if (delayTimer < 0)
+        {
+            particle.Stop();
+        }
+    }
 
     private void Update_Heal()
     {
@@ -200,7 +269,7 @@ public class Dragon : EnemyBase
     {
         float regenPerSec = hptotal / duration;
         float timeElapsed = 0.0f;
-        Debug.Log("힐이다");
+        Debug.Log("체력 회복");
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
@@ -209,7 +278,6 @@ public class Dragon : EnemyBase
             yield return null;
         }
     }
-
 
     void HP_Change(float ratio)
     {
@@ -220,8 +288,10 @@ public class Dragon : EnemyBase
     {
         if (isDead)
         {
+            Debug.Log("사망 처리");
             isDead = false;
-            State = DragonState.Die;
+            nav.Stopped(true);              // 네비게이션 멈추기
+            anim.SetTrigger("IsDead");      // 죽는 애니메이션 실행
             Destroy(this.gameObject, 2.0f);
         }
     }

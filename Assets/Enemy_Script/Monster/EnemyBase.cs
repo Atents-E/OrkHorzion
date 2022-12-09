@@ -11,7 +11,7 @@ using UnityEngine.AI;
 public class EnemyBase : MonoBehaviour, IBattle, IHealth
 {
     //float moveSpeed = 3.0f;                     // 몬스터가 움직이는 속도
-    public float AttackRadius = 2.3f;             // 몬스터가 공격가능한 범위(반지름)
+    float AttackRadius = 2.3f;                    // 몬스터가 공격가능한 범위(반지름)
     public float currentAngle = 30.0f;            // 초당 바뀌는 각도
     protected bool looktargetOn = false;          // 몬스터가 플레이어를 바라보는지 
     //float sightHalfAngle = 50.0f;               // 반지름
@@ -30,7 +30,6 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
     public float AttackPower => attackPower;
     public float DefencePower => defencePower;
-
     public float MaxHP => monsterMaxHp;
 
     /// <summary>
