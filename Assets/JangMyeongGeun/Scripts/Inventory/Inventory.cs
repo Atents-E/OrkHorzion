@@ -9,9 +9,29 @@ public class Inventory
     // 기본 사이즈
     public const int Default_Inventory_Size = 4;
 
-    ItemSlot[] slots = null;
+    List<ItemSlot> slots = null;
 
-    public int SlotCount => slots.Length;
+    public int SlotCount => slots.Count ;
+
+    /// <summary>
+    /// 현재 슬롯의 크기
+    /// </summary>
+    private int currentSlotSize;
+
+    /// <summary>
+    /// 현재 슬롯의 크기 프로퍼티
+    /// </summary>
+    public int CurrentSlotSize
+    {
+        get => currentSlotSize;
+        set 
+        {
+            if (currentSlotSize != value)
+            { 
+                currentSlotSize = value;
+            }
+        }
+    }
 
 
     /// <summary>
@@ -24,17 +44,20 @@ public class Inventory
     /// </summary>
     /// <param name="index">돌려줄 슬롯의 위치</param>
     /// <returns>index번째에 있는 ItemSlot</returns>
-    public ItemSlot this[uint index] => slots[index];
+    public ItemSlot this[int index] => slots[index];
 
     public Inventory(int size = Default_Inventory_Size)
     {
-        slots = new ItemSlot[size];
+        slots = new List<ItemSlot>(size);
+        
+        currentSlotSize = size;
         for (int i = 0; i < size; i++)
         {
-            slots[i] = new ItemSlot((uint)i);
+            slots.Add(new ItemSlot((uint)i));
         }
 
         itemManager = GameManager.Inst.ItemData;
+
     }
 
     // 아이템 추가
@@ -83,7 +106,13 @@ public class Inventory
         return result;
     }
 
-    public bool RemoveItem(uint slotIndex, uint decreaseCount = 1)
+    /// <summary>
+    /// 아이템 삭제 함수 근데 아직 하나씩 지우는건 참조 X
+    /// </summary>
+    /// <param name="slotIndex"></param>
+    /// <param name="decreaseCount"></param>
+    /// <returns></returns>
+    public bool RemoveItem(int slotIndex, uint decreaseCount = 1)
     {
         bool result = false;
         if (IsValidSlotIndex(slotIndex))
@@ -110,7 +139,7 @@ public class Inventory
     {
         ItemSlot findslot = null;
 
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].ItemData == itemData)
             {
@@ -144,7 +173,7 @@ public class Inventory
     /// <param name="index">확인할 인덱스</param>
     /// <returns>true면 사용가능한 인덱스, false면 사용불가능한 인덱스</returns>
 
-    private bool IsValidSlotIndex(uint index) => (index < SlotCount);
+    private bool IsValidSlotIndex(int index) => (index < SlotCount);
 
     // 아이템 버리기
 
@@ -153,7 +182,7 @@ public class Inventory
     /// </summary>
     /// <param name="slotIndex">아이템을 제거할 함수</param>
     /// <returns>true면 성공, false면 실패</returns>
-    public bool ClearItem(uint slotIndex)
+    public bool ClearItem(int slotIndex)
     {
         bool result = false;
 
@@ -179,6 +208,20 @@ public class Inventory
         {
             slot.ClearSlotItem();
         }
+    }
+
+    public void AddSlot()
+    {
+        slots.Add(new ItemSlot((uint)currentSlotSize));
+        CurrentSlotSize++;
+    }
+
+
+    public void SwapSlots(ItemSlot slot)
+    {
+        ItemSlot tempSlot = slot;
+        slots.RemoveAt((int)slot.Index);
+        slots.Add(tempSlot);
     }
 
 }

@@ -9,11 +9,20 @@ public class InventoryUI : MonoBehaviour
 
     Inventory inven;
 
-    ItemSlotUI[] slotUIs;
+    List<ItemSlotUI> slotUIs;
+
 
     private void Awake()
     {
-        slotUIs = GetComponentsInChildren<ItemSlotUI>();
+        slotUIs = new List<ItemSlotUI>(Inventory.Default_Inventory_Size);
+
+        Debug.Log($"{slotUIs.Count}");
+        Transform slotParent = transform.GetChild(1).GetChild(0);
+
+        for (int i = 0; i < slotUIs.Count; i++)
+        {
+            slotUIs[i] = slotParent.GetChild(i).GetComponent<ItemSlotUI>();
+        }
     }
 
     /// <summary>
@@ -27,14 +36,18 @@ public class InventoryUI : MonoBehaviour
         if (Inventory.Default_Inventory_Size != inven.SlotCount)
         {
             // 기본 사이즈와 다르면 기존 슬롯을 전부 삭제하고 새로 만들기
-            for (int i = 0; i < slotUIs.Length; i++)
+            for (int i = 0; i < slotUIs.Count; i++)
             {
                 Destroy(slotUIs[i].gameObject);
             }
+            slotUIs.Clear();
 
             Transform slotParent = transform.GetChild(1).GetChild(0);
-            slotUIs = new ItemSlotUI[inven.SlotCount];
-            for (uint i = 0; i < inven.SlotCount; i++)
+
+            slotUIs = new List<ItemSlotUI>(inven.SlotCount);
+            Debug.Log($"{slotUIs.Count}");
+
+            for (int i = 0; i < inven.SlotCount; i++)
             {
                 GameObject obj = Instantiate(slotPrefab, slotParent);
                 obj.name = $"{slotPrefab.name}_{i}";
@@ -46,10 +59,11 @@ public class InventoryUI : MonoBehaviour
         else
         {
             // 크기가 같으면 슬롯UI들의 초기화 진행
-            for (uint i = 0; i < inven.SlotCount; i++)
+            for (int i = 0; i < inven.SlotCount; i++)
             {
                 slotUIs[i].InitializeSlot((uint)i, inven[i]);
             }
         }
     }
+
 }

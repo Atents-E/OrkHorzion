@@ -16,6 +16,7 @@ public class ConfirmDeletionUI : MonoBehaviour
 
     private void Awake()
     {
+
         itemImage = transform.GetChild(0).GetComponent<Image>();
         itemNameText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         itemCountText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
@@ -25,7 +26,6 @@ public class ConfirmDeletionUI : MonoBehaviour
 
         accept = transform.GetChild(6).GetComponent<Button>();
         accept.onClick.AddListener(() => RemoveSlotItem(removeSlot));
-
     }
 
     private void Start()
@@ -52,7 +52,7 @@ public class ConfirmDeletionUI : MonoBehaviour
     public void RemoveSlotItem(ItemSlot itemSlot)
     {
        itemSlot.ClearSlotItem();
-        Close();
+       Close();
     }
 
     public void Close()

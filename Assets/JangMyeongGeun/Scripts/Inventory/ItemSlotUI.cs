@@ -23,8 +23,6 @@ public class ItemSlotUI : MonoBehaviour
 
     ConfirmDeletionUI confirmDeletionUI;
 
-    
-
     private void Awake()
     {
         itemImage = transform.GetChild(3).GetChild(0).GetComponent<Image>();

@@ -10,7 +10,7 @@ public class Test_Inventory : TestBase
 
     void Start()
     {
-        inven = new Inventory(4);
+        inven = new Inventory(8);
         inventoryUI.InitializeInventoy(inven);
     }
 
@@ -22,6 +22,11 @@ public class Test_Inventory : TestBase
     protected override void OnTest2(InputAction.CallbackContext obj)
     {
         inven.AddItem(ItemIDCode.ATK2);
+    }
+
+    protected override void OnTest3(InputAction.CallbackContext obj)
+    {
+        inven.AddSlot();
     }
 
 }
