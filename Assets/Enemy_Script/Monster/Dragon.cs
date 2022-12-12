@@ -8,9 +8,11 @@ public class Dragon : EnemyBase
 {
     Animator anim;
     Enemy_Navigation nav;
-    ParticleSystem particle;
-    GameObject breath;
+    ParticleSystem particle;    
     BoxCollider breathArea;
+
+    SpriteRenderer breath;
+    SpriteRenderer heal;
 
     DragonState state = DragonState.Attack;  // 현재 드래곤의 상태
 
@@ -74,7 +76,8 @@ public class Dragon : EnemyBase
                             isBreath = false;
                             nav.Stopped(true);              // 네비게이션 멈추기
                             anim.SetTrigger("IsBreath"); // 브레스 애니메이션 실행
-                            breath.SetActive(true);
+                            breath.color = Color.white;
+                            //breath.SetActive(true);
                             breathArea.enabled = true;
                             delayTimer = delayTime;         // delayTimer 시간초 충전
                             stateUpdate = Update_Breath;    // 상태를 브레스 함수로 변경
@@ -145,6 +148,7 @@ public class Dragon : EnemyBase
                     else
                     {
                         Debug.Log("체력 회복");
+                        heal.color = Color.white;
                         State = DragonState.Heal;
                     }
                 }
@@ -162,8 +166,12 @@ public class Dragon : EnemyBase
         nav = GetComponent<Enemy_Navigation>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-        breath = GameObject.Find("Breath");
+        //breath = GameObject.Find("Breath");        
+
         breathArea = transform.GetChild(4).GetComponent<BoxCollider>();
+
+        breath = transform.GetChild(3).GetChild(2).GetChild(0).GetComponent<SpriteRenderer>();
+        heal = transform.GetChild(3).GetChild(2).GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -238,8 +246,9 @@ public class Dragon : EnemyBase
             nav.Stopped(false);
             anim.SetBool("IsMove", true);
             particle.Stop();
-            breath.SetActive(false);
+            //breath.SetActive(false);
             breathArea.enabled = false;
+            breath.color = Color.clear;
             Debug.Log("브레스 사용 끝남"); 
             State = DragonState.Delay;
         }
@@ -268,12 +277,13 @@ public class Dragon : EnemyBase
     IEnumerator HealingRegeneration()
     {
         float regenPerSec = hptotal / duration;
-        float timeElapsed = 0.0f;
+        float timeElapsed = 0.0f;        
         Debug.Log("체력 회복");
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
             HP += Time.deltaTime * regenPerSec;
+            heal.color = Color.clear;
             State = DragonState.Delay;
             yield return null;
         }
@@ -284,11 +294,13 @@ public class Dragon : EnemyBase
         //Debug.Log($"HP가 변경되었다. : {HP}");
     }
 
-    private void Update_Die()       // 죽을 때
+    private void Update_Die()       // 사망 처리
     {
         if (isDead)
         {
             Debug.Log("사망 처리");
+            breath.color = Color.clear;
+            heal.color = Color.clear;
             isDead = false;
             nav.Stopped(true);              // 네비게이션 멈추기
             anim.SetTrigger("IsDead");      // 죽는 애니메이션 실행

@@ -406,7 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cd7173285c89c4e82d8ba798cdbbde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRadius: 2.3
   currentAngle: 30
   attackPower: 10
   defencePower: 0
