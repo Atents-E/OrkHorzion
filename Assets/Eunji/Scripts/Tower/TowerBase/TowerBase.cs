@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 #if UNITY_EDIOR
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
@@ -160,10 +161,10 @@ public class TowerBase : MonoBehaviour
         isFiring = false;               // 발사 중이지 않으면
     }
 
-    private void TowerInstall()
-    {
 
-    }
+
+
+
 
     private void OnDrawGizmos/*Selected*/() // 기즈모
     {

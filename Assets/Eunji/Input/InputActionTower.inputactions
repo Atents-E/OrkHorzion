@@ -1,0 +1,62 @@
+{
+    "name": "InputActionTower",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "52063d96-c0d7-4c2c-8bd3-dd184e6c6c94",
+            "actions": [
+                {
+                    "name": "TouchMenu",
+                    "type": "Button",
+                    "id": "6cb5f0b5-bed4-4f4d-9afe-32cc96bd7b05",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "800dc238-95b7-442d-91d5-62759b0a436f",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Touch",
+                    "action": "TouchMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3e0a45e-27f8-427f-b9a7-8c7e1baf8579",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Touch",
+                    "action": "TouchMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse&Touch",
+            "bindingGroup": "Mouse&Touch",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
