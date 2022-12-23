@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TowerDataManager의 기능
-// 생성 할 타워의 종류를 알려준다.
+// 생성 할 타워와 발사체의 종류를 알려준다.
 public class TowerDataManager : Singleton<TowerDataManager>
 {
     public TowerData[] towerDatas;              // 타워 종류
