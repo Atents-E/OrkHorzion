@@ -34,18 +34,29 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         newParent = GameObject.FindWithTag("Canvas");
     }
 
+
     /// <summary>
     /// 드래그 시작
     /// </summary>
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        bool isDragging = false;    
-        // 드래그가 시작되면 부모자식 관계 끊기
-        transform.parent = null;
-        // 새로운 부모관계 맺어주기
-        transform.SetParent(newParent.transform);
-        // transform.SetParent(worldPositionStays(isDragging));
+        // 열려있는 상태일 때만 처리
+        if (gameObject.activeSelf)
+        {
+            //Vector2 screenPos = Mouse.current.position.ReadValue(); // 마우스의 위치(스크린좌표)를 구함
+            //if (!IsInsideTowerMenu(screenPos))                      // 마우스의 위치가 타워메뉴 밖에서 동작하는지 확인
+            //{
+            //}
+
+            // 드래그가 시작되면 부모자식 관계 끊기
+            transform.parent = null;
+            // 새로운 부모관계 맺어주기
+            transform.SetParent(newParent.transform);
+     
+            // bool isDragging = false;    
+            // transform.SetParent(worldPositionStays(isDragging));
+        }
     }
 
     /// <summary>
@@ -65,7 +76,7 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     public void OnEndDrag(PointerEventData eventData)
     {
         Ray ray =  Camera.main.ScreenPointToRay(eventData.position);   // 스크린 좌표로 레이 생성
-        if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, LayerMask.GetMask("Ground"))) // 레이와 땅의 충돌 여부 확인
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // 레이와 땅의 충돌 여부 확인
         {
             // 레이와 땅이 충돌했으면
             Debug.Log("레이와 땅이 충돌함");
@@ -73,8 +84,9 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             Vector3 dropPos = hit.point;    // 피킹한 지점 따로 저장
             
             // 그 지점에 tower 생성
-            Instantiate(towerPrefab, dropPos, transform.rotation);
-            
+            GameObject obj = Instantiate(towerPrefab, dropPos, transform.rotation);
+
+           // obj.transform.position = dropPos;
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
@@ -84,4 +96,18 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         transform.position = currentParent.position;
     }
 
+    ///<summary>
+    ///TowerMenu의 크기
+    ///</summary>
+    ///<param name = "screenPos" ></ param >
+    ///< returns ></ returns >
+    bool IsInsideTowerMenu(Vector2 screenPos)
+    {
+        RectTransform rectTransform = (RectTransform)transform;
+
+        Vector2 min = new(rectTransform.position.x - rectTransform.sizeDelta.x, rectTransform.position.y - rectTransform.position.y);
+        Vector2 max = new(rectTransform.position.x + rectTransform.sizeDelta.x, rectTransform.position.y + rectTransform.position.y);
+
+        return (min.x < screenPos.x && screenPos.x < max.x && min.y < screenPos.y && screenPos.y < max.y);
+    }
 }

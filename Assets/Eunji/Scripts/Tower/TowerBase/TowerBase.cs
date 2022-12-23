@@ -44,7 +44,7 @@ public class TowerBase : MonoBehaviour
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
 
-        //StartCoroutine(fireCoroutine);              // 코루틴 시작
+        // StartCoroutine(fireCoroutine);              // 코루틴 시작
     }
 
     /// <summary>

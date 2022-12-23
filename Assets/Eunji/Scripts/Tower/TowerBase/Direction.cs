@@ -11,7 +11,6 @@ public class Direction : MonoBehaviour
     Transform projectile;                   // 투사체(투사체의 현재 위치)
     Transform target = null;                // 투사체의 타겟(투사체가 도착 할 지점)
 
-    GameObject projentile;
 
     private void Awake()
     {
@@ -21,13 +20,12 @@ public class Direction : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target != null)                     // target이 있다면
+        if (target != null && projectile != null)                                   // target이 있고, 투사체도 생성 되었다면
         {
             Vector3 dir = target.position - projectile.position;                    // Enemy에게 가는 방향벡터
             dir.y = 0;
 
-            projectile.position = dir * (projectileSpeed * Time.fixedDeltaTime);    // 투사체는 Enemy을 향해 날라가라
-
+            projectile.position = dir * (projectileSpeed * Time.fixedDeltaTime);    // 투사체는 Enemy을 향해 이동
         }
     }
 
@@ -35,10 +33,9 @@ public class Direction : MonoBehaviour
     {   
         if (other.CompareTag("Enemy"))          // other이 태그 Enemy라면
         {
-            target = other.transform;           // target는 other의 위치
             if (projectile != null)             // 투사체가 있다면
             {
-                //Destroy(projentile);                
+                //Destroy(projentile.gameObject);                
             }
         }
     }

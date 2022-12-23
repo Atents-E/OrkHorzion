@@ -68,7 +68,7 @@ public class TowerCreat : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
         return (min.x < screenPos.x && screenPos.x < max.x && min.y < screenPos.y && screenPos.y < max.y);
 
-        Debug.Log($"{screenPos}");
+       // Debug.Log($"{screenPos}");
     }
 
 

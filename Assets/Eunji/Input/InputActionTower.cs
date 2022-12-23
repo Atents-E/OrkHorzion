@@ -24,13 +24,13 @@ public partial class @InputActionTower : IInputActionCollection2, IDisposable
     ""name"": ""InputActionTower"",
     ""maps"": [
         {
-            ""name"": ""Touch"",
-            ""id"": ""52063d96-c0d7-4c2c-8bd3-dd184e6c6c94"",
+            ""name"": ""Test"",
+            ""id"": ""7f4b892d-6440-4278-88e3-ab90db81f132"",
             ""actions"": [
                 {
-                    ""name"": ""TouchMenu"",
+                    ""name"": ""ShowMonsterHP"",
                     ""type"": ""Button"",
-                    ""id"": ""6cb5f0b5-bed4-4f4d-9afe-32cc96bd7b05"",
+                    ""id"": ""50a2bfaf-eb72-4f5a-9b52-795b2414c590"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,23 +40,12 @@ public partial class @InputActionTower : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""800dc238-95b7-442d-91d5-62759b0a436f"",
-                    ""path"": ""<Touchscreen>/Press"",
+                    ""id"": ""58496c4c-5778-431f-9bb6-368f3ad6af6f"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse&Touch"",
-                    ""action"": ""TouchMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3e0a45e-27f8-427f-b9a7-8c7e1baf8579"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse&Touch"",
-                    ""action"": ""TouchMenu"",
+                    ""action"": ""ShowMonsterHP"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -82,9 +71,9 @@ public partial class @InputActionTower : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Touch
-        m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
-        m_Touch_TouchMenu = m_Touch.FindAction("TouchMenu", throwIfNotFound: true);
+        // Test
+        m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
+        m_Test_ShowMonsterHP = m_Test.FindAction("ShowMonsterHP", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,38 +130,38 @@ public partial class @InputActionTower : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Touch
-    private readonly InputActionMap m_Touch;
-    private ITouchActions m_TouchActionsCallbackInterface;
-    private readonly InputAction m_Touch_TouchMenu;
-    public struct TouchActions
+    // Test
+    private readonly InputActionMap m_Test;
+    private ITestActions m_TestActionsCallbackInterface;
+    private readonly InputAction m_Test_ShowMonsterHP;
+    public struct TestActions
     {
         private @InputActionTower m_Wrapper;
-        public TouchActions(@InputActionTower wrapper) { m_Wrapper = wrapper; }
-        public InputAction @TouchMenu => m_Wrapper.m_Touch_TouchMenu;
-        public InputActionMap Get() { return m_Wrapper.m_Touch; }
+        public TestActions(@InputActionTower wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ShowMonsterHP => m_Wrapper.m_Test_ShowMonsterHP;
+        public InputActionMap Get() { return m_Wrapper.m_Test; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TouchActions set) { return set.Get(); }
-        public void SetCallbacks(ITouchActions instance)
+        public static implicit operator InputActionMap(TestActions set) { return set.Get(); }
+        public void SetCallbacks(ITestActions instance)
         {
-            if (m_Wrapper.m_TouchActionsCallbackInterface != null)
+            if (m_Wrapper.m_TestActionsCallbackInterface != null)
             {
-                @TouchMenu.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchMenu;
-                @TouchMenu.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchMenu;
-                @TouchMenu.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchMenu;
+                @ShowMonsterHP.started -= m_Wrapper.m_TestActionsCallbackInterface.OnShowMonsterHP;
+                @ShowMonsterHP.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnShowMonsterHP;
+                @ShowMonsterHP.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnShowMonsterHP;
             }
-            m_Wrapper.m_TouchActionsCallbackInterface = instance;
+            m_Wrapper.m_TestActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @TouchMenu.started += instance.OnTouchMenu;
-                @TouchMenu.performed += instance.OnTouchMenu;
-                @TouchMenu.canceled += instance.OnTouchMenu;
+                @ShowMonsterHP.started += instance.OnShowMonsterHP;
+                @ShowMonsterHP.performed += instance.OnShowMonsterHP;
+                @ShowMonsterHP.canceled += instance.OnShowMonsterHP;
             }
         }
     }
-    public TouchActions @Touch => new TouchActions(this);
+    public TestActions @Test => new TestActions(this);
     private int m_MouseTouchSchemeIndex = -1;
     public InputControlScheme MouseTouchScheme
     {
@@ -182,8 +171,8 @@ public partial class @InputActionTower : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_MouseTouchSchemeIndex];
         }
     }
-    public interface ITouchActions
+    public interface ITestActions
     {
-        void OnTouchMenu(InputAction.CallbackContext context);
+        void OnShowMonsterHP(InputAction.CallbackContext context);
     }
 }

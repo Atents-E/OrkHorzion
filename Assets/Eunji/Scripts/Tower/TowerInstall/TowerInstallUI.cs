@@ -41,19 +41,19 @@ public class TowerInstallUI : MonoBehaviour, IDragHandler
     }
 
 
-    private void OnEnable()
-    {
-        inputTowerMenu.Touch.Enable();
-        inputTowerMenu.Touch.TouchMenu.performed += OnTowerTouch;
-        inputTowerMenu.Touch.TouchMenu.canceled += OnTowerDrop;
-    }
+    //private void OnEnable()
+    //{
+    //    inputTowerMenu.Touch.Enable();
+    //    inputTowerMenu.Touch.TouchMenu.performed += OnTowerTouch;
+    //    inputTowerMenu.Touch.TouchMenu.canceled += OnTowerDrop;
+    //}
 
-    private void OnDisable()
-    {
-        inputTowerMenu.Touch.TouchMenu.canceled -= OnTowerDrop;
-        inputTowerMenu.Touch.TouchMenu.performed -= OnTowerTouch;
-        inputTowerMenu.Touch.Disable();
-    }
+    //private void OnDisable()
+    //{
+    //    inputTowerMenu.Touch.TouchMenu.canceled -= OnTowerDrop;
+    //    inputTowerMenu.Touch.TouchMenu.performed -= OnTowerTouch;
+    //    inputTowerMenu.Touch.Disable();
+    //}
 
 
     /// <summary>
@@ -112,11 +112,11 @@ public class TowerInstallUI : MonoBehaviour, IDragHandler
     //    transform.position = target;
     //}
 
-    ///// <summary>
-    ///// TowerMenu의 크기
-    ///// </summary>
-    ///// <param name="screenPos"></param>
-    ///// <returns></returns>
+    ///<summary>
+    ///TowerMenu의 크기
+    ///</summary>
+    ///<param name = "screenPos" ></ param >
+    ///< returns ></ returns >
     //bool IsInsideTowerMenu(Vector2 screenPos)
     //{
     //    RectTransform rectTransform = (RectTransform)transform;
