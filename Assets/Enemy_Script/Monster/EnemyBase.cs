@@ -19,18 +19,27 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public float attackPower = 10.0f;             // 공격력
     public float defencePower = 0.0f;             // 방어력
     public float monsterHp = 100.0f;              // 몬스터 HP
-    public float monsterMaxHp = 100.0f;           // 몬스터 최대 HP
-
+    public float monsterMaxHp = 1000.0f;           // 몬스터 최대 HP
 
     protected Transform playerTarget = null;      // 플레이어가 없다
-    
 
+    public Transform damageTextPos;
+    public GameObject damageText;
+    //EnemySpawner spawn;
+    
     //float random;
     //public float Random { get => UnityEngine.Random.Range(0, 1); }      // 어택2용 랜덤값 할당
 
     public float AttackPower => attackPower;
     public float DefencePower => defencePower;
-    public float MaxHP => monsterMaxHp;
+    public float MaxHP
+    {
+        get => monsterMaxHp;
+        set
+        {
+            monsterMaxHp = value;
+        }
+    }           
 
     /// <summary>
     /// HP 프로퍼티 몬스터의HP가 0보다 작아지면 죽는다.
@@ -140,8 +149,14 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     /// <param name="damage">현재 입은 데미지</param>
     public void TakeDamage(float damage)
-    {
+    {                
+        GameObject obj = Instantiate(damageText);
+        obj.transform.position = damageTextPos.position;
+
+        obj.GetComponent<DamageText>().Damage = (int)(damage - defencePower);
+        Debug.Log($"입은 데미지 : {damage}");
         // 기본 공식 : 실제 입는 데미지 = 적 공격 데미지 - 방어력
+
         HP -= (damage - defencePower);
     }
 

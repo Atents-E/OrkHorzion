@@ -117,7 +117,7 @@ public class Ork_King : Ork_Basic
         base.Start();
         waitTimer = waitTime;
         angerduration = angerTime;
-        HP -= 30000.0f;
+        HP = MaxHP;        
 
         State = kingState.Delay;
         //Debug.Log($"·£´ý°ª : {Rand}");

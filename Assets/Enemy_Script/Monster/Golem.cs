@@ -118,7 +118,7 @@ public class Golem : EnemyBase
         //waitTimer = waitTime;       // 기다리는 시간 초기화
         State = GolemState.Run;             // 초기 상태 설정 (Idle)
 
-        monsterHp = monsterMaxHp;
+        HP = MaxHP;
         onHealthChange += HP_Change;
         onDie += Dead;
     }

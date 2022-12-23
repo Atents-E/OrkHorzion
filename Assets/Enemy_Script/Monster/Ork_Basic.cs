@@ -9,27 +9,39 @@ public class Ork_Basic : EnemyBase
     Enemy_Navigation nav;
     CapsuleCollider ccoll;
 
+    EnemySpawner spawn;
+
     bool isDead = true;
-    public float testHpCount = 5.0f;
 
     protected virtual void Awake()
     {
         anim = GetComponent<Animator>();        // 애니메이터
         nav = GetComponent<Enemy_Navigation>();
         ccoll = GetComponent<CapsuleCollider>();
+
+        spawn = FindObjectOfType<EnemySpawner>();
     }
     protected virtual void Start()
     {
         SearchPlayer();         // 플레이어 찾기
-        monsterHp = monsterMaxHp;
+
+        MaxHP += spawn.waveCount * 500.0f;
+        HP = MaxHP;
 
         onHealthChange += HP_Change;   
         onDie += Dead;
     }
 
+    float testTime = 0.0f;
     protected virtual void Update()
     {
         //HP -= testHpCount;    // 프레임마다 testHpCount만큼 HP를 줄인다
+        testTime += Time.deltaTime;
+        while (testTime > 2)
+        {
+            TakeDamage(100);
+            testTime = 0.0f;
+        }
 
         Looktarget();           // 플레이어쪽을 쳐다본다.
     }
@@ -77,7 +89,11 @@ public class Ork_Basic : EnemyBase
     {
         if (isDead)
         {
+            
             //Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경 되었습니다.");
+
         }
     }
+
+    
 }
