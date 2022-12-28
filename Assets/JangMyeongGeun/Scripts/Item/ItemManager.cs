@@ -11,5 +11,4 @@ public class ItemManager : MonoBehaviour
     public ItemData_Base this[ItemIDCode code] => ItemDatas[(int)code];
 
     public int Length => ItemDatas.Length;
-
 }

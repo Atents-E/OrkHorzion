@@ -21,20 +21,15 @@ public class ItemSlotUI : MonoBehaviour
     public uint ID => id;
     public ItemSlot ItemSlot => itemSlot;
 
-    ConfirmDeletionUI confirmDeletionUI;
-
-    
+    public Action<ItemSlot> onRemoveSlotOpen;
 
     private void Awake()
     {
         itemImage = transform.GetChild(3).GetChild(0).GetComponent<Image>();
         itemNameText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
-        confirmDeletionUI = FindObjectOfType<ConfirmDeletionUI>();
-
         removeItemButton = transform.GetChild(2).GetComponent<Button>();
-        removeItemButton.onClick.AddListener(() =>confirmDeletionUI.Open(ItemSlot));
-
+        removeItemButton.onClick.AddListener(() =>onRemoveSlotOpen?.Invoke(ItemSlot));
 
         itemDescriptionText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         itemCountText = transform.GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>();

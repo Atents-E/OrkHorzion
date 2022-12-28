@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TestBase : MonoBehaviour
+public class Test_Base : MonoBehaviour
 {
     TestInputActions inputActions;
 

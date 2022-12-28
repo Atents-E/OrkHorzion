@@ -14,22 +14,16 @@ public class ItemData_Atk : ItemData_Base
         itemType = ItemType.Atk;  // 유물 타입은 공격 계열
     }
 
-    /// <summary>
+    /// <summary>   
     /// 유물 기능 함수
     /// </summary>
     /// <param name="player">플레이어</param>
     /// <param name="stackCount">현재 유물 소지량</param>
-    public override void Effect(Player player, uint stackCount)
+    public override void Effect(Player player, ItemSlot slot)
     {
-        if (stackCount > maxStackCount) // 현재 유물 소지량이 3 이상이 되면
-        {
-            stackCount = maxStackCount; // 현재 유물 소지량은 최대 소지량으로 고정
-        }
-
-        atkBonus = (atkBonus * stackCount);             // 추가 공격력은 소지량만큼 추가로 곱해서 늘어난다   
-        criticalBonus = (criticalBonus * stackCount);   // 추가 치명타 확률도 동일하다
-
-        player.ATK += (player.ATK * atkBonus);  // 현재 공격력에 추가 공격력 % 만큼 더해진다
+        Debug.Log("공격용1 아이템 획득");
+        player.ATK += atkBonus;  // 현재 공격력에 추가 공격력 % 만큼 더해진다
         player.CriticalChance += criticalBonus; // 현재 치명타 확률에 추가 치명타 확률을 더한다
+        Debug.Log($"공격력 : {player.ATK}, 치명타확률 : {player.CriticalChance}");
     }
 }

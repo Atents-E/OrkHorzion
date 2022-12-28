@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : Character
 {
+    public Inventory inven;
+    public InventoryUI inventoryUI;
+
     [Header("기본 능력치")]
     [SerializeField]
     private float default_MaxHp = 100;
@@ -15,7 +18,7 @@ public class Player : Character
     [SerializeField]
     private float default_AtkSpeed = 40.0f;
     [SerializeField]
-    private float default_CriticalChance = 0.03f;
+    private float default_CriticalChance = 0.0f;
     [SerializeField]
     private float default_MoveSpeed = 30.0f;
 
@@ -34,12 +37,7 @@ public class Player : Character
 
     private void Start()
     {
-        Debug.Log($"이름 : {characterName}");
-        Debug.Log($"체력 : {hp} / {maxHp}");
-        Debug.Log($"방어력 : {def}");
-        Debug.Log($"공격력 : {atk}");
-        Debug.Log($"치명타확률 : {criticalChance * 100}%");
-        Debug.Log($"공격속도 : {atkSpeed}");
-        Debug.Log($"이동속도 : {moveSpeed}");
+        inven = new Inventory(2);
+        GameManager.Inst.InventoryUI.InitializeInventoy(inven);
     }
 }

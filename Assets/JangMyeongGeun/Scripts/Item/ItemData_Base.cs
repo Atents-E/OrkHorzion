@@ -12,7 +12,8 @@ public enum ItemType
     Debuff,     // 디버프 계열
     Gold,       // 재화 계열
     Health,     // 회복 계열
-    Special     // 특수 계열
+    Special,     // 특수 계열
+    Def         // 방어 계열
 }
 
 public class ItemData_Base : ScriptableObject
@@ -23,6 +24,7 @@ public class ItemData_Base : ScriptableObject
     public Sprite itemTypeIcon;    // 유물 타입 이미지
     public string itemName;        // 유물 이름
     public Sprite itemIcon;        // 유물 이미지
+
     [TextArea (15, 20)]
     public string description;      // 유물 설명
     public uint maxStackCount = 3;   // 유물 최대 소지량
@@ -31,13 +33,9 @@ public class ItemData_Base : ScriptableObject
     /// 유물 기능 함수
     /// </summary>
     /// <param name="player">플레이어</param>
-    /// <param name="stackCount">현재 유물 소지량</param>
-    public virtual void Effect(Player player, uint stackCount=1)
+    public virtual void Effect(Player player, ItemSlot slot)
     {
-        if (stackCount > maxStackCount) // 만약 유물 소지량이 최대를 넘어가면
-        {
-            stackCount = maxStackCount; // 현재 유물 소지량은 최대 소지량으로 고정
-        }
+        
     }
 }
 
