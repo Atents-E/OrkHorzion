@@ -9,6 +9,8 @@ public class SlowlyProjectile : ProjectileBase
     public float reduceAttack = 0.003f;    // 감속 시키는 공격력
     public float reduceTiem = 5.0f;	    // 감속 시키는 시간 
 
+    bool isReduceTime = false;
+
     protected void OnCollisionEnter(Collision collision) // 충돌이 일어나면
     {
         if (collision.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
@@ -24,13 +26,14 @@ public class SlowlyProjectile : ProjectileBase
             for(int i = 0; i < reduceTiem; i++)     // 감속시간 동안
             {
                 // Monster의 이속과 공속 감소
-                //숫자 X (1 - 퍼센트 ÷ 100)
-                monster.speed *= (1- reduceSpeed * 0.01f);
-                monster.attackSpeed *= reduceAttack;
-
                 reduceSpeed -= Time.deltaTime;
+                isReduceTime = false;
             }
 
+            isReduceTime = true;
+            monster.speed -= reduceSpeed;
+            monster.attackSpeed -= reduceAttack;
         }
     }
+
 }

@@ -20,32 +20,32 @@ public class ProjectileBase : MonoBehaviour
         rigid.velocity = transform.forward * initialSpeed;
     }
 
-    //private void OnTriggerEnter(Collider other) 
-    //{
-    //    if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-    //    {
-    //        // target은 other
-    //        target = other.gameObject;
-
-    //        // Enemey의 HP는 감소
-    //        MonsterBase monster = GetComponent<MonsterBase>();
-    //        monster.monsterHp -= attackPower;
-    //    }
-    //    Destroy(this.gameObject); // 발사체 삭제
-
-    //}
-
-    protected void OnCollisionEnter(Collision collision) // 충돌이 일어나면
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
+        if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
-            // target은 collision
-            target = collision.gameObject;
+            // target은 other
+            target = other.gameObject;
 
             // Enemey의 HP는 감소
             MonsterBase monster = GetComponent<MonsterBase>();
             monster.monsterHp -= attackPower;
         }
         Destroy(this.gameObject); // 발사체 삭제
+
     }
+
+    //protected void OnCollisionEnter(Collision collision) // 충돌이 일어나면
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
+    //    {
+    //        // target은 collision
+    //        target = collision.gameObject;
+
+    //        // Enemey의 HP는 감소
+    //        MonsterBase monster = GetComponent<MonsterBase>();
+    //        monster.monsterHp -= attackPower;
+    //    }
+    //    Destroy(this.gameObject); // 발사체 삭제
+    //}
 }
