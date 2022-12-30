@@ -9,6 +9,7 @@ TagManager:
   - Store
   - Canvas
   - Ground
+  - Road
   layers:
   - Default
   - TransparentFX

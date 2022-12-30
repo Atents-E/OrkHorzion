@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 public class MonsterBase : MonoBehaviour 
 {
     public float monsterHp = 100.0f;    // 몬스터 체력
+    public float speed= 100.0f;    // 몬스터 이속
+    public float attackSpeed= 100.0f;    // 몬스터 공속
 
     InputActionTower inputAction;       // 인풋 액션
 

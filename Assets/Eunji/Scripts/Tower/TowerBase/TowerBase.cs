@@ -44,7 +44,7 @@ public class TowerBase : MonoBehaviour
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
 
-        // StartCoroutine(fireCoroutine);              // 코루틴 시작
+        StartCoroutine(fireCoroutine);              // 코루틴 시작
     }
 
     /// <summary>
@@ -130,15 +130,17 @@ public class TowerBase : MonoBehaviour
 
     bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
     {
-
         Vector3 dir = target.position - direction.position;         // 타겟 위치 - 방향 위치
         return Vector3.Angle(direction.forward, dir) < fireAngle;   // 방향의 앞쪽과 dir사이의 내각이 발사각보다 작다
+
+        Debug.Log("타겟이 발사각 안에 있음");
     }
 
     private void Fire()         // 발사
     {
         Instantiate(projectile, directionTransform.position, directionTransform.rotation);  // 투사체가 복사
     }
+
 
     IEnumerator PeriodFire()    // 발사 기간
     {

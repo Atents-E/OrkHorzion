@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using static UnityEngine.UI.GridLayoutGroup;
 using static UnityEditor.Progress;
+using Unity.VisualScripting;
 
 public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -30,6 +31,7 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
     private void Awake()
     {
+        // this.gameObject.SetActive(false);
         currentParent = transform.parent;
         newParent = GameObject.FindWithTag("Canvas");
     }
@@ -79,14 +81,17 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // 레이와 땅의 충돌 여부 확인
         {
             // 레이와 땅이 충돌했으면
-            Debug.Log("레이와 땅이 충돌함");
-
-            Vector3 dropPos = hit.point;    // 피킹한 지점 따로 저장
+            //Debug.Log("레이와 땅이 충돌함");
             
-            // 그 지점에 tower 생성
-            GameObject obj = Instantiate(towerPrefab, dropPos, transform.rotation);
+            GameObject ground = hit.collider.gameObject;        // 충돌한 지점의 오브젝트를 찾아서
+            Vector3 creatPos = ground.transform.position;       // 찾은 오브젝트의 피벗을 중점으로 위치값 변경(오브젝트의 중간에 오도록)
+            creatPos.x += 1;
+            creatPos.y = 0;
+            creatPos.z -= 1;
 
-           // obj.transform.position = dropPos;
+            // 그 지점에 tower 생성
+            GameObject obj = Instantiate(towerPrefab, creatPos, transform.rotation);
+
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기

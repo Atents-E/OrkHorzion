@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class ProjectileBase : MonoBehaviour
 {
     public float attackPower = 10.0f;       // 발사체 공격력
     public float initialSpeed = 20.0f;      // 처음 속도
 
-    Rigidbody rigid;                        // 리지드바디
-    GameObject target;                      // 발사체와 만날 타겟(적)
+    protected Rigidbody rigid;                        // 리지드바디
+    protected GameObject target;                      // 발사체와 만날 타겟(적)
 
-    private void Awake()    // 이 스크립트가 생성 완료되면 
+    private void Awake()    
     {
         rigid = GetComponent<Rigidbody>();  // 리지드바디 할당
     }
@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
 
     //}
 
-    private void OnCollisionEnter(Collision collision) // 충돌이 일어나면
+    protected void OnCollisionEnter(Collision collision) // 충돌이 일어나면
     {
         if (collision.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
@@ -47,6 +47,5 @@ public class Projectile : MonoBehaviour
             monster.monsterHp -= attackPower;
         }
         Destroy(this.gameObject); // 발사체 삭제
-
     }
 }
