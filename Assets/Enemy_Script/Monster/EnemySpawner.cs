@@ -12,6 +12,8 @@ public class EnemySpawner : MonoBehaviour
 
     public int waveCount = 0;
 
+    bool isPlaying = false;
+
     private void Start()
     {       
         //StartCoroutine(SpawnEnemy());
@@ -19,11 +21,14 @@ public class EnemySpawner : MonoBehaviour
     
     public void StartWave(Wave wave)
     {
-        // 매개변수로 받아온 웨이브 정보 저장
-        currentWave = wave;
-        waveCount++;
-        // 현재 웨이브 시작
-        StartCoroutine("SpawnEnemy");
+        if (!isPlaying)
+        {
+            // 매개변수로 받아온 웨이브 정보 저장
+            currentWave = wave;
+            waveCount++;
+            // 현재 웨이브 시작
+            StartCoroutine("SpawnEnemy");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
         // 현재 웨이브에서 생성되어야 하는 적의 숫자만큼 적을 생성하고 코루틴 종료
         while (spawnEnemyCount < currentWave.maxEnemyCount)
         {
+            isPlaying = true;
             switch (currentWave.spawnWave)
             {                
                 case 1:
@@ -130,8 +136,9 @@ public class EnemySpawner : MonoBehaviour
 
             // 현재 웨이브에서 생성한 적의 숫자 +1
             spawnEnemyCount++;
-
+            
             yield return new WaitForSeconds(currentWave.spawnTime);
         }
+        isPlaying = false;
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970574001651106066}
   m_Layer: 7
-  m_Name: DamageTextPos
+  m_Name: DamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   monsterHp: 100
   monsterMaxHp: 10000
   damageTextPos: {fileID: 4970574001651106066}
-  damageText: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
+  damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
 --- !u!114 &-8061817429441883629
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,7 +27,11 @@ public class Dragon : EnemyBase
     float hptotal = 3000.0f;        // HP 총 회복량
     float duration = 3.0f;           // 총 회복하는데 걸리는 시간
 
+    //float testTime = 0.0f;
+
     bool isBreath = false;
+
+    IBattle target;
 
     /// <summary>
     /// 드래곤 상태 enum
@@ -58,8 +62,7 @@ public class Dragon : EnemyBase
 
                 switch (state)
                 {
-                    case DragonState.Attack:
-                        anim.SetTrigger("Attack");      // 공격하는 애니메이션 실행
+                    case DragonState.Attack:                        
                         stateUpdate = Update_Attack;    // 상태를 공격하는 함수로 변경
                         break;
 
@@ -195,13 +198,13 @@ public class Dragon : EnemyBase
 
     private void FixedUpdate()
     {
-        HP -= Time.fixedDeltaTime * 500.0f;
         stateUpdate();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        target = other.GetComponent<IBattle>();
+        if (other.CompareTag("Player") && target != null)
         {
             looktargetOn = true;
             playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
@@ -209,7 +212,7 @@ public class Dragon : EnemyBase
             State = DragonState.Attack;
             Debug.Log("플레이어를 공격한다.");
         }
-    }    
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -217,6 +220,7 @@ public class Dragon : EnemyBase
         {
             playerTarget = null;                    // playerTarget이 null이 되었다.
             looktargetOn = false;
+            target = null;
             //State = DragonState.Move;
             Debug.Log("플레이어가 도망갔다.");
         }
@@ -227,6 +231,8 @@ public class Dragon : EnemyBase
         if (playerTarget != null)
         {
             Debug.Log("기본 공격 사용");
+            anim.SetTrigger("Attack");      // 공격하는 애니메이션 실행
+            Attack(target);
             State = DragonState.Delay;
         }
     }

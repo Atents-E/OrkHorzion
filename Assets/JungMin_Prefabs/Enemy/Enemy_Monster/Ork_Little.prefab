@@ -229,7 +229,7 @@ MonoBehaviour:
   monsterHp: 1000
   monsterMaxHp: 8000
   damageTextPos: {fileID: 5216494592918117801}
-  damageText: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
+  damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
 --- !u!114 &-1194075374870395731
 MonoBehaviour:
   m_ObjectHideFlags: 0

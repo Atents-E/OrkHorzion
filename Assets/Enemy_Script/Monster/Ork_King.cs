@@ -18,7 +18,7 @@ public class Ork_King : Ork_Basic
     float angerTime = 6.0f;
     float angerduration = 0.0f;
 
-    float hptotal = 20000.0f;
+    float hptotal = 500.0f;
     float duration = 3.0f;
 
     bool isAnger;
@@ -132,42 +132,47 @@ public class Ork_King : Ork_Basic
     {
         Angerduration -= Time.fixedDeltaTime;
 
-        if (isAnger)
+        if (playerTarget != null)
         {
-            isAnger = false;
-            anger.color = Color.white;
+            if (isAnger)
+            {
+                isAnger = false;
+                anger.color = Color.white;
 
-            particle.Play();
-            Debug.Log("파티클 실행");
+                particle.Play();
+                Debug.Log("파티클 실행");
 
-            attackPower *= 2;
-            Debug.Log("데미지가 2배가 되었다.");
-        }
-        if (angerduration < 0.1)
-        {
-            particle.Stop();
-            Debug.Log("파티클 종료");
+                attackPower *= 2;
+                Debug.Log("데미지가 2배가 되었다.");
+            }
+            if (angerduration < 0.1)
+            {
+                particle.Stop();
+                Debug.Log("파티클 종료");
 
-            anger.color = Color.clear;
+                anger.color = Color.clear;
 
-            attackPower = oldDamage;
-            Debug.Log("데미지가 원래대로 되었다.");
+                attackPower = oldDamage;
+                Debug.Log("데미지가 원래대로 되었다.");
 
-            State = kingState.Delay;
+                State = kingState.Delay;
+            }
         }
     }
 
     private void Update_Heal()
     {
-        // HP가 서서히 회복되게     
-        StartCoroutine(HealingRegeneration());
-        if (HP >= MaxHP)
+        if (playerTarget != null)
         {
-            Debug.Log("HP가 MaxHP를 넘었습니다.");
-            StopCoroutine(HealingRegeneration());
+            // HP가 서서히 회복되게     
+            StartCoroutine(HealingRegeneration());
+            if (HP >= MaxHP)
+            {
+                Debug.Log("HP가 MaxHP를 넘었습니다.");
+                StopCoroutine(HealingRegeneration());
+            }
+            Debug.Log("힐");
         }
-        Debug.Log("힐");
-        
     }
 
     IEnumerator HealingRegeneration()

@@ -187,12 +187,12 @@ MonoBehaviour:
   monsterHp: 100
   monsterMaxHp: 20000
   damageTextPos: {fileID: 8789956200388816565}
-  damageText: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
+  damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
   Rock: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}
   waitTime: 2
-  runWaitTime: 2
+  runWaitTime: 5
   testHpCount: 5
-  baseTarget: {fileID: 2621390799117063607, guid: fdd4c5a41e82f7f42a4329a2139c0091, type: 3}
+  baseTarget: {fileID: 0}
 --- !u!195 &8272958229146477016
 NavMeshAgent:
   m_ObjectHideFlags: 0

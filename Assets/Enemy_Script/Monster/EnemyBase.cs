@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,7 +25,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     protected Transform playerTarget = null;      // 플레이어가 없다
 
     public Transform damageTextPos;
-    public GameObject damageText;
+    public GameObject damageTextPrefab;
     //EnemySpawner spawn;
     
     //float random;
@@ -69,9 +70,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
     // 델리게이트
     public Action<float> onHealthChange { get; set; }
-    public Action onDie { get; set; } 
-
-
+    public Action onDie { get; set; }
+    
     //void Die()
     //{
     //    looktargetOn = false;
@@ -141,7 +141,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// <param name="target">공격할 대상</param>
     public void Attack(IBattle target)
     {
-        target.TakeDamage(AttackPower);
+        target?.TakeDamage(AttackPower);
     }
 
     /// <summary>
@@ -149,14 +149,16 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     /// <param name="damage">현재 입은 데미지</param>
     public void TakeDamage(float damage)
-    {                
-        GameObject obj = Instantiate(damageText);
-        obj.transform.position = damageTextPos.position;
+    {
+        //GameObject obj = Instantiate(damageTextPrefab);
+        //obj.transform.position = damageTextPos.position;
+        GameObject obj = Instantiate(damageTextPrefab, damageTextPos);
+
 
         obj.GetComponent<DamageText>().Damage = (int)(damage - defencePower);
         Debug.Log($"입은 데미지 : {damage}");
         // 기본 공식 : 실제 입는 데미지 = 적 공격 데미지 - 방어력
-
+        
         HP -= (damage - defencePower);
     }
 

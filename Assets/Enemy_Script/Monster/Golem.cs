@@ -65,6 +65,7 @@ public class Golem : EnemyBase
                         waitTimer = waitTime;       // 기다리는 시간 초기화
                         isTargetOn = true;
                         anim.SetTrigger("Attack");  // 공격하는 애니메이션 재생
+                        
                         //Isthrow();
                         stateUpdate = Update_attack;  // update에서 실행될 델리게이트 변경 (2초간 기다림)
                         break;

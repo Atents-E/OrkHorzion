@@ -13,6 +13,10 @@ public class Ork_Basic : EnemyBase
 
     bool isDead = true;
 
+    float testTime = 0.0f;
+
+    IBattle target;
+
     protected virtual void Awake()
     {
         anim = GetComponent<Animator>();        // 애니메이터
@@ -32,16 +36,12 @@ public class Ork_Basic : EnemyBase
         onDie += Dead;
     }
 
-    float testTime = 0.0f;
+    
     protected virtual void Update()
     {
         //HP -= testHpCount;    // 프레임마다 testHpCount만큼 HP를 줄인다
         testTime += Time.deltaTime;
-        while (testTime > 2)
-        {
-            TakeDamage(100);
-            testTime = 0.0f;
-        }
+               
 
         Looktarget();           // 플레이어쪽을 쳐다본다.
     }
@@ -49,12 +49,27 @@ public class Ork_Basic : EnemyBase
 
     private void OnTriggerEnter(Collider other)     // 트리거 안에 들어왔을 때
     {
+        target = other.GetComponent<IBattle>();
         if (other.CompareTag("Player"))
         {
             Debug.Log("들어옴");
             looktargetOn = true;
             playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
             anim.SetBool("Attack", true);
+            //Attack(target);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && target != null)
+        {
+            if (target != null && testTime > 1)
+            {
+                Debug.Log("플레이어 공격");
+                Attack(target);
+                testTime = 0.0f;
+            }
         }
     }
 
@@ -62,6 +77,7 @@ public class Ork_Basic : EnemyBase
     {
         if (other.CompareTag("Player"))
         {
+            target = null;
             Debug.Log("나감");
             playerTarget = null;                    // playerTarget이 null이 되었다.
             looktargetOn = false;
@@ -88,10 +104,8 @@ public class Ork_Basic : EnemyBase
     void HP_Change(float ratio)
     {
         if (isDead)
-        {
-            
+        {            
             //Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경 되었습니다.");
-
         }
     }
 

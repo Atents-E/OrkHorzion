@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f93e4744ccf7ab043a157adac36f2814, type: 2}
---- !u!1 &249996889 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}
-  m_PrefabInstance: {fileID: 1244189264}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &325738024
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,21 +273,9 @@ PrefabInstance:
       value: Golem
       objectReference: {fileID: 0}
     - target: {fileID: 8564670388593289457, guid: 947b732f8fcda334a816690cc3c4a23f, type: 3}
-      propertyPath: Rock
-      value: 
-      objectReference: {fileID: 249996889}
-    - target: {fileID: 8564670388593289457, guid: 947b732f8fcda334a816690cc3c4a23f, type: 3}
-      propertyPath: waitTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564670388593289457, guid: 947b732f8fcda334a816690cc3c4a23f, type: 3}
       propertyPath: baseTarget
       value: 
       objectReference: {fileID: 1222888791}
-    - target: {fileID: 8564670388593289457, guid: 947b732f8fcda334a816690cc3c4a23f, type: 3}
-      propertyPath: runWaitTime
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 947b732f8fcda334a816690cc3c4a23f, type: 3}
 --- !u!1 &1192058083
