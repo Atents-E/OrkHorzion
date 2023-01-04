@@ -71,9 +71,9 @@ public class InventoryUI : MonoBehaviour
         }
 
         // 삭제 문구창에서 아이템을 삭제할 때 데이터를 정렬시키도록 델리게이트 연결
-        removeUI.onRemoveSlotItem += inven.AlignItemSlot;    
+        removeUI.onRemoveSlotItem = inven.RemoveItem;    
         // 인벤토리 데이터를 새로 갱신할 때 UI도 같이 갱신되도록 델리게이트 연결
-        inven.onRefreshSlotUI = RefreshSlotUI;
+        inven.onRefreshSlot = RefreshSlotUI;
     }
 
     /// <summary>

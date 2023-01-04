@@ -30,12 +30,20 @@ public class Inventory
     /// </summary>
     ItemManager itemManager;
 
+    InventoryUI invenUI;
+
     /// <summary>
     /// 특정 번째의 ItemSlot을 돌려주는 인덱서
     /// </summary>
     /// <param name="index">돌려줄 슬롯의 위치</param>
-    /// <returns>index번째에 있는 ItemSlot</returns>
+    /// <returns>index번째에 있는 ItemSlot</returns> 
     public ItemSlot this[int index] => slots[index];
+
+    public Action onRefreshSlot;
+
+    public Action<ItemData_Base> onAddSlotItemEffect;
+    public Action<ItemData_Base, uint> onSubSlotItemEffect;
+    
 
     /// <summary>
     /// 인벤토리 생성자
@@ -52,6 +60,7 @@ public class Inventory
         }
 
         itemManager = GameManager.Inst.ItemData;
+        invenUI = GameManager.Inst.InventoryUI;
 
     }
 
@@ -80,8 +89,9 @@ public class Inventory
         {
             // 같은 아이템이라면
             if (targetSlot.IncreaseSlotItem(targetSlot))
-            { 
-                data.Effect(GameManager.Inst.Player, targetSlot);
+            {
+                //data.Effect(GameManager.Inst.Player, targetSlot);
+                onAddSlotItemEffect?.Invoke(targetSlot.ItemData);
             }
 
             result = true;
@@ -96,8 +106,8 @@ public class Inventory
                 // 비어있는 슬롯을 찾았다.
                 emptySlot.AssignSlotItem(data);
 
-                data.Effect(GameManager.Inst.Player, emptySlot);
-
+                //data.Effect(GameManager.Inst.Player, emptySlot);
+                onAddSlotItemEffect?.Invoke(emptySlot.ItemData);
             }
             else
             {
@@ -177,20 +187,41 @@ public class Inventory
     /// <summary>
     /// 특정 슬롯에서 아이템을 제거하는 함수
     /// </summary>
-    /// <param name="slotIndex">아이템을 제거할 함수</param>
+    /// <param name="slot">삭제할 아이템 슬롯</param>
     /// <returns>true면 성공, false면 실패</returns>
-    public bool ClearItem(uint slotIndex)
+    public void RemoveItem(ItemSlot slot)
     {
-        bool result = false;
+        int removeSlotIndex = GetItemSlotIndex(slot);
+        bool findSlot = removeSlotIndex != -1;
 
-        if (IsValidSlotIndex(slotIndex))
+        if (findSlot)
         {
-            ItemSlot slot = slots[(int)slotIndex];
-            slot.ClearSlotItem();
+            onSubSlotItemEffect?.Invoke(slot.ItemData,slot.ItemCount);
+            slots[removeSlotIndex].ClearSlotItem();
+            AlignItemSlot(slot);
         }
         else
         { 
             // 잘못된 인덱스
+        }
+    }
+
+    /// <summary>
+    /// 찾으려는 아이템 슬롯을 찾아서 인덱스를 리턴하는 함수
+    /// </summary>
+    /// <param name="slot">아이템 슬롯</param>
+    /// <returns>찾았으면 해당 슬롯의 index, 못찾았으면 -1</returns>
+    public int GetItemSlotIndex(ItemSlot slot)
+    {
+        int result = -1;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].ItemData.id == slot.ItemData.id)
+            {
+                result = i;
+                return result;
+            }
         }
 
         return result;
@@ -207,21 +238,7 @@ public class Inventory
         }
     }
 
-    /// <summary>
-    /// 해당 인벤토리 슬롯에 있는 아이템의 ID를 리턴하는 함수
-    /// </summary>
-    /// <param name="slot">아이템 슬롯</param>
-    /// <returns>찾았으면 해당 아이템의 ID, 못찾았으면 -1(있을 수 없는 값)</returns>
-    public int GetItemSlotID(ItemSlot slot)
-    {
-        int result = -1;
 
-        result = (int)slot.ItemData.id;
-
-        return result;
-    }
-
-    public Action onRefreshSlotUI;
 
     /// <summary>
     /// 슬롯을 추가하는 함수
@@ -233,7 +250,7 @@ public class Inventory
         {
             slots.Add(new ItemSlot());
         }
-        onRefreshSlotUI?.Invoke();
+        onRefreshSlot?.Invoke();
     }
 
     /// <summary>
@@ -250,7 +267,7 @@ public class Inventory
                 slots.RemoveAt(slotEndIndex);
                 slotEndIndex--;
             }
-            onRefreshSlotUI?.Invoke();
+            onRefreshSlot?.Invoke();
         }
         else
         {
@@ -267,7 +284,7 @@ public class Inventory
                     break;
                 }
             }
-            onRefreshSlotUI?.Invoke();
+            onRefreshSlot?.Invoke();
         }
     }
 
@@ -279,7 +296,12 @@ public class Inventory
     {
         slots.Remove(slot);
         slots.Add(new ItemSlot());
-        onRefreshSlotUI?.Invoke();
+        onRefreshSlot?.Invoke();
+    }
+
+    public List<ItemSlot> GetInventorySlotList()
+    {
+        return slots;
     }
 
 }

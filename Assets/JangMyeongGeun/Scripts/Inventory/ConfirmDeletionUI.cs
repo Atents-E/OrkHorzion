@@ -51,7 +51,7 @@ public class ConfirmDeletionUI : MonoBehaviour
         cancel.onClick.AddListener(Close);
 
         accept = transform.GetChild(6).GetComponent<Button>();
-        accept.onClick.AddListener(() => RemoveSlotItem(removeSlot));
+        accept.onClick.AddListener(()=> { RemoveSlotItem(removeSlot); });
     }
 
     private void Start()
@@ -95,12 +95,8 @@ public class ConfirmDeletionUI : MonoBehaviour
     /// <param name="itemSlot">삭제할 아이템을 가지고 있는 아이템 슬롯</param>
     public void RemoveSlotItem(ItemSlot itemSlot)
     {
-        itemSlot.ClearSlotItem();
-
         onRemoveSlotItem?.Invoke(itemSlot);
 
         Close();
     }
-
-
 }

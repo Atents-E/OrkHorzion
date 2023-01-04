@@ -345,13 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b80090e53ed2cf41b99273b387885bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 1090418949}
-  default_MaxHp: 100
-  default_Def: 20
-  default_Atk: 80
-  default_AtkSpeed: 40
-  default_CriticalChance: 0
-  default_MoveSpeed: 30
 --- !u!1 &935925873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5802101045585149897, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
@@ -366,63 +359,63 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 720275687948976611, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275687948976611, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275687948976611, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 720275687948976611, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 720275687986253142, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275687986253142, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275687986253142, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 720275688318116688, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275688318116688, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275688318116688, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 720275688318116688, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -600
       objectReference: {fileID: 0}
     - target: {fileID: 720275688432133177, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275688432133177, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720275688432133177, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 720275688432133177, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 5802101044395029112, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
       propertyPath: m_IsActive
@@ -527,17 +520,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5802101045585149896, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
   m_PrefabInstance: {fileID: 1090418947}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1090418949 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5802101045585149892, guid: a88a6ddfe4c1a2a49910d01dddae9df5, type: 3}
-  m_PrefabInstance: {fileID: 1090418947}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935925873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417640538d9c6444e9865cc778e1a660, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1090418954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,6 +535,29 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
+--- !u!1 &1431043596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4812183295958929367, guid: 434351460cf7f58458627ea2ba12abd1, type: 3}
+  m_PrefabInstance: {fileID: 1476820811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1431043597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431043596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad463ec71ba1e34c8cb58ee3e9682ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  default_MaxHp: 100
+  default_Def: 20
+  default_Atk: 80
+  default_AtkSpeed: 40
+  default_CriticalChance: 0
+  default_MoveSpeed: 30
 --- !u!1 &1468345315
 GameObject:
   m_ObjectHideFlags: 0

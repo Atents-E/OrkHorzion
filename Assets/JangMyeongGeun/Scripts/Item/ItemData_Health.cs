@@ -17,10 +17,10 @@ public class ItemData_Health : ItemData_Base
     /// 유물 기능 함수
     /// </summary>
     /// <param name="player">플레이어</param>
-    public override void Effect(Player player, ItemSlot slot)
+    public override void Effect(StatManager statManager)
     {
-        Debug.Log("체력용1 아이템 획득");
-        player.MAXHP += hpBonus; 
-        Debug.Log($"체력 : {player.MAXHP}");
+        //Debug.Log("체력용1 아이템 획득");
+        //player.MAXHP += hpBonus; 
+        //Debug.Log($"체력 : {player.MAXHP}");
     }
 }

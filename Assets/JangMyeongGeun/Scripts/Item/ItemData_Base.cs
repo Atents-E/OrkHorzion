@@ -33,9 +33,14 @@ public class ItemData_Base : ScriptableObject
     /// 유물 기능 함수
     /// </summary>
     /// <param name="player">플레이어</param>
-    public virtual void Effect(Player player, ItemSlot slot)
+    public virtual void Effect(StatManager statManager)
     {
         
+    }
+
+    public virtual void RemoveEffect(StatManager statManager)
+    { 
+    
     }
 }
 

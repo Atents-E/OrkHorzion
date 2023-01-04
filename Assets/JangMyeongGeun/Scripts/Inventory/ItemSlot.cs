@@ -76,7 +76,7 @@ public class ItemSlot
     /// 아이템 비우는 함수
     /// </summary>
     public void ClearSlotItem()
-    { 
+    {
         slotItemData = null;
         ItemCount = 0;
     }

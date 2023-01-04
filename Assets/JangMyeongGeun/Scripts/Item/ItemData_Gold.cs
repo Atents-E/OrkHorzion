@@ -16,7 +16,7 @@ public class ItemData_Gold : ItemData_Base
     /// </summary>
     /// <param name="player">플레이어</param>
     /// <param name="stackCount">현재 유물 소지량</param>
-    public override void Effect(Player player, ItemSlot slot)
+    public override void Effect(StatManager statManager)
     {
     }
 }

@@ -46,4 +46,12 @@ public class Test_PlayerInventory : Test_Base
         player.inven.DecreaseSlot(2);
     }
 
+    protected override void OnTest9(InputAction.CallbackContext obj)
+    {
+        Debug.Log($"플레이어 체력 : {player.HP} / {player.MAXHP}");
+        Debug.Log($"플레이어 공격력 : {player.ATK}");
+        Debug.Log($"플레이어 방어력 : {player.DEF}");
+        Debug.Log($"플레이어 치명타확률 : {player.CriticalChance * 100}%");
+    }
+
 }

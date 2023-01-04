@@ -17,6 +17,6 @@ MonoBehaviour:
   itemTypeIcon: {fileID: -1093014412, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
   itemName: "\uACAC\uACE0\uD55C \uBC29\uD328"
   itemIcon: {fileID: 1047945821, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
-  description: "\uBC29\uC5B4\uB825 +10\n(\uCD5C\uB300 3\uC911\uCCA9)"
+  description: "\uAE30\uBCF8 \uBC29\uC5B4\uB825\uC758 +10%\n(\uCD5C\uB300 3\uC911\uCCA9)"
   maxStackCount: 3
   defBonus: 10
