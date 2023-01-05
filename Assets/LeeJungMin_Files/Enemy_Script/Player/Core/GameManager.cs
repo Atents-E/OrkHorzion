@@ -7,18 +7,18 @@ public class GameManager : Singleton<GameManager>
     Character character;
     Warrior warrior;
     Wizard wizard;
-    //Camera mainCamera; 
+    Camera mainCamera; 
 
     public Character Character => character;
     public Warrior Warrior => warrior;   
     public Wizard Wizard => wizard;
-    //public Camera MainCamera => mainCamera;
+    public Camera MainCamera => mainCamera;
 
     protected override void Initialize()
     {
         character = FindObjectOfType<Character>();
         warrior = FindObjectOfType<Warrior>();
         wizard = FindObjectOfType<Wizard>();
-        //mainCamera = FindObjectOfType<Camera>();
+        mainCamera = FindObjectOfType<Camera>();
     }
 }

@@ -15,6 +15,7 @@ public class GameManager_JANG : Singleton<GameManager_JANG>
     
     public Test_Player_JANG Player => player;
 
+
     protected override void Initialize()
     {
         itemData = GetComponent<ItemManager>();

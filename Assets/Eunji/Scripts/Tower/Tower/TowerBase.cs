@@ -41,6 +41,8 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
     protected Transform porjectilePos;      // 투사체 생성 할 위치
     protected Vector3 porPos;               // 투사체 생성 할 Vecotr3 위치
 
+    Camera Camera;
+
     protected virtual void Awake()   
     {
         fireCoroutine = PeriodFire();               // 발사기간
@@ -127,12 +129,12 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData _)
     {
-        Camera Camera = new Camera();
+        Camera = GameManager.Inst.MainCamera;
         Ray ray = Camera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider != null)
+            if (hit.collider != CompareTag("Tower"))
             {
                 Canvas canvas = FindObjectOfType<Canvas>();
                 TowerDelete towerDelete = canvas.GetComponentInChildren<TowerDelete>();
@@ -145,7 +147,6 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-
     }
 
     /// <summary>

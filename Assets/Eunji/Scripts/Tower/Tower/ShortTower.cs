@@ -3,77 +3,77 @@ using UnityEditor;
 using UnityEngine;
 
 #if UNITY_EDIOR
-using UnityEditor;  // UNITY_EDIOR¶ó´Â ÀüÃ³¸®±â°¡ ¼³Á¤µÇ¾îÀÖÀ» ¶§¸¸ ½ÇÇà¹öÀü¿¡ ³Ö¾î¶ó
+using UnityEditor;  // UNITY_EDIORë¼ëŠ” ì „ì²˜ë¦¬ê¸°ê°€ ì„¤ì •ë˜ì–´ìˆì„ ë•Œë§Œ ì‹¤í–‰ë²„ì „ì— ë„£ì–´ë¼
 #endif
 
-// ShortTowerÀÇ ±â´É
-// 1. ¹üÀ§ ¾ÈÀÇ ¸ó½ºÅÍ È®ÀÎÇÏ¿© Å¸°ÙÀ¸·Î ¼³Á¤
-// 2. Åõ»çÃ¼ »ı¼º
-// 3. »ı¼ºÇÑ Åõ»çÃ¼¸¦ ÀÚ½ÄÀ¸·Î ¼³Á¤
+// ShortTowerì˜ ê¸°ëŠ¥
+// 1. ë²”ìœ„ ì•ˆì˜ ëª¬ìŠ¤í„° í™•ì¸í•˜ì—¬ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •
+// 2. íˆ¬ì‚¬ì²´ ìƒì„±
+// 3. ìƒì„±í•œ íˆ¬ì‚¬ì²´ë¥¼ ìì‹ìœ¼ë¡œ ì„¤ì •
 
-// 1. Åõ»çÃ¼ »ı¼º Á¶°Ç ¼³Á¤(0¹øÂ° ÀÚ½ÄÀÌ Å¸°ÙÀ» ¹Ù¶óº»°Ô ¸ÂÀ¸¸é Åõ»çÃ¼ »ı¼º(fireAngleÀÌ¸é))
-// 2. Åõ»çÃ¼ »ı¼º À§Ä¡ º¯°æ
+// 1. íˆ¬ì‚¬ì²´ ìƒì„± ì¡°ê±´ ì„¤ì •(0ë²ˆì§¸ ìì‹ì´ íƒ€ê²Ÿì„ ë°”ë¼ë³¸ê²Œ ë§ìœ¼ë©´ íˆ¬ì‚¬ì²´ ìƒì„±(fireAngleì´ë©´))
+// 2. íˆ¬ì‚¬ì²´ ìƒì„± ìœ„ì¹˜ ë³€ê²½
 public class ShortTower : TowerBase
 {
-    Transform childPos;                    // ¹ß»ç°¢ È®ÀÎ ÇÒ À§Ä¡
-    Vector3 proCreatPos;                   // Åõ»çÃ¼ »ı¼º À§Ä¡ Vector3 
-    Direction dir;                         // ¹ß»ç°¢µµ¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Â ÂüÁ¶
+    Transform childPos;                    // ë°œì‚¬ê° í™•ì¸ í•  ìœ„ì¹˜
+    Vector3 proCreatPos;                   // íˆ¬ì‚¬ì²´ ìƒì„± ìœ„ì¹˜ Vector3 
+    Direction dir;                         // ë°œì‚¬ê°ë„ë¥¼ í™•ì¸í•  ìˆ˜ ìˆëŠ” ì°¸ì¡°
 
     protected override void Awake()
     {
         base.Awake();
 
         childPos = transform.GetChild(1);
-        porPos = childPos.GetChild(0).transform.position;   // Åõ»çÃ¼ »ı¼º À§Ä¡¸¦ Àç ÇÒ´ç.
+        porPos = childPos.GetChild(0).transform.position;   // íˆ¬ì‚¬ì²´ ìƒì„± ìœ„ì¹˜ë¥¼ ì¬ í• ë‹¹.
         dir = childPos.GetComponent<Direction>();   
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        //if (other.CompareTag("Enemy"))              // ¹üÀ§ ¾È¿¡ Enemy°¡ µé¾î¿À¸é
+        //if (other.CompareTag("Enemy"))              // ë²”ìœ„ ì•ˆì— Enemyê°€ ë“¤ì–´ì˜¤ë©´
         //{
-        //    target = other.gameObject;              // targetÀ» Enemy·Î ¼³Á¤
+        //    target = other.gameObject;              // targetì„ Enemyë¡œ ì„¤ì •
 
-        //    if (target != null && dir.IsInFireAngle())    // ¹ß»ç°¢µµ ³»¿¡ Å¸¿ö°¡ ÀÖÀ¸¸é
+        //    if (target != null && dir.IsInFireAngle())    // ë°œì‚¬ê°ë„ ë‚´ì— íƒ€ì›Œê°€ ìˆìœ¼ë©´
         //    {
         //        isFiring = true;
         //    }
         //}
 
-        if (target != null && dir.IsInFireAngle())    // ¹ß»ç°¢µµ ³»¿¡ Å¸¿ö°¡ ÀÖÀ¸¸é
+        if (target != null && dir.IsInFireAngle())    // ë°œì‚¬ê°ë„ ë‚´ì— íƒ€ì›Œê°€ ìˆìœ¼ë©´
         {
             isFiring = true;
         }
     }
 
 
-    //    protected override void OnDrawGizmos/*Selected*/() // ±âÁî¸ğ
+    //    protected override void OnDrawGizmos/*Selected*/() // ê¸°ì¦ˆëª¨
     //    {
     //#if UNITY_EDITOR
 
 
-    //        Handles.color = Color.green;    // ÃÊ·Ï»öÀ¸·Î Ç¥½Ã
-    //        Handles.DrawWireDisc(transform.position, transform.up, sightRange, 3.0f);     //½Ã¾ß ¹İ°æ¸¸Å­ ¿ø ±×¸®±â //¿øÀÌ ÇÏ³ª¸¸ º¸ÀÓ
+    //        Handles.color = Color.green;    // ì´ˆë¡ìƒ‰ìœ¼ë¡œ í‘œì‹œ
+    //        Handles.DrawWireDisc(transform.position, transform.up, sightRange, 3.0f);     //ì‹œì•¼ ë°˜ê²½ë§Œí¼ ì› ê·¸ë¦¬ê¸° //ì›ì´ í•˜ë‚˜ë§Œ ë³´ì„
 
-    //        if (target != null)             // Å¸°ÙÀÌ ÀÖ´Ù¸é
+    //        if (target != null)             // íƒ€ê²Ÿì´ ìˆë‹¤ë©´
     //        {
-    //            Handles.color = Color.red;  // ÀÌÈÄ¿¡ ÀÛ¼ºµÈ ÄÚµåµéÀº »¡°£»öÀ¸·Î Ç¥½Ã
+    //            Handles.color = Color.red;  // ì´í›„ì— ì‘ì„±ëœ ì½”ë“œë“¤ì€ ë¹¨ê°„ìƒ‰ìœ¼ë¡œ í‘œì‹œ
     //        }
 
-    //        Vector3 forward = transform.GetChild(1).forward;    // ¿òÁ÷ÀÏ ¹æÇâ À§Ä¡¸¦ ¹Ş¾Æ¿È
+    //        Vector3 forward = transform.GetChild(1).forward;    // ì›€ì§ì¼ ë°©í–¥ ìœ„ì¹˜ë¥¼ ë°›ì•„ì˜´
     //        forward.y = 0;
     //        forward = forward.normalized * sightRange;
 
 
-    //        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // Áß½É¼± ±×¸®±â
+    //        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // ì¤‘ì‹¬ì„  ê·¸ë¦¬ê¸°
 
-    //        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// upº¤ÅÍ¸¦ ÃàÀ¸·Î ¹İ½Ã°è¹æÇâÀ¸·Î sightHalfAngle¸¸Å­ È¸Àü
-    //        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // upº¤ÅÍ¸¦ ÃàÀ¸·Î ½Ã°è¹æÇâÀ¸·Î sightHalfAngle¸¸Å­ È¸Àü
+    //        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// upë²¡í„°ë¥¼ ì¶•ìœ¼ë¡œ ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ sightHalfAngleë§Œí¼ íšŒì „
+    //        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // upë²¡í„°ë¥¼ ì¶•ìœ¼ë¡œ ì‹œê³„ë°©í–¥ìœ¼ë¡œ sightHalfAngleë§Œí¼ íšŒì „
 
-    //        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // Áß½É¼±À» ¹İ½Ã°è¹æÇâÀ¸·Î È¸Àü½ÃÄÑ¼­ ±×¸®±â
-    //        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // Áß½É¼±À» ½Ã°è¹æÇâÀ¸·Î È¸Àü½ÃÄÑ¼­ ±×¸®±â
-    //        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // È£ ±×¸®±â
+    //        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // ì¤‘ì‹¬ì„ ì„ ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „ì‹œì¼œì„œ ê·¸ë¦¬ê¸°
+    //        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // ì¤‘ì‹¬ì„ ì„ ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „ì‹œì¼œì„œ ê·¸ë¦¬ê¸°
+    //        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // í˜¸ ê·¸ë¦¬ê¸°
     //#endif  
     //    }
 }
