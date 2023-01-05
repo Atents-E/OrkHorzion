@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Eunji/Materials/cfxr electric arcs x4 hdr ab.mat.meta
 guid: 705eb67d9f08e9345a9a6f3e99e312c4
+========
+guid: cbf4d3372b24fc1499ea21c57a1cf8d4
+>>>>>>>> 몬스터_수정:Assets/_ExternalAssets/Props/TowerDefence_Vsquad(종합)/TowerDefence_Vsquad/Materials/Portal_7.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

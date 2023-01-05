@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Eunji/Prefabs/Texture/Materials/HM_fire_1.mat.meta
 guid: 18db81dcf9604034995f04475dd6d4b9
+========
+guid: 705eb67d9f08e9345a9a6f3e99e312c4
+>>>>>>>> 몬스터_수정:Assets/Eunji/Materials/cfxr electric arcs x4 hdr ab.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
