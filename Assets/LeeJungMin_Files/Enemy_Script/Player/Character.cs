@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +33,11 @@ public class Character : MonoBehaviour, IBattle, IHealth
     // 프로퍼티-----------------------------------------------------------------------------------------------------------
     public string CharacterName => characterName; // 캐릭터 이름 프로퍼티
 
-    public float MaxHP => maxHp;  //캐릭터 최대 체력 프로퍼티
+    public float MaxHP
+    {
+        get => maxHp;  //캐릭터 최대 체력 프로퍼티
+        set => maxHp = value;
+    }
 
     public float DEF => def; // 캐릭터 방어력 프로퍼티
 
@@ -70,6 +74,11 @@ public class Character : MonoBehaviour, IBattle, IHealth
     public Action <float> onHealthChange { get; set; }
     
     public Action onDie { get; set; }
+
+    public float AttackPower => atk;
+
+    public float DefencePower => def;
+
     // --------------------------------------------------------------------------------------------------------
 
     protected virtual void Awake()
@@ -95,18 +104,12 @@ public class Character : MonoBehaviour, IBattle, IHealth
             damage *= 1.5f;
               
         }
-        target?.Defence(damage);// 플레이어는 공격력만큼 데미지를 주지만 치명타가 뜨면 1.5배의 데미지를 준다.
+        target?.TakeDamage(damage);// 플레이어는 공격력만큼 데미지를 주지만 치명타가 뜨면 1.5배의 데미지를 준다.
     }
 
     public virtual void Defence(float damage)
     {
-        if (isAlive)                // 살아있을 때만 데미지 입음.
-        {
-            anim.SetTrigger("Hit"); // 피격 애니메이션 재생            
-            float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
-            HP -= finalDamage;
-            Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경되었습니다.");
-        }
+        
     }
 
     public virtual void Die()
@@ -146,4 +149,14 @@ public class Character : MonoBehaviour, IBattle, IHealth
         
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (isAlive)                // 살아있을 때만 데미지 입음.
+        {
+            anim.SetTrigger("Hit"); // 피격 애니메이션 재생            
+            float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
+            HP -= finalDamage;
+            Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경되었습니다.");
+        }
+    }
 }

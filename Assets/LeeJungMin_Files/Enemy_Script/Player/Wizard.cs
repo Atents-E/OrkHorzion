@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,6 +56,7 @@ public class Wizard :Character
             weaponPS.Stop();    // 파티클 이팩트 재생 시작
         }
     }
+
 
     public override void Attack(IBattle target) => base.Attack(target);
 

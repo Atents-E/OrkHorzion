@@ -5,45 +5,45 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 #if UNITY_EDIOR
-using UnityEditor;  // UNITY_EDIOR¶ó´Â ÀüÃ³¸®±â°¡ ¼³Á¤µÇ¾îÀÖÀ» ¶§¸¸ ½ÇÇà¹öÀü¿¡ ³Ö¾î¶ó
+using UnityEditor;  // UNITY_EDIORë¼ëŠ” ì „ì²˜ë¦¬ê¸°ê°€ ì„¤ì •ë˜ì–´ìˆì„ ë•Œë§Œ ì‹¤í–‰ë²„ì „ì— ë„£ì–´ë¼
 #endif
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(CapsuleCollider))]
-// TowerBaseÀÇ ±â´É
-// 1. ¹üÀ§ ¾ÈÀÇ ¸ó½ºÅÍ È®ÀÎÇÏ¿© Å¸°ÙÀ¸·Î ¼³Á¤
-// 2. Åõ»çÃ¼ »ı¼º
-// 3. »ı¼ºÇÑ Åõ»çÃ¼¸¦ ÀÚ½ÄÀ¸·Î ¼³Á¤
+// TowerBaseì˜ ê¸°ëŠ¥
+// 1. ë²”ìœ„ ì•ˆì˜ ëª¬ìŠ¤í„° í™•ì¸í•˜ì—¬ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •
+// 2. íˆ¬ì‚¬ì²´ ìƒì„±
+// 3. ìƒì„±í•œ íˆ¬ì‚¬ì²´ë¥¼ ìì‹ìœ¼ë¡œ ì„¤ì •
 
-// 4. Å¸¿ö¸¦ Å¬¸¯ÇÏ¸é »èÁ¦ È®ÀÎÇÏ´Â Ã¢À» ¶ç¿ì°í,
-// 5. »èÁ¦¸¦ ¿äÃ»ÇÏ¸é Å¸¿ö ±İ¾×À» ¹İÈ¯, Å¸¿ö´Â »èÁ¦µÈ´Ù.
+// 4. íƒ€ì›Œë¥¼ í´ë¦­í•˜ë©´ ì‚­ì œ í™•ì¸í•˜ëŠ” ì°½ì„ ë„ìš°ê³ ,
+// 5. ì‚­ì œë¥¼ ìš”ì²­í•˜ë©´ íƒ€ì›Œ ê¸ˆì•¡ì„ ë°˜í™˜, íƒ€ì›ŒëŠ” ì‚­ì œëœë‹¤.
 public class TowerBase : MonoBehaviour, IPointerClickHandler
 {
-    public int gold = 10;                   // Å¸¿ö °¡°İ
+    public int gold = 10;                   // íƒ€ì›Œ ê°€ê²©
 
-    public float sightRange = 10.0f;        // ¹üÀ§
-    public float sightRadius = 5.0f;        // ¹üÀ§ ¹İÁö¸§
+    public float sightRange = 10.0f;        // ë²”ìœ„
+    public float sightRadius = 5.0f;        // ë²”ìœ„ ë°˜ì§€ë¦„
 
-    public float attactCreatSpeed = 0.5f;   // Åõ»çÃ¼ »ı¼º ¼Óµµ
-    public float fireAngle = 10.0f;         // Å¸¿öÀÇ °ø°İ °¢µµ
+    public float attactCreatSpeed = 0.5f;   // íˆ¬ì‚¬ì²´ ìƒì„± ì†ë„
+    public float fireAngle = 10.0f;         // íƒ€ì›Œì˜ ê³µê²© ê°ë„
 
-    protected float currentAngle = 0.0f;    // ¹æÇâÀÇ Ã³À½ °¢µµ
-    protected bool isFiring = false;        // ¹ß»ç ÁßÀÎÁö È®ÀÎ
+    protected float currentAngle = 0.0f;    // ë°©í–¥ì˜ ì²˜ìŒ ê°ë„
+    protected bool isFiring = false;        // ë°œì‚¬ ì¤‘ì¸ì§€ í™•ì¸
     
-    //public float projectileSpeed = 0.3f;    // Åõ»çÃ¼ÀÇ ¼Óµµ
-    //public float projectileCreate = 0.1f;   // Åõ»çÃ¼ÀÇ »ı¼º½Ã°£
+    //public float projectileSpeed = 0.3f;    // íˆ¬ì‚¬ì²´ì˜ ì†ë„
+    //public float projectileCreate = 0.1f;   // íˆ¬ì‚¬ì²´ì˜ ìƒì„±ì‹œê°„
     
-    protected IEnumerator fireCoroutine;    // ÄÚ·çÆ¾À» ²ô·Á¸é º¯¼ö·Î °¡Áö°í ÀÖ¾î¾ß ÇÔ.
+    protected IEnumerator fireCoroutine;    // ì½”ë£¨í‹´ì„ ë„ë ¤ë©´ ë³€ìˆ˜ë¡œ ê°€ì§€ê³  ìˆì–´ì•¼ í•¨.
 
-    public GameObject target;               // Å¸°ÙÀº null
-    public GameObject projectile;           // Åõ»çÃ¼ ÇÁ¸®ÆÕ
+    public GameObject target;               // íƒ€ê²Ÿì€ null
+    public GameObject projectile;           // íˆ¬ì‚¬ì²´ í”„ë¦¬íŒ¹
 
-    protected Transform porjectilePos;      // Åõ»çÃ¼ »ı¼º ÇÒ À§Ä¡
-    protected Vector3 porPos;               // Åõ»çÃ¼ »ı¼º ÇÒ Vecotr3 À§Ä¡
+    protected Transform porjectilePos;      // íˆ¬ì‚¬ì²´ ìƒì„± í•  ìœ„ì¹˜
+    protected Vector3 porPos;               // íˆ¬ì‚¬ì²´ ìƒì„± í•  Vecotr3 ìœ„ì¹˜
 
     protected virtual void Awake()   
     {
-        fireCoroutine = PeriodFire();               // ¹ß»ç±â°£
+        fireCoroutine = PeriodFire();               // ë°œì‚¬ê¸°ê°„
 
         porjectilePos = transform.GetChild(0);
         porPos = porjectilePos.transform.position;
@@ -51,17 +51,17 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
         porPos.y = 0.5f;
     }
 
-    protected virtual void Start()    // Ã¹¹øÂ° ¾÷µ¥ÀÌÆ®°¡ ÀÏ¾î³ª±â Àü¿¡ È£Ãâ
+    protected virtual void Start()    // ì²«ë²ˆì§¸ ì—…ë°ì´íŠ¸ê°€ ì¼ì–´ë‚˜ê¸° ì „ì— í˜¸ì¶œ
     {
-        //initialForward = transform.forward;         // Ã³À½ ¾ÕÀº °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ ¾Õ
-        SphereCollider col = GetComponent<SphereCollider>();    // ±¸ ÄÃ¶óÀÌ´õ ÇÒ´ç
+        //initialForward = transform.forward;         // ì²˜ìŒ ì•ì€ ê²Œì„ ì˜¤ë¸Œì íŠ¸ì˜ ì•
+        SphereCollider col = GetComponent<SphereCollider>();    // êµ¬ ì»¬ë¼ì´ë” í• ë‹¹
         col.radius = sightRadius;                   // 
 
-        // StartCoroutine(fireCoroutine);              // ÄÚ·çÆ¾ ½ÃÀÛ
+        // StartCoroutine(fireCoroutine);              // ì½”ë£¨í‹´ ì‹œì‘
     }
 
     /// <summary>
-    ///  ÀÎÅÍÆåÅÍ Ã¢¿¡¼­ °ªÀÌ ¼º°øÀûÀ¸·Î º¯°æµÇ¾úÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö  //ÀÎ½ºÆåÅÍ Ã»¿¡¼­µµ °ªÀÌ º¯°æµÇ´Â °ÍÀ»(Àç»ı Àü) ¹Ù·Î¹Ù·Î È®ÀÎ °¡´É
+    ///  ì¸í„°í™í„° ì°½ì—ì„œ ê°’ì´ ì„±ê³µì ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜  //ì¸ìŠ¤í™í„° ì²­ì—ì„œë„ ê°’ì´ ë³€ê²½ë˜ëŠ” ê²ƒì„(ì¬ìƒ ì „) ë°”ë¡œë°”ë¡œ í™•ì¸ ê°€ëŠ¥
     /// </summary>
     void OnValidate()
     {
@@ -79,7 +79,7 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))              // ¹üÀ§ ¾È¿¡ Enemy°¡ µé¾î¿À¸é
+        if (other.CompareTag("Enemy"))              // ë²”ìœ„ ì•ˆì— Enemyê°€ ë“¤ì–´ì˜¤ë©´
         {
             target = other.gameObject;               // target = Enemy
             Attack();
@@ -89,10 +89,10 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))              // ¹üÀ§ ¾È¿¡ Enemy°¡ ³ª°¡¸é
+        if (other.CompareTag("Enemy"))              // ë²”ìœ„ ì•ˆì— Enemyê°€ ë‚˜ê°€ë©´
         {
-            target = null;                          // target ¾øÀ½
-            isFiring = false;                       // ¹ß»ç È®ÀÎ(false : fireÄÚ·çÆ¾ ÁßÁö) 
+            target = null;                          // target ì—†ìŒ
+            isFiring = false;                       // ë°œì‚¬ í™•ì¸(false : fireì½”ë£¨í‹´ ì¤‘ì§€) 
             Attack();
         }
     }
@@ -101,33 +101,34 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
     {
         if (isFiring)
         {
-            StartCoroutine(fireCoroutine);  // ÄÚ·çÆ¾ ½ÃÀÛ
+            StartCoroutine(fireCoroutine);  // ì½”ë£¨í‹´ ì‹œì‘
         }
         else
         {
-            StopCoroutine(fireCoroutine);   // ÄÚ·çÆ¾ Áß´Ü
+            StopCoroutine(fireCoroutine);   // ì½”ë£¨í‹´ ì¤‘ë‹¨
         }
     }
 
 
-    protected virtual void Fire()         // ¹ß»ç
+    protected virtual void Fire()         // ë°œì‚¬
     {
-        Instantiate(projectile, porPos, transform.rotation, transform);  // Åõ»çÃ¼°¡ º¹»ç
+        Instantiate(projectile, porPos, transform.rotation, transform);  // íˆ¬ì‚¬ì²´ê°€ ë³µì‚¬
     }
 
-    IEnumerator PeriodFire()    // ¹ß»ç ±â°£
+    IEnumerator PeriodFire()    // ë°œì‚¬ ê¸°ê°„
     {
-        while (isFiring)            // trueÀÏ µ¿¾È¿¡
+        while (isFiring)            // trueì¼ ë™ì•ˆì—
         {
-            Fire();             // ¹ß»ç
-            yield return new WaitForSeconds(attactCreatSpeed);   // °ø°İ ¼Óµµ¸¸Å­ ±â´Ù¸®°í »õ·Î ÇÒ´ç
+            Fire();             // ë°œì‚¬
+            yield return new WaitForSeconds(attactCreatSpeed);   // ê³µê²© ì†ë„ë§Œí¼ ê¸°ë‹¤ë¦¬ê³  ìƒˆë¡œ í• ë‹¹
         }
     }
 
 
     public void OnPointerClick(PointerEventData _)
     {
-        Ray ray = GameManager.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Camera Camera = new Camera();
+        Ray ray = Camera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -138,7 +139,7 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
 
                 towerDelete.gameObject.SetActive(true);
 
-                if (towerDelete.OK != false)     // »èÁ¦ ½Â³«ÀÌ µÇ¾úÀ¸¸é
+                if (towerDelete.OK != false)     // ì‚­ì œ ìŠ¹ë‚™ì´ ë˜ì—ˆìœ¼ë©´
                 {
                     DeleteTower();
                 }
@@ -148,7 +149,7 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// Å¸¿öÀÇ ±İ¾×ÀÇ 80%¸¦ ¹İÈ¯ÇÏ°í, Å¸¿ö¸¦ »èÁ¦ÇÑ´Ù.
+    /// íƒ€ì›Œì˜ ê¸ˆì•¡ì˜ 80%ë¥¼ ë°˜í™˜í•˜ê³ , íƒ€ì›Œë¥¼ ì‚­ì œí•œë‹¤.
     /// </summary>
     private void DeleteTower()
     {
@@ -159,32 +160,32 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
     }
 
 
-    protected virtual void OnDrawGizmos/*Selected*/() // ¾ÀÃ¢¿¡¼­ Å¸¿öÀÇ °ø°İ ¹üÀ§¸¦ Ç¥½Ã
+    protected virtual void OnDrawGizmos/*Selected*/() // ì”¬ì°½ì—ì„œ íƒ€ì›Œì˜ ê³µê²© ë²”ìœ„ë¥¼ í‘œì‹œ
     {
 #if UNITY_EDITOR
 
-        Handles.color = Color.blue;    // ÃÊ·Ï»öÀ¸·Î Ç¥½Ã
+        Handles.color = Color.blue;    // ì´ˆë¡ìƒ‰ìœ¼ë¡œ í‘œì‹œ
 
-        if (target != null)             // Å¸°ÙÀÌ ÀÖ´Ù¸é
+        if (target != null)             // íƒ€ê²Ÿì´ ìˆë‹¤ë©´
         {
-            Handles.color = Color.red;  // ÀÌÈÄ¿¡ ÀÛ¼ºµÈ ÄÚµåµéÀº »¡°£»öÀ¸·Î Ç¥½Ã
+            Handles.color = Color.red;  // ì´í›„ì— ì‘ì„±ëœ ì½”ë“œë“¤ì€ ë¹¨ê°„ìƒ‰ìœ¼ë¡œ í‘œì‹œ
         }
 
-        Handles.DrawWireDisc(transform.position, transform.up, sightRadius, 3.0f);     //½Ã¾ß ¹İ°æ¸¸Å­ ¿ø ±×¸®±â //¿øÀÌ ÇÏ³ª¸¸ º¸ÀÓ
+        Handles.DrawWireDisc(transform.position, transform.up, sightRadius, 3.0f);     //ì‹œì•¼ ë°˜ê²½ë§Œí¼ ì› ê·¸ë¦¬ê¸° //ì›ì´ í•˜ë‚˜ë§Œ ë³´ì„
         
-        //Vector3 forward = transform.forward;    // ¿òÁ÷ÀÏ ¹æÇâ À§Ä¡¸¦ ¹Ş¾Æ¿È
+        //Vector3 forward = transform.forward;    // ì›€ì§ì¼ ë°©í–¥ ìœ„ì¹˜ë¥¼ ë°›ì•„ì˜´
         //forward.y = 0;
         //forward = forward.normalized * sightRange;
 
 
-        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // Áß½É¼± ±×¸®±â
+        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // ì¤‘ì‹¬ì„  ê·¸ë¦¬ê¸°
 
-        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// upº¤ÅÍ¸¦ ÃàÀ¸·Î ¹İ½Ã°è¹æÇâÀ¸·Î sightHalfAngle¸¸Å­ È¸Àü
-        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // upº¤ÅÍ¸¦ ÃàÀ¸·Î ½Ã°è¹æÇâÀ¸·Î sightHalfAngle¸¸Å­ È¸Àü
+        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// upë²¡í„°ë¥¼ ì¶•ìœ¼ë¡œ ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ sightHalfAngleë§Œí¼ íšŒì „
+        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // upë²¡í„°ë¥¼ ì¶•ìœ¼ë¡œ ì‹œê³„ë°©í–¥ìœ¼ë¡œ sightHalfAngleë§Œí¼ íšŒì „
 
-        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // Áß½É¼±À» ¹İ½Ã°è¹æÇâÀ¸·Î È¸Àü½ÃÄÑ¼­ ±×¸®±â
-        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // Áß½É¼±À» ½Ã°è¹æÇâÀ¸·Î È¸Àü½ÃÄÑ¼­ ±×¸®±â
-        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // È£ ±×¸®±â
+        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // ì¤‘ì‹¬ì„ ì„ ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „ì‹œì¼œì„œ ê·¸ë¦¬ê¸°
+        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // ì¤‘ì‹¬ì„ ì„ ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „ì‹œì¼œì„œ ê·¸ë¦¬ê¸°
+        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // í˜¸ ê·¸ë¦¬ê¸°
 #endif  
     }
 
