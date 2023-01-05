@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 #if UNITY_EDIOR
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
@@ -126,15 +127,24 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData _)
     {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        TowerDelete towerDelete = canvas.GetComponentInChildren<TowerDelete>();
-
-        towerDelete.gameObject.SetActive(true);
-
-        if (towerDelete.OK != false)     // 삭제 승낙이 되었으면
+        Ray ray = GameManager.MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
-            DeleteTower();
+            if (hit.collider != null)
+            {
+                Canvas canvas = FindObjectOfType<Canvas>();
+                TowerDelete towerDelete = canvas.GetComponentInChildren<TowerDelete>();
+
+                towerDelete.gameObject.SetActive(true);
+
+                if (towerDelete.OK != false)     // 삭제 승낙이 되었으면
+                {
+                    DeleteTower();
+                }
+            }
         }
+
     }
 
     /// <summary>

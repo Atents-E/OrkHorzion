@@ -19,15 +19,9 @@ EditorUserSettings:
       value: 5a075002060208025e570a7643770f444416487c787023322b784d6bb1b6376d
       flags: 0
     RecentlyUsedSceneGuid-4:
-      value: 0707075457060c08590f5a7a13710744414e1a7e7f7c27612e284932e0b0373d
-      flags: 0
-    RecentlyUsedSceneGuid-5:
-      value: 5b5403515d565903540b0d2647700b4442154b782e2e77697b2f4532b2b9653d
-      flags: 0
-    RecentlyUsedSceneGuid-6:
       value: 0609020357530803550d5a7212260b444f4e1b7e757b71617e7e4c37e4b2673e
       flags: 0
-    RecentlyUsedSceneGuid-7:
+    RecentlyUsedSceneGuid-5:
       value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
 =======
       value: 5309065455575f085d5b5f7a46265e44121519787c2e27322e7b4f35e1b6306f
@@ -60,11 +54,17 @@ EditorUserSettings:
       value: 5b080302070159085b570e7442735e44404f497b7c717435292a4d64e0b26460
 >>>>>>> 장명근임시2
       flags: 0
-    RecentlyUsedSceneGuid-8:
+    RecentlyUsedSceneGuid-6:
       value: 5350015e00575e0d590f0e7646715b44414f482c7a7b76662b78496bb0b3326e
       flags: 0
-    RecentlyUsedSceneGuid-9:
+    RecentlyUsedSceneGuid-7:
       value: 0600510452560a0c5e0b0a7315275944134e192c7b2972352c7f1e32bbe5363e
+      flags: 0
+    RecentlyUsedSceneGuid-8:
+      value: 0707075457060c08590f5a7a13710744414e1a7e7f7c27612e284932e0b0373d
+      flags: 0
+    RecentlyUsedSceneGuid-9:
+      value: 5b5403515d565903540b0d2647700b4442154b782e2e77697b2f4532b2b9653d
       flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650
