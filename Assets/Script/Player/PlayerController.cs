@@ -45,12 +45,18 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.MoveModeChange.performed += OnMoveModeChange;
         inputActions.Player.Attack.performed += OnAttack;
+<<<<<<< HEAD
         //inputActions.Player.Hit.performed += OnHit;
+=======
+>>>>>>> 8c2bbead3499ef8262ae749ab7bb0507efcfa57c
     }
 
     private void OnDisable()
     {
+<<<<<<< HEAD
         //inputActions.Player.Hit.performed -= OnHit;
+=======
+>>>>>>> 8c2bbead3499ef8262ae749ab7bb0507efcfa57c
         inputActions.Player.Attack.performed -= OnAttack;
         inputActions.Player.MoveModeChange.performed -= OnMoveModeChange;
         inputActions.Player.Move.canceled -= OnMove;
@@ -92,8 +98,6 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetFloat("Speed", 1.0f);
             }
-
-            // inputDir.y = -2.0f;
         }
         else
         {
@@ -133,11 +137,6 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("Attack");
         }
         
-    }
-
-    public void OnHit(InputAction.CallbackContext _)
-    {
-        anim.SetTrigger("Hit");
     }
 
 
