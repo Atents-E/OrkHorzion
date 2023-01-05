@@ -22,6 +22,7 @@ public class ItemDataEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();  // 원래 인스팩터 창에서 그려지는 것들
         if (itemData != null)    // itemData가 있는지 확인
         {
             if (itemData.itemIcon != null)  // itemData에 itemIcon이 있는지 확인
@@ -36,7 +37,6 @@ public class ItemDataEditor : Editor
                 }
             }
         }
-        base.OnInspectorGUI();  // 원래 인스팩터 창에서 그려지는 것들
     }
 }
 #endif
