@@ -67,14 +67,14 @@ public class StatManager : MonoBehaviour
     [HideInInspector]
     public float extra_MoveSpeed = 0.0f;
 
-    Player player;
+    Test_Player_JANG player;
     Inventory inven;
 
     public List<ItemSlot> slots;
 
     public void InitializeStat(Inventory inven)
     {
-        player = GameManager.Inst.Player;
+        player = GameManager_JANG.Inst.Player;
         SetPlayerStat();
         ResetExtraStat();
         this.inven = inven;

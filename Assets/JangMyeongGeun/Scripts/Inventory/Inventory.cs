@@ -59,8 +59,8 @@ public class Inventory
             slots.Add(new ItemSlot());
         }
 
-        itemManager = GameManager.Inst.ItemData;
-        invenUI = GameManager.Inst.InventoryUI;
+        itemManager = GameManager_JANG.Inst.ItemData;
+        invenUI = GameManager_JANG.Inst.InventoryUI;
 
     }
 

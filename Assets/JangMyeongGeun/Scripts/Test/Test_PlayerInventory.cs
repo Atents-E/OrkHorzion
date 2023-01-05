@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Test_PlayerInventory : Test_Base
+public class Test_PlayerInventory : Test_Base_JANG
 {
-    Player player;
+    Test_Player_JANG player;
     InventoryUI invenUI;
 
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<Test_Player_JANG>();
         invenUI = FindObjectOfType<InventoryUI>();
     }
 

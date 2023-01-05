@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Test_Inventory : Test_Base
+public class Test_Inventory : Test_Base_JANG
 {
     public InventoryUI inventoryUI;
     public Inventory inven;

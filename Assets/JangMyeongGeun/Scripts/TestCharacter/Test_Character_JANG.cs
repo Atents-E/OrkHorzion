@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Test_Character_JANG : MonoBehaviour
 {
     protected string characterName; // 캐릭터 이름
     public string CharacterName // 캐릭터 체력 프로퍼티
