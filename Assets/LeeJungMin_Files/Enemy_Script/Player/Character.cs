@@ -152,17 +152,6 @@ public class Character : MonoBehaviour, IBattle, IHealth
         transform.position = spotPos;
         Debug.Log($"{gameObject.name}가 다시 살아납니다");
        
-        
     }
 
-    public void TakeDamage(float damage)
-    {
-        if (isAlive)                // 살아있을 때만 데미지 입음.
-        {
-            anim.SetTrigger("Hit"); // 피격 애니메이션 재생            
-            float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
-            HP -= finalDamage;
-            Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경되었습니다.");
-        }
-    }
 }
