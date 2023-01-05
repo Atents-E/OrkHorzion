@@ -5,9 +5,12 @@ using UnityEngine;
 
 public interface IBattle
 {
-    float AttackPower { get; }  // 공격력 읽는 프로퍼티
+    float ATK { get; }  // 공격력 읽는 프로퍼티
+    float DEF { get; } 
+    Transform transform { get; }
 
     void Attack(IBattle target);    // 공격 함수
+    void Defence(float damage);
 
     // 인터페이스를 상속받을 클래스의 함수
     // 플레이어의 경우
@@ -40,30 +43,30 @@ public interface IBattle
     */
 
 
-    void TakeDamage(float damage);  // 피해 함수
-    
+   // void TakeDamage(float damage);  // 피해 함수
+
     // 인터페이스를 상속받을 클래스의 함수
     // 플레이어의 경우
-    /*
-    public void TakeDamage(float damage)
-    {
-        float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
-        HP -= finalDamage
-        if (HP < 0.0f)
-        {
-            Die();  
-        }
-    }
+
+    //public void TakeDamage(float damage)
+    //{
+    //    float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
+    //    HP -= finalDamage
+    //    if (HP < 0.0f)
+    //    {
+    //        Die();
+    //    }
+    //}
 
     // 몬스터의 경우
-    public void TakeDamage(float damage)
-    {
-        HP -= damage;
-        if (HP < 0.0f)
-        {
-            Die();
-        }
-    }
-    */
+    //public void TakeDamage(float damage)
+    //{
+    //    HP -= damage;
+    //    if (HP < 0.0f)
+    //    {
+    //        Die();
+    //    }
+    //}
+
 
 }
