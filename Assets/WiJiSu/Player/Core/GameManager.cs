@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     public Character Character => character;
     public Warrior Warrior => warrior;   
     public Wizard Wizard => wizard;
+
     //public Camera MainCamera => mainCamera;
 
     protected override void Initialize()

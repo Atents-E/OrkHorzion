@@ -12,7 +12,7 @@ public class Test_Player_JANG : Test_Character_JANG
     {
         inven = new Inventory(2);
         statManager = GameManager_JANG.Inst.StatManager;
-        statManager.InitializeStat(inven);
+        statManager.WarriorInitializeStat(inven);
         GameManager_JANG.Inst.InventoryUI.InitializeInventoy(inven);
     }
 

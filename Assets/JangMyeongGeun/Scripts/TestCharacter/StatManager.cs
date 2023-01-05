@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StatManager;
 
 public class StatManager : MonoBehaviour
 {
@@ -17,14 +18,22 @@ public class StatManager : MonoBehaviour
 
     // 1. 인벤토리 리스트에 변화가 있을 때마다의 이벤트함수에 등록하여 효과를 적용한다.
 
-    [Header("기본 능력치")]
+    public enum PlayerCharacter
+    { 
+        None = 0,
+        Warrior,
+        Wizard
+    }
+    
+    PlayerCharacter playerCharacter = PlayerCharacter.None;
+
+    [Header("전사 기본 능력치")]
     [SerializeField]
-    private float default_MaxHp = 100;
-    public float Default_MaxHp => default_MaxHp;
+    private float warrior_default_MaxHp = 100;
+    public float Default_MaxHp => warrior_default_MaxHp;
 
     [HideInInspector]
     public float extra_MaxHp = 0.0f;
-
 
     [SerializeField]
     private float default_Def = 20;
@@ -72,10 +81,11 @@ public class StatManager : MonoBehaviour
 
     public List<ItemSlot> slots;
 
-    public void InitializeStat(Inventory inven)
+    public void WarriorInitializeStat(Inventory inven)
     {
+        playerCharacter = PlayerCharacter.Warrior;
         player = GameManager_JANG.Inst.Player;
-        SetPlayerStat();
+        SetWarriorStat();
         ResetExtraStat();
         this.inven = inven;
         inven.onRefreshSlot += RefreshSlots;
@@ -83,10 +93,33 @@ public class StatManager : MonoBehaviour
         inven.onSubSlotItemEffect = (itemData,itemCount) => SubEffect(itemData,itemCount);
     }
 
-    private void SetPlayerStat()
+    public void WizardInitializeStat(Inventory inven)
     {
-        player.MAXHP = default_MaxHp;
-        player.HP = default_MaxHp;
+        playerCharacter = PlayerCharacter.Wizard;
+        player = GameManager_JANG.Inst.Player;
+        SetWizardStat();
+        ResetExtraStat();
+        this.inven = inven;
+        inven.onRefreshSlot += RefreshSlots;
+        inven.onAddSlotItemEffect = (itemData) => AddEffect(itemData);
+        inven.onSubSlotItemEffect = (itemData, itemCount) => SubEffect(itemData, itemCount);
+    }
+
+    private void SetWarriorStat()
+    {
+        player.MAXHP = warrior_default_MaxHp;
+        player.HP = warrior_default_MaxHp;
+        player.DEF = default_Def;
+        player.ATK = default_Atk;
+        player.ATKSpeed = default_AtkSpeed;
+        player.CriticalChance = default_CriticalChance;
+        player.MoveSpeed = default_MoveSpeed;
+    }
+
+    private void SetWizardStat()
+    {
+        player.MAXHP = warrior_default_MaxHp;
+        player.HP = warrior_default_MaxHp;
         player.DEF = default_Def;
         player.ATK = default_Atk;
         player.ATKSpeed = default_AtkSpeed;
