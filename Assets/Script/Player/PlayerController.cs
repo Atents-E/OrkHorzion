@@ -45,12 +45,10 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.MoveModeChange.performed += OnMoveModeChange;
         inputActions.Player.Attack.performed += OnAttack;
-        inputActions.Player.Hit.performed += OnHit;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Hit.performed -= OnHit;
         inputActions.Player.Attack.performed -= OnAttack;
         inputActions.Player.MoveModeChange.performed -= OnMoveModeChange;
         inputActions.Player.Move.canceled -= OnMove;
@@ -92,8 +90,6 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetFloat("Speed", 1.0f);
             }
-
-            // inputDir.y = -2.0f;
         }
         else
         {
@@ -133,11 +129,6 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("Attack");
         }
         
-    }
-
-    public void OnHit(InputAction.CallbackContext _)
-    {
-        anim.SetTrigger("Hit");
     }
 
 
