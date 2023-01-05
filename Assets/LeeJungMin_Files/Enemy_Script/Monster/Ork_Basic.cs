@@ -54,7 +54,7 @@ public class Ork_Basic : EnemyBase
         target = other.GetComponent<IBattle>();
         if (other.CompareTag("Player") && isAlive)
         {
-            Debug.Log("들어옴");
+            //Debug.Log("들어옴");
             looktargetOn = true;
             playerTarget = other.transform;         // playerTarget이 null이 아니게 되었다.
             anim.SetBool("Attack", true);
@@ -68,7 +68,7 @@ public class Ork_Basic : EnemyBase
         {
             if (target != null && testTime > 1)
             {
-                Debug.Log("플레이어 공격");
+                //Debug.Log("플레이어 공격");
                 Attack(target);
                 testTime = 0.0f;
             }
@@ -80,7 +80,7 @@ public class Ork_Basic : EnemyBase
         if (other.CompareTag("Player"))
         {
             target = null;
-            Debug.Log("나감");
+            //Debug.Log("나감");
             playerTarget = null;                    // playerTarget이 null이 되었다.
             looktargetOn = false;
             anim.SetBool("Attack", false);
