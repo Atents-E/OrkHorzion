@@ -7,7 +7,7 @@ using static UnityEditor.Progress;
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
 #endif
 
-
+// 기존 타워 베이스 클래스(이 클래스를 참고하여 TowerBase 완성 후, 삭제 할 클래스)
 public class TowerBase_0: MonoBehaviour
 {
     public int goal = 10;                   // 타워 가격
@@ -45,7 +45,7 @@ public class TowerBase_0: MonoBehaviour
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
 
-        StartCoroutine(fireCoroutine);              // 코루틴 시작
+        // StartCoroutine(fireCoroutine);              // 코루틴 시작
     }
 
     /// <summary>
@@ -133,6 +133,7 @@ public class TowerBase_0: MonoBehaviour
     protected virtual bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
     {
         Vector3 dir = target.position - direction.position;         // 타겟 위치 - 방향 위치
+        dir.y = 0.0f;
         return Vector3.Angle(direction.forward, dir) < fireAngle;   // 방향의 앞쪽과 dir사이의 내각이 발사각보다 작다
 
         // Debug.Log("타겟이 발사각 안에 있음");

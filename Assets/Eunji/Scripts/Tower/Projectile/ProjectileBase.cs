@@ -1,51 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+
+// ProjectileBase 기능
+// 1. 생성되면 생성시킨 클래스의 타겟으로 날아감 
+// 2. 타겟과 만다면 특정 영향을 타겟에게 미침
+// 3. 생성되고 3초 뒤에 자동 삭제
+// 4. 타겟과 만나면 즉시 삭제된다
 
 public class ProjectileBase : MonoBehaviour
 {
-    public float attackPower = 10.0f;       // 발사체 공격력
-    public float initialSpeed = 20.0f;      // 처음 속도
+    public float attackPower = 10.0f;   // 발사체 공격력
+    public float speed = 0.2f;          // 처음 속도
+    public float lifeTime = 2.0f;
 
-    protected Rigidbody rigid;                        // 리지드바디
-    protected GameObject target;                      // 발사체와 만날 타겟(적)
+    protected GameObject target;        // 발사체와 만날 타겟(적)
 
-    private void Awake()    
+    TowerBase parentTarget;             // 부모의 타겟
+
+
+    protected virtual void Awake()    
     {
-        rigid = GetComponent<Rigidbody>();  // 리지드바디 할당
+        parentTarget = GetComponentInParent<TowerBase>();
+        target = parentTarget.target;
+
+        Destroy(this.gameObject, lifeTime); // 생성되면 5초 뒤에 발사체 삭제
     }
 
-    private void Start()    // 첫 번째 업데이트 전에
+
+    protected void Update()
     {
-        rigid.velocity = transform.forward * initialSpeed;
+        Vector3 dir = (target.transform.position - transform.position).normalized;   // Monster에게 가는 방향벡터
+        dir.y += 0.5f;
+
+        transform.Translate(speed * Time.fixedDeltaTime * dir);         // 투사체 이동
+
+        // Debug.Log($"{target.transform.position}");
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
-            // target은 other
-            target = other.gameObject;
+            //// Enemey의 HP는 감소
+            MonsterBase monster = other.GetComponent<MonsterBase>();
+            //float MonsterHp = monster.MonsterHp;
 
-            // Enemey의 HP는 감소
-            MonsterBase monster = GetComponent<MonsterBase>();
-            monster.monsterHp -= attackPower;
+            //if (MonsterHp != 0)
+            //{
+            //    MonsterHp -= attackPower;
+
+            //    if (MonsterHp < 0)
+            //    {
+            //        MonsterHp = 0;
+            //    }
+            //}
+
+            //Debug.Log($"{MonsterHp}");
+
+            Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
         }
-        Destroy(this.gameObject); // 발사체 삭제
-
     }
-
-    //protected void OnCollisionEnter(Collision collision) // 충돌이 일어나면
-    //{
-    //    if (collision.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-    //    {
-    //        // target은 collision
-    //        target = collision.gameObject;
-
-    //        // Enemey의 HP는 감소
-    //        MonsterBase monster = GetComponent<MonsterBase>();
-    //        monster.monsterHp -= attackPower;
-    //    }
-    //    Destroy(this.gameObject); // 발사체 삭제
-    //}
 }

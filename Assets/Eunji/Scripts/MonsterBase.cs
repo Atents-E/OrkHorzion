@@ -12,6 +12,7 @@ public class MonsterBase : MonoBehaviour
     public float monsterHp = 100.0f;    // 몬스터 체력
     public float speed= 100.0f;    // 몬스터 이속
     public float attackSpeed= 100.0f;    // 몬스터 공속
+    public float attackPower = 10;
 
     InputActionTower inputAction;       // 인풋 액션
 
@@ -25,18 +26,18 @@ public class MonsterBase : MonoBehaviour
         get => monsterHp;
         set
         {
-            monsterHp = value;        
+            MonsterHp = value;        
         }
     }
 
-    private void OnEnable()
-    {
-        inputAction.Test.Enable();
-        inputAction.Test.ShowMonsterHP.performed += ShowMonsterHP;   
-    }
+    //private void OnEnable()
+    //{
+    //    inputAction.Test.Enable();
+    //    inputAction.Test.ShowMonsterHP.performed += ShowMonsterHP;   
+    //}
 
-    private void ShowMonsterHP(InputAction.CallbackContext _)
-    {
-        Debug.Log($"{MonsterHp}");  // (스페이스 키를 누르면 보여줌
-    }
+    //private void ShowMonsterHP(InputAction.CallbackContext _)
+    //{
+    //    Debug.Log($"{MonsterHp}");  // (스페이스 키를 누르면 보여줌
+    //}
 }
