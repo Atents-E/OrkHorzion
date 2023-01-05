@@ -15,4 +15,5 @@ public class Test_Player_JANG : Test_Character_JANG
         statManager.InitializeStat(inven);
         GameManager_JANG.Inst.InventoryUI.InitializeInventoy(inven);
     }
+
 }
