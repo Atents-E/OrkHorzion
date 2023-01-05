@@ -97,7 +97,7 @@ public class Test_PlayerController : MonoBehaviour, IBattle, IHealth
     public void Die()
     {
         isAlive = false;
-        Debug.Log("»ç¸Á");
+        Debug.Log("ì‚¬ë§");
         speed = 0;
     }
 
@@ -107,7 +107,7 @@ public class Test_PlayerController : MonoBehaviour, IBattle, IHealth
         {
             Attack(target);
         }
-    }
+    } 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -126,9 +126,9 @@ public class Test_PlayerController : MonoBehaviour, IBattle, IHealth
     }
 
     /// <summary>
-    /// °ø°İ¿ë ÇÔ¼ö
+    /// ê³µê²©ìš© í•¨ìˆ˜
     /// </summary>
-    /// <param name="target">°ø°İÇÒ ´ë»ó</param>
+    /// <param name="target">ê³µê²©í•  ëŒ€ìƒ</param>
     public void Attack(IBattle target)
     {
         target?.TakeDamage(AttackPower);

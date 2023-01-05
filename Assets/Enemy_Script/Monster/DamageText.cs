@@ -4,9 +4,9 @@ using UnityEngine;
 using TMPro;
 public class DamageText : MonoBehaviour
 {
-    public float moveSpeed = 1.0f;      // ¿òÁ÷ÀÌ´Â ¼Óµµ
-    public float alphaSpeed = 1.0f;     // »ç¶óÁö´Â ¼Óµµ
-    public float destroyTime = 2.0f;    // ¿ÀºêÁ§Æ® »èÁ¦
+    public float moveSpeed = 1.0f;      // ì›€ì§ì´ëŠ” ì†ë„
+    public float alphaSpeed = 1.0f;     // ì‚¬ë¼ì§€ëŠ” ì†ë„
+    public float destroyTime = 2.0f;    // ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
     TextMeshPro text;
     Color alpha;
 
@@ -35,6 +35,7 @@ public class DamageText : MonoBehaviour
     private void LateUpdate()
     {
         transform.forward = Camera.main.transform.forward;
-        // Ä«¸Ş¶ó°¡ ¹Ù¶óº¸´Â ¹æÇâÀ» ÇâÇØ¼­ HP¹Ù°¡ º¸ÀÌ°Ô ÇÑ´Ù.
+        // ì¹´ë©”ë¼ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ í–¥í•´ì„œ HPë°”ê°€ ë³´ì´ê²Œ í•œë‹¤.
     }
 }
+
