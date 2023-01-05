@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Eunji/Prefabs/Projectile.meta
 guid: 2163590ec2fd32942a930d6a6dccb96a
+========
+guid: d185f2a78207edd44ad8706220b8b498
+>>>>>>>> 몬스터_수정:Assets/Eunji/Prefabs/Hits.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

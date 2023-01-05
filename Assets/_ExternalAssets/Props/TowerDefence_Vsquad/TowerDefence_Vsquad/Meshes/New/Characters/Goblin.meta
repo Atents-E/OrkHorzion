@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_ExternalAssets/Props/TowerDefence_Vsquad/TowerDefence_Vsquad/Meshes/New/Characters/Goblin.meta
 guid: 9f044ee26f17fdc48af8b7dbeb74d9c2
+========
+guid: 9379191c556319c4087b582570d6b379
+>>>>>>>> 몬스터_수정:Assets/Eunji/Prefabs/Texture.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

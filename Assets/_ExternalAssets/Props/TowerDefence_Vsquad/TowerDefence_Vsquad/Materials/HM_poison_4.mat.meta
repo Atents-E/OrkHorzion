@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: bf875141f983b844ebff93b420fee302
+<<<<<<<< HEAD:Assets/_ExternalAssets/Props/TowerDefence_Vsquad/TowerDefence_Vsquad/Materials/HM_poison_4.mat.meta
+guid: ba3a20074c064e14485a049d60b21667
+========
+guid: defcbe22299028d4b971d4dfbde050f1
+>>>>>>>> 몬스터_수정:Assets/_ExternalAssets/Props/TowerDefence_Vsquad(종합)/TowerDefence_Vsquad/Materials/Portal_6.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

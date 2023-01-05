@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_ExternalAssets/Props/TowerDefence_Vsquad/TowerDefence_Vsquad/Meshes/New/Characters.meta
 guid: 3d6982ce86e23cc44b51d85fbc8c72f3
+========
+guid: 2163590ec2fd32942a930d6a6dccb96a
+>>>>>>>> 몬스터_수정:Assets/Eunji/Prefabs/Projectile.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

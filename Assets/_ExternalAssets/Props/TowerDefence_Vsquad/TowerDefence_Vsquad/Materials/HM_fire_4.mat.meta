@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_ExternalAssets/Props/TowerDefence_Vsquad/TowerDefence_Vsquad/Materials/HM_fire_4.mat.meta
 guid: 735f1b31b544f684a9df7242916db941
+========
+guid: 18db81dcf9604034995f04475dd6d4b9
+>>>>>>>> 몬스터_수정:Assets/Eunji/Prefabs/Texture/Materials/HM_fire_1.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

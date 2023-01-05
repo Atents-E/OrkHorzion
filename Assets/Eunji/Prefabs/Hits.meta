@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Eunji/Prefabs/Hits.meta
 guid: d185f2a78207edd44ad8706220b8b498
+========
+guid: a8ef61f02ae23964a84a916ec54393f8
+>>>>>>>> 몬스터_수정:Assets/Eunji/Prefabs/Ground.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
