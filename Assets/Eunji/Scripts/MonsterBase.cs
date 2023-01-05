@@ -14,19 +14,19 @@ public class MonsterBase : MonoBehaviour
     public float attackSpeed= 100.0f;    // 몬스터 공속
     public float attackPower = 10;
 
-    InputActionTower inputAction;       // 인풋 액션
+    //InputActionTower inputAction;       // 인풋 액션
 
-    private void Awake()
-    {
-        inputAction = new InputActionTower();
-    }
+    //private void Awake()
+    //{
+    //    inputAction = new InputActionTower();
+    //}
 
     public float MonsterHp
     {
         get => monsterHp;
         set
         {
-            MonsterHp = value;        
+            MonsterHp = value;
         }
     }
 
