@@ -64,6 +64,9 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
         else
         {
+
+        }
+        {
             // 첫번째 이후에 만들어진 싱글톤 게임 오브젝트
             if (_instance != this)
             {

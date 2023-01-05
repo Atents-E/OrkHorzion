@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Initialize()
     {
-       character = FindObjectOfType<Character>();
+        character = FindObjectOfType<Character>();
         warrior = FindObjectOfType<Warrior>();
         wizard = FindObjectOfType<Wizard>();
         //mainCamera = FindObjectOfType<Camera>();

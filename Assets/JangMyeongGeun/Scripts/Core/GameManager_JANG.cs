@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager_JANG : Singleton_JANG<GameManager_JANG>
+public class GameManager_JANG : Singleton<GameManager_JANG>
 {
     ItemManager itemData;
     StatManager statManager;
