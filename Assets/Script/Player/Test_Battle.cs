@@ -17,13 +17,13 @@ public class Test_Battle : TestBase
 
     protected override void Test1(InputAction.CallbackContext _)
     { 
-        warrior.Defence(26);
+        warrior.TakeDamage(26);
        
     }
 
     protected override void Test2(InputAction.CallbackContext _)
     {
-        wizard.Defence(50);
+        wizard.TakeDamage(50);
     }
 
 

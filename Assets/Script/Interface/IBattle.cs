@@ -5,12 +5,11 @@ using UnityEngine;
 
 public interface IBattle
 {
-    float ATK { get; }  // 공격력 읽는 프로퍼티
-    float DEF { get; } 
-    Transform transform { get; }
+    float AttackPower { get; }  // 공격력 읽는 프로퍼티
+    float DefencePower { get; } 
 
     void Attack(IBattle target);    // 공격 함수
-    void Defence(float damage);
+    void TakeDamage(float damage);
 
     // 인터페이스를 상속받을 클래스의 함수
     // 플레이어의 경우
