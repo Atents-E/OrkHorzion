@@ -12,7 +12,7 @@ public class WaveSystem : MonoBehaviour
 
     public void StartWave()
     {
-        if (enemyspawner.enemyPrefab && currentWaveIndex < waves.Length -1)
+        if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length -1)
         {
             // 인덱스의 시작이 -1이기 때문에 웨이브 인덱스 증가를 제일 먼저 함
             currentWaveIndex++;
@@ -21,7 +21,6 @@ public class WaveSystem : MonoBehaviour
         }
     }
 }
-
 
 [System.Serializable]
 public struct Wave

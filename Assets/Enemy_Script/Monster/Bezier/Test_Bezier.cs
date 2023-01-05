@@ -7,9 +7,6 @@ public class Test_Bezier : MonoBehaviour
 {
     public Transform target;
 
-    //public float slerpTime = 0.5f;
-    //float currentTime = 0;
-
     [Range(0,1)]
     public float testTime = 0.5f;
 
@@ -24,60 +21,12 @@ public class Test_Bezier : MonoBehaviour
         p2 = transform.position + transform.up * 6.0f;
         p3 = target.position + transform.up * 10.0f;
         p4 = target.position;
-
-        //Vector3 dis = p1 - p3;
-        //Vector3 vDis = p1 + (dis / 2);
-        ////vDis.y += 20f;
-        //Vector3 disz;
-        //disz.z = transform.position.z - target.position.z;
-
-        //vDis = new Vector3(vDis.x, vDis.y + 20f, disz.z);
-
-        //p1 = transform.position;
-        //p2 = vDis.normalized; //(vDis - p1).normalized;
-        ////p2 = (-target.forward - transform.forward) + transform.up * 5.0f;
-        //p3 = target.position;
     }
 
     private void Update()
     {
         testTime += Time.deltaTime * 0.7f;
-        //p1 = transform.position;
-        //p2 = transform.position + transform.up * 2.0f;
-        //p3 = target.position + transform.up * 2.0f;
-        //p4 = target.position;
-
-
         transform.position = BezierTest(p1, p2, p3, p4, testTime);
-        //transform.position = BezierTest2(p1, p2, p3, testTime);
-        //transform.position = BezierTest2(p1, p2, p3, testTime);
-
-        //transform.position = Vector3.Slerp(transform.position, target.transform.position, 0.5f);
-
-        //currentTime += Time.deltaTime;
-
-        //if (currentTime >= slerpTime)
-        //{
-        //    currentTime = slerpTime;
-        //}
-
-        //testTime += Time.deltaTime * 0.01f;
-        //if (testTime > 0.3)
-        //{
-        //    testTime += Time.deltaTime * 0.3f;
-        //    if (testTime > 1)
-        //    {
-        //        Destroy(gameObject, 3.0f);
-        //    }
-        //}
-
-        //float t = currentTime / slerpTime;
-        //t = t * t * t * (t * (6f * t - 15f) + 10f);
-
-        //float t = currentTime / slerpTime;
-        //transform.position = Vector3.Slerp(transform.position, BezierTest(p1, p2, p3, p4, testTime), t);
-
-        //transform.position = BezierTest(p1, p2, p3, p4, testTime);
 
         if (Vector3.Distance(transform.position, target.position) <= 0.01f)
         {

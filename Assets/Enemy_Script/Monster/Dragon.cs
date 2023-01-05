@@ -10,6 +10,7 @@ public class Dragon : EnemyBase
     Enemy_Navigation nav;
     ParticleSystem particle;    
     BoxCollider breathArea;
+    SphereCollider coll;
 
     SpriteRenderer breath;
     SpriteRenderer heal;
@@ -308,8 +309,9 @@ public class Dragon : EnemyBase
             breath.color = Color.clear;
             heal.color = Color.clear;
             isDead = false;
-            nav.Stopped(true);              // 네비게이션 멈추기
             anim.SetTrigger("IsDead");      // 죽는 애니메이션 실행
+            nav.Stopped(true);              // 네비게이션 멈추기
+
             Destroy(this.gameObject, 2.0f);
         }
     }

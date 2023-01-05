@@ -29,7 +29,7 @@ public class Ork_Basic : EnemyBase
     {
         SearchPlayer();         // 플레이어 찾기
 
-        MaxHP += spawn.waveCount * 500.0f;
+        MaxHP += spawn.WaveCount * 500.0f;
         HP = MaxHP;
 
         onHealthChange += HP_Change;   

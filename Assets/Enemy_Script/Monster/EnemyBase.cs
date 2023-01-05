@@ -167,6 +167,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
+        looktargetOn = false;
         onDie?.Invoke();
     }
 

@@ -22,6 +22,7 @@ public class Test_PlayerController : MonoBehaviour, IBattle, IHealth
 
     public float speed = 8.0f;
 
+    IBattle target;
     public float HP
     {
         get => playerHp;
@@ -108,7 +109,6 @@ public class Test_PlayerController : MonoBehaviour, IBattle, IHealth
         }
     }
 
-    IBattle target;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") && isAlive)

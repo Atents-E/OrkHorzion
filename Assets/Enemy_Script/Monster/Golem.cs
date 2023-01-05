@@ -122,6 +122,7 @@ public class Golem : EnemyBase
         HP = MaxHP;
         onHealthChange += HP_Change;
         onDie += Dead;
+        
     }
 
     private void FixedUpdate()
@@ -149,6 +150,7 @@ public class Golem : EnemyBase
         if (waitTimer < 0.0f)
         { 
             anim.SetTrigger("NoAttack");
+            
             State = GolemState.Run;
         }
     }

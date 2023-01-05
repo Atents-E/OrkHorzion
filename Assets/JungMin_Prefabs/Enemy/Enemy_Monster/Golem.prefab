@@ -192,7 +192,7 @@ MonoBehaviour:
   waitTime: 2
   runWaitTime: 5
   testHpCount: 5
-  baseTarget: {fileID: 0}
+  baseTarget: {fileID: 2621390799117063607, guid: fdd4c5a41e82f7f42a4329a2139c0091, type: 3}
 --- !u!195 &8272958229146477016
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -965,6 +965,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4211206721893958214}
     m_Modifications:
+    - target: {fileID: 323719847, guid: 72d80d070e756c84cac1429825353eff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2915514975379735682, guid: 72d80d070e756c84cac1429825353eff, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1021,6 +1025,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3479452557681806911, guid: 72d80d070e756c84cac1429825353eff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333419825256600608, guid: 72d80d070e756c84cac1429825353eff, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}
       propertyPath: m_Name
       value: Golem_Rock
@@ -1029,9 +1041,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3479452557681806911, guid: 72d80d070e756c84cac1429825353eff, type: 3}
-    - {fileID: 323719847, guid: 72d80d070e756c84cac1429825353eff, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72d80d070e756c84cac1429825353eff, type: 3}
 --- !u!4 &4205962669985345766 stripped
 Transform:
