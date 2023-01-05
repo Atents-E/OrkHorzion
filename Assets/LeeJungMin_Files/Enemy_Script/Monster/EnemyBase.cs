@@ -11,25 +11,23 @@ using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour, IBattle, IHealth
 {
-    //float moveSpeed = 3.0f;                     // ¸ó½ºÅÍ°¡ ¿òÁ÷ÀÌ´Â ¼Óµµ
-    float AttackRadius = 2.3f;                    // ¸ó½ºÅÍ°¡ °ø°İ°¡´ÉÇÑ ¹üÀ§(¹İÁö¸§)
-    public float currentAngle = 30.0f;            // ÃÊ´ç ¹Ù²î´Â °¢µµ
-    protected bool looktargetOn = false;          // ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î¸¦ ¹Ù¶óº¸´ÂÁö 
-    //float sightHalfAngle = 50.0f;               // ¹İÁö¸§
+    //float moveSpeed = 3.0f;                     // ëª¬ìŠ¤í„°ê°€ ì›€ì§ì´ëŠ” ì†ë„
+    float AttackRadius = 2.3f;                    // ëª¬ìŠ¤í„°ê°€ ê³µê²©ê°€ëŠ¥í•œ ë²”ìœ„(ë°˜ì§€ë¦„)
+    public float currentAngle = 30.0f;            // ì´ˆë‹¹ ë°”ë€ŒëŠ” ê°ë„
+    protected bool looktargetOn = false;          // ëª¬ìŠ¤í„°ê°€ í”Œë ˆì´ì–´ë¥¼ ë°”ë¼ë³´ëŠ”ì§€ 
+    //float sightHalfAngle = 50.0f;               // ë°˜ì§€ë¦„
     
-    public float attackPower = 10.0f;             // °ø°İ·Â
-    public float defencePower = 0.0f;             // ¹æ¾î·Â
-    public float monsterHp = 100.0f;              // ¸ó½ºÅÍ HP
-    public float monsterMaxHp = 1000.0f;           // ¸ó½ºÅÍ ÃÖ´ë HP
+    public float attackPower = 10.0f;             // ê³µê²©ë ¥
+    public float defencePower = 0.0f;             // ë°©ì–´ë ¥
+    public float monsterHp = 100.0f;              // ëª¬ìŠ¤í„° HP
+    public float monsterMaxHp = 1000.0f;           // ëª¬ìŠ¤í„° ìµœëŒ€ HP
 
-    protected Transform playerTarget = null;      // ÇÃ·¹ÀÌ¾î°¡ ¾ø´Ù
+    protected Transform playerTarget = null;      // í”Œë ˆì´ì–´ê°€ ì—†ë‹¤
 
     public Transform damageTextPos;
     public GameObject damageTextPrefab;
-    //EnemySpawner spawn;
-    
-    //float random;
-    //public float Random { get => UnityEngine.Random.Range(0, 1); }      // ¾îÅÃ2¿ë ·£´ı°ª ÇÒ´ç
+
+    bool die = false;
 
     public float AttackPower => attackPower;
     public float DefencePower => defencePower;
@@ -43,7 +41,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     }           
 
     /// <summary>
-    /// HP ÇÁ·ÎÆÛÆ¼ ¸ó½ºÅÍÀÇHP°¡ 0º¸´Ù ÀÛ¾ÆÁö¸é Á×´Â´Ù.
+    /// HP í”„ë¡œí¼í‹° ëª¬ìŠ¤í„°ì˜HPê°€ 0ë³´ë‹¤ ì‘ì•„ì§€ë©´ ì£½ëŠ”ë‹¤.
     /// </summary>
     public float HP
     {
@@ -57,6 +55,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
                 if (monsterHp < 0)
                 {
                     monsterHp = 0;
+                    die = true;
                     Die();
                 }
 
@@ -68,14 +67,14 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     }
 
 
-    // µ¨¸®°ÔÀÌÆ®
+    // ë¸ë¦¬ê²Œì´íŠ¸
     public Action<float> onHealthChange { get; set; }
     public Action onDie { get; set; }
     
     //void Die()
     //{
     //    looktargetOn = false;
-    //    Destroy(gameObject, 3.0f);  // 3ÃÊµÚ¿¡ ¸ó½ºÅÍ ¿ÀºêÁ§Æ® »èÁ¦    
+    //    Destroy(gameObject, 3.0f);  // 3ì´ˆë’¤ì— ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ ì‚­ì œ    
     //}
 
     protected bool SearchPlayer()
@@ -85,10 +84,10 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
         if (colliders.Length > 0)
         {
-            Vector3 playerPos = colliders[0].transform.position;    // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡
-            Vector3 toPlayerDir = playerPos - transform.position;   // ÇÃ·¹ÀÌ¾î·Î °¡´Â ¹æÇâ
+            Vector3 playerPos = colliders[0].transform.position;    // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜
+            Vector3 toPlayerDir = playerPos - transform.position;   // í”Œë ˆì´ì–´ë¡œ ê°€ëŠ” ë°©í–¥
 
-            // ½Ã¾ß°¢ ¾È¿¡ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´ÂÁö È®ÀÎ
+            // ì‹œì•¼ê° ì•ˆì— í”Œë ˆì´ì–´ê°€ ìˆëŠ”ì§€ í™•ì¸
             if (IsInsightAngle(toPlayerDir))
             {
                 if (!IsSightBlocked(toPlayerDir))
@@ -102,7 +101,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
     protected bool IsInsightAngle(Vector3 toPlayerDir)
     {
-        float angle = Vector3.Angle(transform.position, toPlayerDir);   // forward º¤ÅÍ¿Í ÇÃ·¹ÀÌ¾î·Î °¡´Â ¹æÇâ º¤ÅÍÀÇ »çÀÌ°¢ ±¸ÇÏ±â
+        float angle = Vector3.Angle(transform.position, toPlayerDir);   // forward ë²¡í„°ì™€ í”Œë ˆì´ì–´ë¡œ ê°€ëŠ” ë°©í–¥ ë²¡í„°ì˜ ì‚¬ì´ê° êµ¬í•˜ê¸°
         return (AttackRadius > angle);
     }
 
@@ -136,18 +135,18 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     }
 
     /// <summary>
-    /// °ø°İ¿ë ÇÔ¼ö
+    /// ê³µê²©ìš© í•¨ìˆ˜
     /// </summary>
-    /// <param name="target">°ø°İÇÒ ´ë»ó</param>
+    /// <param name="target">ê³µê²©í•  ëŒ€ìƒ</param>
     public void Attack(IBattle target)
     {
         target?.TakeDamage(AttackPower);
     }
 
     /// <summary>
-    /// ¹æ¾î¿ë ÇÔ¼ö
+    /// ë°©ì–´ìš© í•¨ìˆ˜
     /// </summary>
-    /// <param name="damage">ÇöÀç ÀÔÀº µ¥¹ÌÁö</param>
+    /// <param name="damage">í˜„ì¬ ì…ì€ ë°ë¯¸ì§€</param>
     public void TakeDamage(float damage)
     {
         //GameObject obj = Instantiate(damageTextPrefab);
@@ -156,19 +155,23 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
 
         obj.GetComponent<DamageText>().Damage = (int)(damage - defencePower);
-        Debug.Log($"ÀÔÀº µ¥¹ÌÁö : {damage}");
-        // ±âº» °ø½Ä : ½ÇÁ¦ ÀÔ´Â µ¥¹ÌÁö = Àû °ø°İ µ¥¹ÌÁö - ¹æ¾î·Â
+        Debug.Log($"ì…ì€ ë°ë¯¸ì§€ : {damage}");
+        // ê¸°ë³¸ ê³µì‹ : ì‹¤ì œ ì…ëŠ” ë°ë¯¸ì§€ = ì  ê³µê²© ë°ë¯¸ì§€ - ë°©ì–´ë ¥
         
         HP -= (damage - defencePower);
     }
 
     /// <summary>
-    /// Á×¾úÀ» ¶§ ½ÇÇàµÉ ÇÔ¼ö
+    /// ì£½ì—ˆì„ ë•Œ ì‹¤í–‰ë  í•¨ìˆ˜
     /// </summary>
     public void Die()
     {
-        looktargetOn = false;
-        onDie?.Invoke();
+        if (die)
+        {
+            looktargetOn = false;
+            playerTarget = null;            
+            onDie?.Invoke();
+        }
     }
 
 
@@ -187,7 +190,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     //    }
 
 
-    //void LookTarget()       // ÇÃ·¹ÀÌ¾î ¹æÇâ ¹Ù¶óº¸±â
+    //void LookTarget()       // í”Œë ˆì´ì–´ ë°©í–¥ ë°”ë¼ë³´ê¸°
     //{
     //    if (looktargetOn)
     //    {

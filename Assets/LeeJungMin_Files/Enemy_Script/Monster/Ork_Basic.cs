@@ -12,6 +12,7 @@ public class Ork_Basic : EnemyBase
     EnemySpawner spawn;
 
     bool isDead = true;
+    bool isAlive = true;
 
     float testTime = 0.0f;
 
@@ -19,15 +20,16 @@ public class Ork_Basic : EnemyBase
 
     protected virtual void Awake()
     {
-        anim = GetComponent<Animator>();        // ¾Ö´Ï¸ŞÀÌÅÍ
+        anim = GetComponent<Animator>();        // ì• ë‹ˆë©”ì´í„°
         nav = GetComponent<Enemy_Navigation>();
         ccoll = GetComponent<CapsuleCollider>();
 
         spawn = FindObjectOfType<EnemySpawner>();
     }
+
     protected virtual void Start()
     {
-        SearchPlayer();         // ÇÃ·¹ÀÌ¾î Ã£±â
+        SearchPlayer();         // í”Œë ˆì´ì–´ ì°¾ê¸°
 
         MaxHP += spawn.WaveCount * 500.0f;
         HP = MaxHP;
@@ -39,22 +41,22 @@ public class Ork_Basic : EnemyBase
     
     protected virtual void Update()
     {
-        //HP -= testHpCount;    // ÇÁ·¹ÀÓ¸¶´Ù testHpCount¸¸Å­ HP¸¦ ÁÙÀÎ´Ù
+        //HP -= testHpCount;    // í”„ë ˆì„ë§ˆë‹¤ testHpCountë§Œí¼ HPë¥¼ ì¤„ì¸ë‹¤
         testTime += Time.deltaTime;
                
 
-        Looktarget();           // ÇÃ·¹ÀÌ¾îÂÊÀ» ÃÄ´Ùº»´Ù.
+        Looktarget();           // í”Œë ˆì´ì–´ìª½ì„ ì³ë‹¤ë³¸ë‹¤.
     }
 
 
-    private void OnTriggerEnter(Collider other)     // Æ®¸®°Å ¾È¿¡ µé¾î¿ÔÀ» ¶§
+    private void OnTriggerEnter(Collider other)     // íŠ¸ë¦¬ê±° ì•ˆì— ë“¤ì–´ì™”ì„ ë•Œ
     {
         target = other.GetComponent<IBattle>();
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isAlive)
         {
-            Debug.Log("µé¾î¿È");
+            Debug.Log("ë“¤ì–´ì˜´");
             looktargetOn = true;
-            playerTarget = other.transform;         // playerTargetÀÌ nullÀÌ ¾Æ´Ï°Ô µÇ¾ú´Ù.
+            playerTarget = other.transform;         // playerTargetì´ nullì´ ì•„ë‹ˆê²Œ ë˜ì—ˆë‹¤.
             anim.SetBool("Attack", true);
             //Attack(target);
         }
@@ -62,24 +64,24 @@ public class Ork_Basic : EnemyBase
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && target != null)
+        if (other.CompareTag("Player") && target != null && isAlive)
         {
             if (target != null && testTime > 1)
             {
-                Debug.Log("ÇÃ·¹ÀÌ¾î °ø°İ");
+                Debug.Log("í”Œë ˆì´ì–´ ê³µê²©");
                 Attack(target);
                 testTime = 0.0f;
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)      // Æ®¸®°Å¸¦ ºüÁ® ³ª°¬À» ¶§
-    {
+    private void OnTriggerExit(Collider other)      // íŠ¸ë¦¬ê±°ë¥¼ ë¹ ì ¸ ë‚˜ê°”ì„ ë•Œ
+    {        
         if (other.CompareTag("Player"))
         {
             target = null;
-            Debug.Log("³ª°¨");
-            playerTarget = null;                    // playerTargetÀÌ nullÀÌ µÇ¾ú´Ù.
+            Debug.Log("ë‚˜ê°");
+            playerTarget = null;                    // playerTargetì´ nullì´ ë˜ì—ˆë‹¤.
             looktargetOn = false;
             anim.SetBool("Attack", false);
         }
@@ -89,6 +91,7 @@ public class Ork_Basic : EnemyBase
     {
         if (isDead)
         {
+            isAlive = false;
             isDead = false;
             nav.Stopped(true);
             anim.SetBool("Attack", false);
@@ -97,7 +100,7 @@ public class Ork_Basic : EnemyBase
             nav.enabled = false;
             nav.IsEnabled();
             Destroy(this.gameObject, 2.0f);
-            //Debug.Log("¿ÀÅ© Á×À½");
+            //Debug.Log("ì˜¤í¬ ì£½ìŒ");
         }
     }
 
@@ -105,7 +108,7 @@ public class Ork_Basic : EnemyBase
     {
         if (isDead)
         {            
-            //Debug.Log($"{gameObject.name}ÀÇ HP°¡ {HP}·Î º¯°æ µÇ¾ú½À´Ï´Ù.");
+            //Debug.Log($"{gameObject.name}ì˜ HPê°€ {HP}ë¡œ ë³€ê²½ ë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
     }
 
