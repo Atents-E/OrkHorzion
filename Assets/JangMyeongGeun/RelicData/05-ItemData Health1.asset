@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23908b5ca4c30364598c5885addd6d43, type: 3}
+  m_Name: 05-ItemData Health1
+  m_EditorClassIdentifier: 
+  id: 5
+  itemType: 4
+  itemTypeIcon: {fileID: -38002545, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
+  itemName: "\uC758\uB8CC\uBCF4\uAE09"
+  itemIcon: {fileID: 2018458700, guid: f3f0b418e76a1774ba06f78489f40108, type: 3}
+  description: "\uCD5C\uB300 \uCCB4\uB825 +100\n(\uC911\uCCA9\uBD88\uAC00)"
+  maxStackCount: 1
+  hpBonus: 100
