@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Eunji/Scenes/Test_Projectile.unity.meta
 guid: e86e2fa88c60be4499c49371371df23f
+========
+guid: 1b8d251f9af63b746bf2f7ffe00ebb9b
+>>>>>>>> 임시_위지수:Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
