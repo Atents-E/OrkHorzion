@@ -5902,6 +5902,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GruntPolyart
       objectReference: {fileID: 0}
+    - target: {fileID: 8829497252223331707, guid: 765eb323d24fd2f48822203d17c8231b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8829497252223331973, guid: 765eb323d24fd2f48822203d17c8231b, type: 3}
       propertyPath: m_RootOrder
       value: 5
