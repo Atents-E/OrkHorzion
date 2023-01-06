@@ -27,7 +27,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public Transform damageTextPos;
     public GameObject damageTextPrefab;
 
-    bool die = false;
+    //bool die = false;
 
     public float AttackPower => attackPower;
     public float DefencePower => defencePower;
@@ -54,8 +54,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
                 if (monsterHp < 0)
                 {
-                    monsterHp = 0;
-                    die = true;
+                    monsterHp = 0;                    
+                    
                     Die();
                 }
 
@@ -70,7 +70,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     // 델리게이트
     public Action<float> onHealthChange { get; set; }
     public Action onDie { get; set; }
-    
+
     //void Die()
     //{
     //    looktargetOn = false;
@@ -166,12 +166,9 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
-        if (die)
-        {
-            looktargetOn = false;
-            playerTarget = null;            
-            onDie?.Invoke();
-        }
+        looktargetOn = false;
+        playerTarget = null;
+        onDie?.Invoke();
     }
 
 

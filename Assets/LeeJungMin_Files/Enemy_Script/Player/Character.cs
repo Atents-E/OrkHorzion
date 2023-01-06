@@ -85,7 +85,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
     {
         anim = GetComponent<Animator>();
         point = GameObject.Find("SpawnPoint");
-        spawnPS = point.GetComponentInChildren<ParticleSystem>();
+        //spawnPS = point.GetComponentInChildren<ParticleSystem>();
     }
 
     protected virtual void Start()
@@ -144,8 +144,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
         Vector3 spotPos = point.transform.position;
         transform.position = spotPos;
-        Debug.Log($"{gameObject.name}가 다시 살아납니다");
-       
+        Debug.Log($"{gameObject.name}가 다시 살아납니다");       
         
     }
 

@@ -6,11 +6,23 @@ public class EnemySpawner : MonoBehaviour
 {
     GameObject enemyPrefab;
 
-    private Wave currentWave;   // ÇöÀç ¿þÀÌºê Á¤º¸
+    private Wave currentWave;   // í˜„ìž¬ ì›¨ì´ë¸Œ ì •ë³´
 
     int waveCount = 0;
 
     bool isPlaying = false;
+
+    int spawnEnemyCount = 0;
+
+    int result = 0;
+
+    public int Result
+    {
+        get => result;
+        set => result = value;
+    }
+
+    public int MaxEnemyCount => currentWave.maxEnemyCount;
 
     public bool IsPlaying
     {
@@ -28,13 +40,14 @@ public class EnemySpawner : MonoBehaviour
     
     public void StartWave(Wave wave)
     {
-        spawnEnemy = SpawnEnemy();
-        if (!isPlaying)
+        if (!isPlaying && Result <= 0)
         {
-            // ¸Å°³º¯¼ö·Î ¹Þ¾Æ¿Â ¿þÀÌºê Á¤º¸ ÀúÀå
+            spawnEnemy = SpawnEnemy();
+            // ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜¨ ì›¨ì´ë¸Œ ì •ë³´ ì €ìž¥
             currentWave = wave;
+
             waveCount++;
-            // ÇöÀç ¿þÀÌºê ½ÃÀÛ
+            // í˜„ìž¬ ì›¨ì´ë¸Œ ì‹œìž‘
             StartCoroutine(spawnEnemy);
         }
     }
@@ -43,24 +56,26 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            result--;
             Destroy(other.gameObject);
         }
     }
 
     IEnumerator SpawnEnemy()
     {
-        // ÇöÀç ¿þÀÌºê¿¡¼­ »ý¼ºÇÑ Àû ¼ýÀÚ
-        int spawnEnemyCount = 0;
+        // í˜„ìž¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì  ìˆ«ìž
+                spawnEnemyCount = 0;
         int index = 0;
         isPlaying = true;        
-        // ÇöÀç ¿þÀÌºê¿¡¼­ »ý¼ºµÇ¾î¾ß ÇÏ´Â ÀûÀÇ ¼ýÀÚ¸¸Å­ ÀûÀ» »ý¼ºÇÏ°í ÄÚ·çÆ¾ Á¾·á
+        // í˜„ìž¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±ë˜ì–´ì•¼ í•˜ëŠ” ì ì˜ ìˆ«ìžë§Œí¼ ì ì„ ìƒì„±í•˜ê³  ì½”ë£¨í‹´ ì¢…ë£Œ
         while (spawnEnemyCount < currentWave.maxEnemyCount)
         {
             switch (currentWave.spawnWave)
             {                
                 case 1:
-                    Debug.Log("1¹ø ¿þÀÌºê");
-                    index++;                    
+                    Debug.Log("1ë²ˆ ì›¨ì´ë¸Œ");
+                    index++;
+                    result++;
                     if (index > 0 && index <= 5)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -73,10 +88,11 @@ public class EnemySpawner : MonoBehaviour
                     {
                         Instantiate(currentWave.enemyPrefabs[2], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
                     }
-                    break;
+                    break;                    
                 case 2:
-                    Debug.Log("2¹ø ¿þÀÌºê");
+                    Debug.Log("2ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 3)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -95,8 +111,9 @@ public class EnemySpawner : MonoBehaviour
                     }
                     break;
                 case 3:
-                    Debug.Log("3¹ø ¿þÀÌºê");
+                    Debug.Log("3ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 2)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -115,8 +132,9 @@ public class EnemySpawner : MonoBehaviour
                     }
                     break;
                 case 4:
-                    Debug.Log("4¹ø ¿þÀÌºê");
+                    Debug.Log("4ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 3)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -136,10 +154,9 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 default:
                     break;
-            }
-            
+            }           
 
-            // ÇöÀç ¿þÀÌºê¿¡¼­ »ý¼ºÇÑ ÀûÀÇ ¼ýÀÚ +1
+            // í˜„ìž¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì ì˜ ìˆ«ìž +1
             spawnEnemyCount++;
             
             yield return new WaitForSeconds(currentWave.spawnTime);

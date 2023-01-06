@@ -5,18 +5,21 @@ using UnityEngine;
 public class WaveSystem : MonoBehaviour
 {
     [SerializeField]
-    private Wave[] waves;               // ÇöÀç ½ºÅ×ÀÌÁöÀÇ ¸ðµç ¿þÀÌºê Á¤º¸
+    private Wave[] waves;               // í˜„ìž¬ ìŠ¤í…Œì´ì§€ì˜ ëª¨ë“  ì›¨ì´ë¸Œ ì •ë³´
     [SerializeField]
     private EnemySpawner enemyspawner;
-    private int currentWaveIndex = -1;  // ÇöÀç ¿þÀÌºê ÀÎµ¦½º
+    private int currentWaveIndex = -1;  // í˜„ìž¬ ì›¨ì´ë¸Œ ì¸ë±ìŠ¤
+
+    public int CurrentWave => currentWaveIndex + 1; // ì‹œìž‘ì´ 0ì´ê¸° ë•Œë¬¸ì— +1
+    public int MaxWave => waves.Length;
 
     public void StartWave()
     {
         if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length -1)
         {
-            // ÀÎµ¦½ºÀÇ ½ÃÀÛÀÌ -1ÀÌ±â ¶§¹®¿¡ ¿þÀÌºê ÀÎµ¦½º Áõ°¡¸¦ Á¦ÀÏ ¸ÕÀú ÇÔ
+            // ì¸ë±ìŠ¤ì˜ ì‹œìž‘ì´ -1ì´ê¸° ë•Œë¬¸ì— ì›¨ì´ë¸Œ ì¸ë±ìŠ¤ ì¦ê°€ë¥¼ ì œì¼ ë¨¼ì € í•¨
             currentWaveIndex++;
-            // EnemySpawnerÀÇ StartWave()ÇÔ¼ö È£Ãâ. ÇöÀç ¿þÀÌºê Á¤º¸ Á¦°ø
+            // EnemySpawnerì˜ StartWave()í•¨ìˆ˜ í˜¸ì¶œ. í˜„ìž¬ ì›¨ì´ë¸Œ ì •ë³´ ì œê³µ
             enemyspawner.StartWave(waves[currentWaveIndex]);
         }
     }
@@ -26,7 +29,7 @@ public class WaveSystem : MonoBehaviour
 public struct Wave
 {
     public int spawnWave;
-    public float spawnTime;             // ÇöÀç ¿þÀÌºê Àû »ý¼º ÁÖ±â
-    public int maxEnemyCount;           // ÇöÀç ¿þÀÌºê Àû µîÀå ¼ýÀÚ
-    public GameObject[] enemyPrefabs;   // ÇöÀç ¿þÀÌºê Àû µîÀå Á¾·ù
+    public float spawnTime;             // í˜„ìž¬ ì›¨ì´ë¸Œ ì  ìƒì„± ì£¼ê¸°
+    public int maxEnemyCount;           // í˜„ìž¬ ì›¨ì´ë¸Œ ì  ë“±ìž¥ ìˆ«ìž
+    public GameObject[] enemyPrefabs;   // í˜„ìž¬ ì›¨ì´ë¸Œ ì  ë“±ìž¥ ì¢…ë¥˜
 }
