@@ -5,21 +5,21 @@ using UnityEngine;
 public class Wizard :Character
 {
     public float default_Hp = 80.0f; // 체력
-    public float default_MaxHp = 100.0f; // 최대 체력
+    public float default_MaxHp = 80.0f; // 최대 체력
     public float default_Def = 50.0f; // 방어력
     public float default_Atk = 10.0f; // 공격력
     public float default_criticalChance = 0.3f; // 치명타 확률
     public float default_MoveSpeed = 6.0f; //이동 속도
 
 
-    Transform hand_r;
+   // Transform hand_r;
     ParticleSystem weaponPS;
 
     protected override void Awake()
     {
         base.Awake();
-        hand_r = GetComponentInChildren<WeaponPosition>().transform;
-        weaponPS = hand_r.GetComponentInChildren<ParticleSystem>();
+        //hand_r = GetComponentInChildren<WeaponPosition>().transform;
+        weaponPS = GetComponentInChildren<ParticleSystem>();
 
         characterName = "마법사";
         maxHp = default_MaxHp;
