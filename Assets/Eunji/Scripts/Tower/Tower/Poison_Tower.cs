@@ -13,7 +13,12 @@ public class Poison_Tower : TowerBase
         createPos = transform.GetChild(0).position;
     }
 
-protected override void OnTriggerEnter(Collider other)
+    protected override void Update()
+    {
+        Attack();
+    }
+
+    protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
 
