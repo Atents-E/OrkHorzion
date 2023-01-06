@@ -17,7 +17,7 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 
 // 4. 타워를 클릭하면 삭제 확인하는 창을 띄우고,
 // 5. 삭제를 요청하면 타워 금액을 반환, 타워는 삭제된다.
-public class TowerBase : MonoBehaviour, IPointerClickHandler
+public class TowerBase : MonoBehaviour
 {
     public int gold = 10;                   // 타워 가격
 
@@ -127,32 +127,12 @@ public class TowerBase : MonoBehaviour, IPointerClickHandler
     }
 
 
-    public void OnPointerClick(PointerEventData _)
-    {
-        Camera = GameManager.Inst.MainCamera;
-        Ray ray = Camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider != CompareTag("Tower"))
-            {
-                Canvas canvas = FindObjectOfType<Canvas>();
-                TowerDelete towerDelete = canvas.GetComponentInChildren<TowerDelete>();
 
-                towerDelete.gameObject.SetActive(true);
-
-                if (towerDelete.OK != false)     // 삭제 승낙이 되었으면
-                {
-                    DeleteTower();
-                }
-            }
-        }
-    }
 
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
     /// </summary>
-    private void DeleteTower()
+    public void DeleteTower()
     {
         // Inventory inventory = GetComponent<Inventory>();
         // inventory.gold += value * 0.8f;

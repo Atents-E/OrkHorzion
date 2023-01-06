@@ -9,23 +9,23 @@ using static UnityEngine.UI.GridLayoutGroup;
 using static UnityEditor.Progress;
 using Unity.VisualScripting;
 
-public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    static int itemCount = 0;   // »ı¼ºµÈ ¾ÆÀÌÅÛ ÃÑ °¹¼ö. ¾ÆÀÌÅÛ »ı¼º ¾ÆÀÌµğÀÇ ¿ªÇÒµµ ÇÔ.
+    static int itemCount = 0;   // ìƒì„±ëœ ì•„ì´í…œ ì´ ê°¯ìˆ˜. ì•„ì´í…œ ìƒì„± ì•„ì´ë””ì˜ ì—­í• ë„ í•¨.
     
     /// <summary>
-    /// ±âÁ¸ ºÎ¸ğ ¿ÀºêÁ§Æ®
+    /// ê¸°ì¡´ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
     /// </summary>
     Transform currentParent;
 
     /// <summary>
-    /// (µå·¡±× ÁßÀÏ ¶§)º¯°æ µÉ ºÎ¸ğ ¿ÀºêÁ§Æ®
+    /// (ë“œë˜ê·¸ ì¤‘ì¼ ë•Œ)ë³€ê²½ ë  ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
     /// </summary>
     GameObject newParent;
 
 
     /// <summary>
-    /// »ı¼º µÉ Å¸¿ö ÇÁ¸®ÆÕ
+    /// ìƒì„± ë  íƒ€ì›Œ í”„ë¦¬íŒ¹
     /// </summary>
     public GameObject towerPrefab;
 
@@ -38,22 +38,22 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
 
     /// <summary>
-    /// µå·¡±× ½ÃÀÛ
+    /// ë“œë˜ê·¸ ì‹œì‘
     /// </summary>
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // ¿­·ÁÀÖ´Â »óÅÂÀÏ ¶§¸¸ Ã³¸®
+        // ì—´ë ¤ìˆëŠ” ìƒíƒœì¼ ë•Œë§Œ ì²˜ë¦¬
         if (gameObject.activeSelf)
         {
-            //Vector2 screenPos = Mouse.current.position.ReadValue(); // ¸¶¿ì½ºÀÇ À§Ä¡(½ºÅ©¸°ÁÂÇ¥)¸¦ ±¸ÇÔ
-            //if (!IsInsideTowerMenu(screenPos))                      // ¸¶¿ì½ºÀÇ À§Ä¡°¡ Å¸¿ö¸Ş´º ¹Û¿¡¼­ µ¿ÀÛÇÏ´ÂÁö È®ÀÎ
+            //Vector2 screenPos = Mouse.current.position.ReadValue(); // ë§ˆìš°ìŠ¤ì˜ ìœ„ì¹˜(ìŠ¤í¬ë¦°ì¢Œí‘œ)ë¥¼ êµ¬í•¨
+            //if (!IsInsideTowerMenu(screenPos))                      // ë§ˆìš°ìŠ¤ì˜ ìœ„ì¹˜ê°€ íƒ€ì›Œë©”ë‰´ ë°–ì—ì„œ ë™ì‘í•˜ëŠ”ì§€ í™•ì¸
             //{
             //}
 
-            // µå·¡±×°¡ ½ÃÀÛµÇ¸é ºÎ¸ğÀÚ½Ä °ü°è ²÷±â
+            // ë“œë˜ê·¸ê°€ ì‹œì‘ë˜ë©´ ë¶€ëª¨ìì‹ ê´€ê³„ ëŠê¸°
             transform.parent = null;
-            // »õ·Î¿î ºÎ¸ğ°ü°è ¸Î¾îÁÖ±â
+            // ìƒˆë¡œìš´ ë¶€ëª¨ê´€ê³„ ë§ºì–´ì£¼ê¸°
             transform.SetParent(newParent.transform);
      
             // bool isDragging = false;    
@@ -62,47 +62,47 @@ public class DragAndDrop2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     }
 
     /// <summary>
-    /// µå·¡±× Áß
+    /// ë“œë˜ê·¸ ì¤‘
     /// </summary>
     /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        // Å¸¿ö UI = ¸¶¿ì½º À§Ä¡¸¦ ¹Ş¾Æ¼­ ÀÌµ¿
+        // íƒ€ì›Œ UI = ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ ë°›ì•„ì„œ ì´ë™
         transform.position = eventData.position;
     }
 
     /// <summary>
-    /// µå·¡±× ³¡
+    /// ë“œë˜ê·¸ ë
     /// </summary>
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        Ray ray =  Camera.main.ScreenPointToRay(eventData.position);   // ½ºÅ©¸° ÁÂÇ¥·Î ·¹ÀÌ »ı¼º
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // ·¹ÀÌ¿Í ¶¥ÀÇ Ãæµ¹ ¿©ºÎ È®ÀÎ
+        Ray ray =  Camera.main.ScreenPointToRay(eventData.position);   // ìŠ¤í¬ë¦° ì¢Œí‘œë¡œ ë ˆì´ ìƒì„±
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // ë ˆì´ì™€ ë•…ì˜ ì¶©ëŒ ì—¬ë¶€ í™•ì¸
         {
-            // ·¹ÀÌ¿Í ¶¥ÀÌ Ãæµ¹ÇßÀ¸¸é
-            //Debug.Log("·¹ÀÌ¿Í ¶¥ÀÌ Ãæµ¹ÇÔ");
+            // ë ˆì´ì™€ ë•…ì´ ì¶©ëŒí–ˆìœ¼ë©´
+            //Debug.Log("ë ˆì´ì™€ ë•…ì´ ì¶©ëŒí•¨");
             
-            GameObject ground = hit.collider.gameObject;        // Ãæµ¹ÇÑ ÁöÁ¡ÀÇ ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ¼­
-            Vector3 creatPos = ground.transform.position;       // Ã£Àº ¿ÀºêÁ§Æ®ÀÇ ÇÇ¹şÀ» ÁßÁ¡À¸·Î À§Ä¡°ª º¯°æ(¿ÀºêÁ§Æ®ÀÇ Áß°£¿¡ ¿Àµµ·Ï)
+            GameObject ground = hit.collider.gameObject;        // ì¶©ëŒí•œ ì§€ì ì˜ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ì„œ
+            Vector3 creatPos = ground.transform.position;       // ì°¾ì€ ì˜¤ë¸Œì íŠ¸ì˜ í”¼ë²—ì„ ì¤‘ì ìœ¼ë¡œ ìœ„ì¹˜ê°’ ë³€ê²½(ì˜¤ë¸Œì íŠ¸ì˜ ì¤‘ê°„ì— ì˜¤ë„ë¡)
             creatPos.x += 1;
             creatPos.y = 0;
             creatPos.z -= 1;
 
-            // ±× ÁöÁ¡¿¡ tower »ı¼º
+            // ê·¸ ì§€ì ì— tower ìƒì„±
             GameObject obj = Instantiate(towerPrefab, creatPos, transform.rotation);
 
         }
 
-        // ºÎ¸ğ ²÷°í, ±âÁ¸ ºÎ¸ğ¿Í ´Ù½Ã ¸Î¾îÁÖ±â
+        // ë¶€ëª¨ ëŠê³ , ê¸°ì¡´ ë¶€ëª¨ì™€ ë‹¤ì‹œ ë§ºì–´ì£¼ê¸°
         transform.parent = null;
         transform.SetParent(currentParent);
-        // Å¸¿ö UI = Ã³À½ Å¸¿ö À§Ä¡·Î ÀÌµ¿
+        // íƒ€ì›Œ UI = ì²˜ìŒ íƒ€ì›Œ ìœ„ì¹˜ë¡œ ì´ë™
         transform.position = currentParent.position;
     }
 
     ///<summary>
-    ///TowerMenuÀÇ Å©±â
+    ///TowerMenuì˜ í¬ê¸°
     ///</summary>
     ///<param name = "screenPos" ></ param >
     ///< returns ></ returns >

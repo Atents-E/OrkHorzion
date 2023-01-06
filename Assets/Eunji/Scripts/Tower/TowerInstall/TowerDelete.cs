@@ -4,10 +4,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Å¸¿ö »èÁ¦°¡ Å¬¸¯ÀÌ µÇ¾ú´ÂÁö È®ÀÎ
+// íƒ€ì›Œ ì‚­ì œê°€ í´ë¦­ì´ ë˜ì—ˆëŠ”ì§€ í™•ì¸
 public class TowerDelete : MonoBehaviour
 {
-    bool ok = false;    // »èÁ¦ È®ÀÎ¿ë º¯¼ö
+    bool ok = false;    // ì‚­ì œ í™•ì¸ìš© ë³€ìˆ˜
+
+    Button okButton;    // okë²„íŠ¼
 
     public bool OK
     {
@@ -15,17 +17,15 @@ public class TowerDelete : MonoBehaviour
         private set => OK = value;
     }
 
-    Button okButton;    // ok¹öÆ°
-
     public  void Awake()
     {
-        // gameObject.SetActive(false);
-        okButton.onClick.AddListener(DeleteCheck);      // ¿ÀÄÉÀÌ ¹öÆ°À» ´©¸£¸é DeleteCheckÇÔ¼ö ½ÇÇà
+        okButton = transform.GetChild(2).GetComponent<Button>();
+        okButton.onClick.AddListener(DeleteCheck);      // ì˜¤ì¼€ì´ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ DeleteCheckí•¨ìˆ˜ ì‹¤í–‰
     }
 
     void DeleteCheck()
     {
-        OK = true;      // »èÁ¦ ½Â³«
+        OK = true;      // ì‚­ì œ ìŠ¹ë‚™
     }
 
 }
