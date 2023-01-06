@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class PoisonProjectile : ProjectileBase
+public class Poison_Projectile : ProjectileBase
 {
     public float reduceSpeed = 0.003f;    // 감속 시키는 스피드
     public float reduceAttack = 0.003f;    // 감속 시키는 공격력

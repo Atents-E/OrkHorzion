@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3914500670050547353}
   - component: {fileID: 3924571361090889451}
   m_Layer: 0
-  m_Name: Short_Tower_Projectile
+  m_Name: Cannnon_Tower_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

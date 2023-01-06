@@ -21,8 +21,8 @@ public class TowerBase : MonoBehaviour
 {
     public int gold = 10;                   // 타워 가격
 
-    public float sightRange = 10.0f;        // 범위
-    public float sightRadius = 5.0f;        // 범위 반지름
+    public float sightRange = 5.0f;        // 범위
+    public float sightRadius = 2.5f;        // 범위 반지름
 
     public float proCreatSpeed = 3.0f;      // 투사체 생성 속도
     public float fireAngle = 10.0f;         // 타워의 공격 각도
@@ -35,19 +35,22 @@ public class TowerBase : MonoBehaviour
     public GameObject target;               // 타겟은 null
     public GameObject projectile;           // 투사체 프리팹
 
-    protected Transform porjectilePos;      // 투사체 생성 할 위치
-    protected Vector3 porPos;               // 투사체 생성 할 Vecotr3 위치
+    protected Vector3 createPos;               // 투사체 생성 할 Vecotr3 위치
+    Transform fireTransform;
 
     Camera Camera;
 
-    protected virtual void Awake()   
+    public float fireInterval = 1.0f;
+    public float coolTime = 0.0f;
+
+
+    protected virtual void Awake()
     {
-        fireCoroutine = PeriodFire();               // 발사기간
+        fireCoroutine = PeriodFire();               // 코루틴을 변수로 사용하려고 할당
 
-        porjectilePos = transform.GetChild(0);
-        porPos = porjectilePos.transform.position;
+        createPos = transform.GetChild(0).transform.position;    // 투사체 생성 위치
 
-        porPos.y = 1f;
+        fireTransform = transform.GetChild(0);
     }
 
     protected virtual void Start()    // 첫번째 업데이트가 일어나기 전에 호출
@@ -55,7 +58,6 @@ public class TowerBase : MonoBehaviour
         //initialForward = transform.forward;         // 처음 앞은 게임 오브젝트의 앞
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
-
     }
 
     /// <summary>
@@ -94,20 +96,32 @@ public class TowerBase : MonoBehaviour
 
     void Attack()
     {
-        if (isFiring)
+        coolTime += Time.deltaTime;
+
+        if(target != null && coolTime > fireInterval)
         {
-            FireStart();
+            Vector3 dir = target.transform.position - fireTransform.position;
+            dir.y = 0;
+
+            fireTransform.forward = dir.normalized;
+            Fire();
+            coolTime = 0;
         }
-        else
-        {
-            FireStop();
-        }
+        //if (isFiring)
+        //{
+        //    FireStart();
+        //}
+        //else
+        //{
+        //    FireStop();
+        //}
     }
 
 
     protected virtual void Fire()       // 투사체 생성
     {
-        Instantiate(projectile, porPos, transform.rotation, transform);  // 투사체가 복사
+        GameObject obj= Instantiate(projectile, fireTransform);
+        obj.transform.SetParent(null);
     }
 
     IEnumerator PeriodFire()            // 발사 시간

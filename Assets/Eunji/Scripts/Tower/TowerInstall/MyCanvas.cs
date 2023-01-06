@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class Canvas : MonoBehaviour, IPointerClickHandler
+public class MyCanvas : MonoBehaviour, IPointerClickHandler
 {
     GameObject towerMenu;       // TowerMenu 게임 오브젝트
     GameObject towerDelete;     // TowerDelete 게임 오브젝트
@@ -20,8 +20,8 @@ public class Canvas : MonoBehaviour, IPointerClickHandler
         towerDelete_script = towerDelete.GetComponent<TowerDelete>();   
 
         // 게임이 시작되면 처음엔 비활성화
-        towerMenu.gameObject.SetActive(false);
-        towerDelete.gameObject.SetActive(false);
+        //towerMenu.gameObject.SetActive(false);
+        //towerDelete.gameObject.SetActive(false);
     }
 
     // 클릭되면
@@ -34,21 +34,25 @@ public class Canvas : MonoBehaviour, IPointerClickHandler
     //    Camera mainCamera = GameManager.Inst.MainCamera;
     //    Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);   // 스크린 좌표로 레이 생성
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f)) // 레이와 땅의 충돌 여부 확
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Tower"))) // 레이와 땅의 충돌 여부 확
+
             //if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f))
         {
-            Debug.Log($"{ray}");
-            if (hit.collider.gameObject == CompareTag("Tower"))
-            {
+            // Debug.Log($"{ray}");
+
+            Debug.Log($"{hit.collider}");
+
                 towerDelete.gameObject.SetActive(true);
+
                 GameObject tower = hit.collider.gameObject;
+
                 TowerBase thisTower = tower.transform.GetComponent<TowerBase>();
 
                 if (towerDelete_script.OK != false)     // 삭제 승낙이 되었으면
                 {
                     thisTower.DeleteTower();
                 }
-            }
+            
         }
     }
 }

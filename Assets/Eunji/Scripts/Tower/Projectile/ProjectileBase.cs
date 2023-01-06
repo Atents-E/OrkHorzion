@@ -18,25 +18,29 @@ public class ProjectileBase : MonoBehaviour
 
     protected GameObject target;        // 발사체와 만날 타겟(적)
 
-    TowerBase parentTarget;             // 부모의 타겟
+    protected TowerBase parentTarget;             // 부모의 타겟
 
 
     protected virtual void Awake()    
     {
-        parentTarget = GetComponentInParent<TowerBase>();
-        target = parentTarget.target;
+        //parentTarget = GetComponentInParent<TowerBase>();
+        //target = parentTarget.target;
 
         Destroy(this.gameObject, lifeTime); // 생성되면 lifeTime 뒤에 삭제
     }
 
     protected void Update()
     {
-        Vector3 dir = (transform.position - target.transform.position).normalized;   // Monster에게 가는 방향벡터
-        dir.y += 0f;
+        transform.Translate(speed * Time.deltaTime * transform.forward, Space.World);
+        //if( target != null)
+        //{
+        //    Vector3 dir = (transform.position - target.transform.position).normalized;   // Monster에게 가는 방향벡터
+        //    dir.y = 0.5f;
 
-        transform.Translate(speed * Time.fixedDeltaTime * dir);         // 투사체 이동
+        //    transform.Translate(speed * Time.fixedDeltaTime * dir);         // 투사체 이동
+        //}
 
-        Debug.Log($"{target.transform.position}");
+        // Debug.Log($"{target.transform.position}");
     }
 
     protected virtual void OnTriggerEnter(Collider other)

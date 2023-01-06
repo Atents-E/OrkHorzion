@@ -14,7 +14,7 @@ public class TowerDelete : MonoBehaviour
     public bool OK
     {
         get => ok;
-        private set => OK = value;
+        private set => ok = value;
     }
 
     public  void Awake()

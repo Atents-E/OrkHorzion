@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 9019080477538201115}
   - component: {fileID: 9019080477538201109}
   - component: {fileID: 9019080477538201108}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cannon_Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,10 +419,12 @@ MonoBehaviour:
   gold: 10
   sightRange: 5
   sightRadius: 5
-  attactCreatSpeed: 0.5
+  proCreatSpeed: 3
   fireAngle: 30
   target: {fileID: 0}
   projectile: {fileID: 1125468324877278409, guid: 92771115db052cd48838811a7e380345, type: 3}
+  fireInterval: 1
+  coolTime: 0
 --- !u!136 &9019080477538201109
 CapsuleCollider:
   m_ObjectHideFlags: 0

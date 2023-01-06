@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-// Direction ±â´É
-// ºÎ¸ğ(Å¸¿ö)ÀÇ Å¸°ÙÀ» ¹Ş¾Æ¿À°í,
-// 1. Å¸°ÙÀ» ÇâÇØ yÃà ±âÁØÀ¸·Î È¸Àü
-// 2. ¹ß»ç°¢ ³»ºÎ¿¡ Å¸°ÙÀÌ µé¾î¿Ô´ÂÁö ¾Ë·ÁÁÜ
+// Direction ê¸°ëŠ¥
+// ë¶€ëª¨(íƒ€ì›Œ)ì˜ íƒ€ê²Ÿì„ ë°›ì•„ì˜¤ê³ ,
+// 1. íƒ€ê²Ÿì„ í–¥í•´ yì¶• ê¸°ì¤€ìœ¼ë¡œ íšŒì „
+// 2. ë°œì‚¬ê° ë‚´ë¶€ì— íƒ€ê²Ÿì´ ë“¤ì–´ì™”ëŠ”ì§€ ì•Œë ¤ì¤Œ
 public class Direction : MonoBehaviour
 {
+    public float turnSpeed = 10.0f;         // íšŒì „ì†ë„
+    public float fireAngle = 10.0f;         // íƒ€ì›Œì˜ ê³µê²© ê°ë„
+    protected float currentAngle = 0.0f;    // ë°©í–¥ì˜ ì²˜ìŒ ê°ë„
 
-    public float turnSpeed = 10.0f;         // È¸Àü¼Óµµ
-    public float fireAngle = 10.0f;         // Å¸¿öÀÇ °ø°İ °¢µµ
-    protected float currentAngle = 0.0f;    // ¹æÇâÀÇ Ã³À½ °¢µµ
+    protected Vector3 initialForward;                 // ì²˜ìŒ ì•
 
-    protected Vector3 initialForward;                 // Ã³À½ ¾Õ
-
-    GameObject target;              // ¹ß»çÃ¼¿Í ¸¸³¯ Å¸°Ù(Àû)
-    Cannon_Tower parent;              // ºÎ¸ğ
-
+    GameObject target;             // ë°œì‚¬ì²´ì™€ ë§Œë‚  íƒ€ê²Ÿ(ì )
+    Cannon_Tower parent;              // ë¶€ëª¨
+    GameObject dirPos;
 
     protected virtual void Start()
     {
-        parent = GetComponentInParent<Cannon_Tower>();
+        parent = GetComponent<Cannon_Tower>();
         target = parent.target;
+        dirPos = transform.GetChild(1).gameObject;
     }
 
     protected void Update()
@@ -31,54 +32,54 @@ public class Direction : MonoBehaviour
         LookTarget();
     }
 
-
-    protected virtual void LookTarget()   // Å¸°ÙÀ» º¸µµ·Ï È¸Àü
+    protected virtual void LookTarget()   // íƒ€ê²Ÿì„ ë³´ë„ë¡ íšŒì „
     {
-        if (target != null)     // Å¸°ÙÀÌ ÀÖ´Ù¸é,
+        if (target != null)     // íƒ€ê²Ÿì´ ìˆë‹¤ë©´,
         {
-            // °¢µµ¸¦ »ç¿ëÇÏ´Â °æ¿ì(µî¼Óµµ·Î È¸Àü)
-            Vector3 shotToMonsterDir = target.transform.position - transform.position;  // ¹æÇâ(Å¸¿ö)¿¡¼­ ÀûÀÇ À§Ä¡·Î °¡´Â ¹æÇâ º¤ÅÍ °è»ê
+            // ê°ë„ë¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš°(ë“±ì†ë„ë¡œ íšŒì „)
+            Vector3 shotToMonsterDir = target.transform.position - transform.position;  // ë°©í–¥(íƒ€ì›Œ)ì—ì„œ ì ì˜ ìœ„ì¹˜ë¡œ ê°€ëŠ” ë°©í–¥ ë²¡í„° ê³„ì‚°
             shotToMonsterDir.y = 0;
 
-            // Á¤¹æÇâÀÏ ¶§ 0~180µµ. ¿ª¹æÇâÀÏ ‹š 0~-180µµ        //¿Ş¼Õ ÁÂÇ¥°è¿¡¼­ ¾öÁö ¼Õ°¡¶ôÀÌ ³ª¸¦ ÇâÇÒ ¶§, ´Ù¸¥ ¼Õ°¡¶ôÀº ½Ã°è ¹æÇâÀ¸·Î °¨±ä´Ù.
-            float betweenAngle = Vector3.SignedAngle(transform.forward, shotToMonsterDir, transform.up);
+            // ì •ë°©í–¥ì¼ ë•Œ 0~180ë„. ì—­ë°©í–¥ì¼ ë–„ 0~-180ë„        //ì™¼ì† ì¢Œí‘œê³„ì—ì„œ ì—„ì§€ ì†ê°€ë½ì´ ë‚˜ë¥¼ í–¥í•  ë•Œ, ë‹¤ë¥¸ ì†ê°€ë½ì€ ì‹œê³„ ë°©í–¥ìœ¼ë¡œ ê°ê¸´ë‹¤.
+            float betweenAngle = Vector3.SignedAngle(dirPos.transform.forward, shotToMonsterDir, transform.up);
 
             Vector3 resultDir;
-            if (Mathf.Abs(betweenAngle) > 1.0f)    // »çÀÌ°¢ÀÌ ÀÏÁ¤ °¢µµ ÀÌÇÏÀÎÁö Ã¼Å©
+            if (Mathf.Abs(betweenAngle) > 1.0f)    // ì‚¬ì´ê°ì´ ì¼ì • ê°ë„ ì´í•˜ì¸ì§€ ì²´í¬
             {
-                // »çÀÌ°¢ÀÌ ÃæºĞÈ÷ ¹ú¾îÁø °æ¿ì
-                float rotateDirection = 1.0f;   //ÀÏ´Ü +¹æÇâ(Á¤¹æÇâ, ½Ã°è¹æÇâ)À¸·Î ¼³Á¤
+                // ì‚¬ì´ê°ì´ ì¶©ë¶„íˆ ë²Œì–´ì§„ ê²½ìš°
+                float rotateDirection = 1.0f;   //ì¼ë‹¨ +ë°©í–¥(ì •ë°©í–¥, ì‹œê³„ë°©í–¥)ìœ¼ë¡œ ì„¤ì •
                 if (betweenAngle < 0)
                 {
-                    rotateDirection = -1.0f;    // betweenAngleÀÌ -¸é rotateDirectionµµ -1·Î
+                    rotateDirection = -1.0f;    // betweenAngleì´ -ë©´ rotateDirectionë„ -1ë¡œ
                 }
 
-                // ÃÊ´ç turnSpeed¸¸Å­ È¸ÀüÇÏ´Âµ¥ rotateDirection·Î ½Ã°è¹æÇâÀ¸·Î È¸ÀüÇÒÁö ¹İ½Ã°è ¹æÇâÀ¸·Î È¸ÀüÇÒÁö °áÁ¤
+                // ì´ˆë‹¹ turnSpeedë§Œí¼ íšŒì „í•˜ëŠ”ë° rotateDirectionë¡œ ì‹œê³„ë°©í–¥ìœ¼ë¡œ íšŒì „í• ì§€ ë°˜ì‹œê³„ ë°©í–¥ìœ¼ë¡œ íšŒì „í• ì§€ ê²°ì •
                 currentAngle += (rotateDirection * turnSpeed * Time.deltaTime);
 
                 resultDir = Quaternion.Euler(0, currentAngle, 0) * initialForward;
             }
             else
             {
-                //»çÀÌ°¢ÀÌ °ÅÀÇ 0ÀÎ °æ¿ì
+                //ì‚¬ì´ê°ì´ ê±°ì˜ 0ì¸ ê²½ìš°
                 resultDir = shotToMonsterDir;
             }
-            transform.rotation = Quaternion.LookRotation(resultDir);
+            dirPos.transform.rotation = Quaternion.LookRotation(resultDir);
         }
     }
 
-    public virtual bool IsInFireAngle()        // ¹ß»ç°¢ ¾È¿¡ ÀÖ´ÂÁö È®ÀÎÇÏ´Â ¿ëµµÀÇ ÇÔ¼ö
+    public virtual bool IsInFireAngle()        // ë°œì‚¬ê° ì•ˆì— ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ìš©ë„ì˜ í•¨ìˆ˜
     {
         if(target != null)
         {
-            Vector3 dir = target.transform.position - transform.position;         // Å¸°Ù À§Ä¡ - ¹æÇâ À§Ä¡
+            Vector3 dir = target.transform.position - dirPos.transform.position;
             dir.y = 0;
-            return Vector3.Angle(transform.forward, dir) < fireAngle;   // ¹æÇâÀÇ ¾ÕÂÊ°ú dir»çÀÌÀÇ ³»°¢ÀÌ ¹ß»ç°¢º¸´Ù ÀÛ´Ù
-            // Debug.Log("Å¸°ÙÀÌ ¹ß»ç°¢ ¾È¿¡ ÀÖÀ½");
+
+            return Vector3.Angle(dirPos.transform.forward, dir) < fireAngle;   // ë°©í–¥ì˜ ì•ìª½ê³¼ dirì‚¬ì´ì˜ ë‚´ê°ì´ ë°œì‚¬ê°ë³´ë‹¤ ì‘ë‹¤
+            // Debug.Log("íƒ€ê²Ÿì´ ë°œì‚¬ê° ì•ˆì— ìˆìŒ");
         }
         else
         {
-            return false;   // ¹ß»ç°¢ ¾È¿¡ ¾ø´Ù
+            return false;   // ë°œì‚¬ê° ì•ˆì— ì—†ë‹¤
         }
     }
 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ShortProjectile ±â´É
-// 1. ProjectileBase¸¦ »ó¼Ó¹Ş°í
-// 2. ¸ó½ºÅÍ¿Í Ãæµ¹ÇÏ¸é ¸ó½ºÅÍ¿¡°Ô ³¢Ä¡´Â ¿µÇâ ¿À¹ö¶óÀÌµù
+// ShortProjectile ê¸°ëŠ¥
+// 1. ProjectileBaseë¥¼ ìƒì†ë°›ê³ 
+// 2. ëª¬ìŠ¤í„°ì™€ ì¶©ëŒí•˜ë©´ ëª¬ìŠ¤í„°ì—ê²Œ ë¼ì¹˜ëŠ” ì˜í–¥ ì˜¤ë²„ë¼ì´ë”©
 
-public class ShortProjectile : ProjectileBase
+public class Cannon_Projectile : ProjectileBase
 {
 
     protected override void Awake()
@@ -18,9 +18,9 @@ public class ShortProjectile : ProjectileBase
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))   // Ãæµ¹ÀÌ Enemy¿Í ÀÏ¾î³µ´Ù¸é
+        if (other.gameObject.CompareTag("Enemy"))   // ì¶©ëŒì´ Enemyì™€ ì¼ì–´ë‚¬ë‹¤ë©´
         {
-            // EnemeyÀÇ HP´Â °¨¼Ò
+            // Enemeyì˜ HPëŠ” ê°ì†Œ
             MonsterBase monster = other.GetComponent<MonsterBase>();
             float MonsterHp = monster.MonsterHp;
 

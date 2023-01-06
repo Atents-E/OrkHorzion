@@ -24,7 +24,7 @@ public class Cannon_Tower : TowerBase
         base.Awake();
 
         childPos = transform.GetChild(1);
-        porPos = childPos.GetChild(0).transform.position;   // 투사체 생성 위치를 재 할당.
+        createPos = childPos.GetChild(0).transform.position;   // 투사체 생성 위치를 재 할당.
         dir = childPos.GetComponent<Direction>();   
     }
 

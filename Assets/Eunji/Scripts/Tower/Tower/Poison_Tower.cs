@@ -10,7 +10,7 @@ public class Poison_Tower : TowerBase
     protected override void Awake()
     {
         base.Awake();
-        porPos = transform.GetChild(0).position;
+        createPos = transform.GetChild(0).position;
     }
 
 protected override void OnTriggerEnter(Collider other)

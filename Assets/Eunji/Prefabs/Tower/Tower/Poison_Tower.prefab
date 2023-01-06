@@ -102,7 +102,7 @@ MonoBehaviour:
   gold: 10
   sightRange: 10
   sightRadius: 5
-  attactCreatSpeed: 0.5
+  proCreatSpeed: 10
   fireAngle: 10
   target: {fileID: 0}
   projectile: {fileID: 2022050941033226741, guid: 720ebf2f1720ad241b637b72af9e47ff, type: 3}

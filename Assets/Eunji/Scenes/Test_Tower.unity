@@ -130,10 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4053054336437893717, guid: 227c11e2ca8b2d64f9486b8860bd98ca, type: 3}
-      propertyPath: proCreatSpeed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 7614509667935897147, guid: 227c11e2ca8b2d64f9486b8860bd98ca, type: 3}
       propertyPath: m_Radius
       value: 10
@@ -654,7 +650,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146651311}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 2.2

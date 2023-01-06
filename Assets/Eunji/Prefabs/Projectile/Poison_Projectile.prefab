@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7672042261352309286}
   - component: {fileID: 8022387310177423809}
   m_Layer: 0
-  m_Name: Slowly_Projectile
+  m_Name: Poison_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
