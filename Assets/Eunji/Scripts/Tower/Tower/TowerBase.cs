@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
 #endif
 
-[RequireComponent(typeof(SphereCollider))]
-[RequireComponent(typeof(CapsuleCollider))]
+//[RequireComponent(typeof(SphereCollider))]
+//[RequireComponent(typeof(CapsuleCollider))]
 // TowerBase의 기능
 // 1. 범위 안의 몬스터 확인하여 타겟으로 설정
 // 2. 투사체 생성
@@ -24,14 +24,11 @@ public class TowerBase : MonoBehaviour
     public float sightRange = 10.0f;        // 범위
     public float sightRadius = 5.0f;        // 범위 반지름
 
-    public float attactCreatSpeed = 0.5f;   // 투사체 생성 속도
+    public float proCreatSpeed = 3.0f;      // 투사체 생성 속도
     public float fireAngle = 10.0f;         // 타워의 공격 각도
 
     protected float currentAngle = 0.0f;    // 방향의 처음 각도
     protected bool isFiring = false;        // 발사 중인지 확인
-    
-    //public float projectileSpeed = 0.3f;    // 투사체의 속도
-    //public float projectileCreate = 0.1f;   // 투사체의 생성시간
     
     protected IEnumerator fireCoroutine;    // 코루틴을 끄려면 변수로 가지고 있어야 함.
 
@@ -50,7 +47,7 @@ public class TowerBase : MonoBehaviour
         porjectilePos = transform.GetChild(0);
         porPos = porjectilePos.transform.position;
 
-        porPos.y = 0.5f;
+        porPos.y = 1f;
     }
 
     protected virtual void Start()    // 첫번째 업데이트가 일어나기 전에 호출
@@ -59,7 +56,6 @@ public class TowerBase : MonoBehaviour
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
 
-        // StartCoroutine(fireCoroutine);              // 코루틴 시작
     }
 
     /// <summary>
@@ -76,7 +72,7 @@ public class TowerBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        // Attack();
+        Attack();
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -84,8 +80,6 @@ public class TowerBase : MonoBehaviour
         if (other.CompareTag("Enemy"))              // 범위 안에 Enemy가 들어오면
         {
             target = other.gameObject;               // target = Enemy
-            Attack();
-
         }
     }
 
@@ -95,7 +89,6 @@ public class TowerBase : MonoBehaviour
         {
             target = null;                          // target 없음
             isFiring = false;                       // 발사 확인(false : fire코루틴 중지) 
-            Attack();
         }
     }
 
@@ -103,30 +96,42 @@ public class TowerBase : MonoBehaviour
     {
         if (isFiring)
         {
-            StartCoroutine(fireCoroutine);  // 코루틴 시작
+            FireStart();
         }
         else
         {
-            StopCoroutine(fireCoroutine);   // 코루틴 중단
+            FireStop();
         }
     }
 
 
-    protected virtual void Fire()         // 발사
+    protected virtual void Fire()       // 투사체 생성
     {
         Instantiate(projectile, porPos, transform.rotation, transform);  // 투사체가 복사
     }
 
-    IEnumerator PeriodFire()    // 발사 기간
+    IEnumerator PeriodFire()            // 발사 시간
     {
+        WaitForSeconds wait = new WaitForSeconds(proCreatSpeed);
+
         while (isFiring)            // true일 동안에
         {
-            Fire();             // 발사
-            yield return new WaitForSeconds(attactCreatSpeed);   // 공격 속도만큼 기다리고 새로 할당
+            Fire();             
+            yield return wait;      // 발사체 생성 속도에 맞추어서 생성
         }
     }
 
+    protected virtual void FireStart()
+    {
+        isFiring = true;                // 발사 중이면
+        StartCoroutine(fireCoroutine);  // 코루틴 시작
+    }
 
+    protected virtual void FireStop()
+    {
+        StopCoroutine(fireCoroutine);   // 코루틴 중단
+        isFiring = false;               // 발사 중이지 않으면
+    }
 
 
     /// <summary>
@@ -141,33 +146,34 @@ public class TowerBase : MonoBehaviour
     }
 
 
-    protected virtual void OnDrawGizmos/*Selected*/() // 씬창에서 타워의 공격 범위를 표시
-    {
-#if UNITY_EDITOR
+//    protected virtual void OnDrawGizmos/*Selected*/() // 씬창에서 타워의 공격 범위를 표시
 
-        Handles.color = Color.blue;    // 초록색으로 표시
+//    {
+//#if UNITY_EDITOR
 
-        if (target != null)             // 타겟이 있다면
-        {
-            Handles.color = Color.red;  // 이후에 작성된 코드들은 빨간색으로 표시
-        }
+//        Handles.color = Color.blue;    // 초록색으로 표시
 
-        Handles.DrawWireDisc(transform.position, transform.up, sightRadius, 3.0f);     //시야 반경만큼 원 그리기 //원이 하나만 보임
+//        if (target != null)             // 타겟이 있다면
+//        {
+//            Handles.color = Color.red;  // 이후에 작성된 코드들은 빨간색으로 표시
+//        }
+
+//        Handles.DrawWireDisc(transform.position, transform.up, sightRadius, 3.0f);     //시야 반경만큼 원 그리기 //원이 하나만 보임
         
-        //Vector3 forward = transform.forward;    // 움직일 방향 위치를 받아옴
-        //forward.y = 0;
-        //forward = forward.normalized * sightRange;
+//        //Vector3 forward = transform.forward;    // 움직일 방향 위치를 받아옴
+//        //forward.y = 0;
+//        //forward = forward.normalized * sightRange;
 
 
-        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // 중심선 그리기
+//        //Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // 중심선 그리기
 
-        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// up벡터를 축으로 반시계방향으로 sightHalfAngle만큼 회전
-        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // up벡터를 축으로 시계방향으로 sightHalfAngle만큼 회전
+//        //Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);// up벡터를 축으로 반시계방향으로 sightHalfAngle만큼 회전
+//        //Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up); // up벡터를 축으로 시계방향으로 sightHalfAngle만큼 회전
 
-        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // 중심선을 반시계방향으로 회전시켜서 그리기
-        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // 중심선을 시계방향으로 회전시켜서 그리기
-        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // 호 그리기
-#endif  
-    }
+//        //Handles.DrawLine(transform.position, transform.position + q1 * forward);    // 중심선을 반시계방향으로 회전시켜서 그리기
+//        //Handles.DrawLine(transform.position, transform.position + q2 * forward);    // 중심선을 시계방향으로 회전시켜서 그리기
+//        //Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // 호 그리기
+//#endif  
+//    }
 
 }

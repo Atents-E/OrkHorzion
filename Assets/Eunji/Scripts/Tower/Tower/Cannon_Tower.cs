@@ -6,14 +6,14 @@ using UnityEngine;
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
 #endif
 
-// ShortTower의 기능
+// Cannon_Tower 기능
 // 1. 범위 안의 몬스터 확인하여 타겟으로 설정
 // 2. 투사체 생성
 // 3. 생성한 투사체를 자식으로 설정
 
 // 1. 투사체 생성 조건 설정(0번째 자식이 타겟을 바라본게 맞으면 투사체 생성(fireAngle이면))
 // 2. 투사체 생성 위치 변경
-public class ShortTower : TowerBase
+public class Cannon_Tower : TowerBase
 {
     Transform childPos;                    // 발사각 확인 할 위치
     Vector3 proCreatPos;                   // 투사체 생성 위치 Vector3 
@@ -31,22 +31,12 @@ public class ShortTower : TowerBase
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        //if (other.CompareTag("Enemy"))              // 범위 안에 Enemy가 들어오면
-        //{
-        //    target = other.gameObject;              // target을 Enemy로 설정
-
-        //    if (target != null && dir.IsInFireAngle())    // 발사각도 내에 타워가 있으면
-        //    {
-        //        isFiring = true;
-        //    }
-        //}
 
         if (target != null && dir.IsInFireAngle())    // 발사각도 내에 타워가 있으면
         {
             isFiring = true;
         }
     }
-
 
     //    protected override void OnDrawGizmos/*Selected*/() // 기즈모
     //    {

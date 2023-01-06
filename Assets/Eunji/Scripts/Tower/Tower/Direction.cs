@@ -17,12 +17,12 @@ public class Direction : MonoBehaviour
     protected Vector3 initialForward;                 // 처음 앞
 
     GameObject target;              // 발사체와 만날 타겟(적)
-    ShortTower parent;              // 부모
+    Cannon_Tower parent;              // 부모
 
 
     protected virtual void Start()
     {
-        parent = GetComponentInParent<ShortTower>();
+        parent = GetComponentInParent<Cannon_Tower>();
         target = parent.target;
     }
 

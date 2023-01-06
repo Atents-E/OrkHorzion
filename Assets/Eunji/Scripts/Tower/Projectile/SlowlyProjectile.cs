@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SlowlyProjectile : ProjectileBase
+public class PoisonProjectile : ProjectileBase
 {
-    public float reduceSpeed = 0.003f;    // °¨¼Ó ½ÃÅ°´Â ½ºÇÇµå
-    public float reduceAttack = 0.003f;    // °¨¼Ó ½ÃÅ°´Â °ø°İ·Â
-    public float reduceTiem = 5.0f;	    // °¨¼Ó ½ÃÅ°´Â ½Ã°£ 
+    public float reduceSpeed = 0.003f;    // ê°ì† ì‹œí‚¤ëŠ” ìŠ¤í”¼ë“œ
+    public float reduceAttack = 0.003f;    // ê°ì† ì‹œí‚¤ëŠ” ê³µê²©ë ¥
+    public float reduceTiem = 5.0f;	    // ê°ì† ì‹œí‚¤ëŠ” ì‹œê°„ 
 
     bool isReduceTime = false;
 
-    protected void OnCollisionEnter(Collision collision) // Ãæµ¹ÀÌ ÀÏ¾î³ª¸é
+    protected void OnCollisionEnter(Collision collision) // ì¶©ëŒì´ ì¼ì–´ë‚˜ë©´
     {
-        if (collision.gameObject.CompareTag("Enemy"))   // Ãæµ¹ÀÌ Enemy¿Í ÀÏ¾î³µ´Ù¸é
+        if (collision.gameObject.CompareTag("Enemy"))   // ì¶©ëŒì´ Enemyì™€ ì¼ì–´ë‚¬ë‹¤ë©´
         {
-            // targetÀº ¸ó½ºÅÍ
+            // targetì€ ëª¬ìŠ¤í„°
             target = collision.gameObject;
 
-            // ¹ß»çÃ¼ »èÁ¦
+            // ë°œì‚¬ì²´ ì‚­ì œ
             Destroy(this.gameObject);
 
             MonsterBase monster = GetComponent<MonsterBase>();
  
-            for(int i = 0; i < reduceTiem; i++)     // °¨¼Ó½Ã°£ µ¿¾È
+            for(int i = 0; i < reduceTiem; i++)     // ê°ì†ì‹œê°„ ë™ì•ˆ
             {
-                // MonsterÀÇ ÀÌ¼Ó°ú °ø¼Ó °¨¼Ò
+                // Monsterì˜ ì´ì†ê³¼ ê³µì† ê°ì†Œ
                 reduceSpeed -= Time.deltaTime;
                 isReduceTime = false;
             }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3976523897568657954}
   - component: {fileID: 3976523897568657977}
   m_Layer: 0
-  m_Name: HM_poison_1
+  m_Name: TowerBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

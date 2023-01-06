@@ -339,7 +339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9019080477475811270
 Transform:
   m_ObjectHideFlags: 0
@@ -378,11 +378,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9019080477538201112}
   - component: {fileID: 9019080477538201115}
-  - component: {fileID: 9019080477538201114}
   - component: {fileID: 9019080477538201109}
   - component: {fileID: 9019080477538201108}
   m_Layer: 0
-  m_Name: cannon1
+  m_Name: Cannon_Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,28 +416,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb65d2adcdefa54458d70a4322f666d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goal: 10
-  turnSpeed: 180
-  sightRadius: 6
-  projectile: {fileID: 1986884198281658, guid: b0fcc99d970ead848a69f5aedfbbe9b6, type: 3}
-  attackSpeed: 2
-  fireAngle: 10
-  sightRange: 6
-  sightHalfAngle: 30
---- !u!114 &9019080477538201114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019080477538201111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34baeca02117b1438a3172037a8905f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnSpeed: 10
-  fireAngle: 10
+  gold: 10
+  sightRange: 5
+  sightRadius: 5
+  attactCreatSpeed: 0.5
+  fireAngle: 30
+  target: {fileID: 0}
+  projectile: {fileID: 1125468324877278409, guid: 92771115db052cd48838811a7e380345, type: 3}
 --- !u!136 &9019080477538201109
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -464,7 +448,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 5
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &9019080478345686990
 GameObject:
