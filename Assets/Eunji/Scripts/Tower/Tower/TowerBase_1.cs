@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -18,50 +19,42 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 // 4. 타워를 클릭하면 삭제 확인하는 창을 띄우고,
 // 5. 삭제를 요청하면 타워 금액을 반환, 타워는 삭제된다.
 public class TowerBase_1 : MonoBehaviour
-{
+{    
     public int gold = 10;                   // 타워 가격
 
-    public float sightRange = 5.0f;        // 범위
+    public float sightRange = 5.0f;         // 범위
     public float sightRadius = 2.5f;        // 범위 반지름
 
-    public float proCreatSpeed = 3.0f;      // 투사체 생성 속도
-
     public float fireAngle = 10.0f;         // 타워의 공격 각도
-    public float turnSpeed = 130.0f;         // 회전속도
+    public float turnSpeed = 180.0f;        // 회전속도
     protected float currentAngle = 0.0f;    // 방향의 처음 각도
-
-    protected bool isFiring = false;        // 발사 중인지 확인
     
-    //protected IEnumerator fireCoroutine;    // 코루틴을 끄려면 변수로 가지고 있어야 함.
+    //protected IEnumerator fireCoroutine;  // 코루틴을 끄려면 변수로 가지고 있어야 함.
 
-    GameObject target;               // 타겟은 null
+    GameObject target;                      // 타겟은 null
     public GameObject projectile;           // 투사체 프리팹
 
-    protected Vector3 createPos;               // 투사체 생성 할 Vecotr3 위치
-    Transform fireTransform;
-    GameObject dirPos;                           // 회전 하는 오브젝트의 위치
+    protected Vector3 createPos;            // 투사체 생성 할 Vecotr3 위치
 
 
-    public float fireInterval = 1.0f;
-    public float coolTime = 0.0f;
+    TowerInputActions inputActions;
 
-    protected Vector3 initialForward;                 // 처음 앞
-
-
-    protected virtual void Awake()
+    private void Awake()
     {
-        //fireCoroutine = PeriodFire();               // 코루틴을 변수로 사용하려고 할당
-        createPos = transform.GetChild(0).transform.position;    // 투사체 생성 위치
-        fireTransform = transform.GetChild(0);
-
-        dirPos = transform.GetChild(1).gameObject;
+        inputActions = new TowerInputActions();
     }
 
-    protected virtual void Start()    // 첫번째 업데이트가 일어나기 전에 호출
+
+    private void OnEnable()
     {
-        //initialForward = transform.forward;         // 처음 앞은 게임 오브젝트의 앞
-        //SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
-        //col.radius = sightRadius;                   // 
+        inputActions.Tower.Enable();
+        inputActions.Tower.Remove.performed += OnRemove;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Tower.Remove.performed -= OnRemove;
+        inputActions.Tower.Disable();
     }
 
     /// <summary>
@@ -74,6 +67,44 @@ public class TowerBase_1 : MonoBehaviour
         {
             col.radius = sightRange;
         }
+    }
+
+
+
+    public  void OnRemove(InputAction.CallbackContext context)
+    {
+
+        Vector3 selectedTower = context.ReadValue<Vector3>();
+
+        // 1. 클릭 된 오브젝트가 타워인지 확인
+        Ray ray = Camera.main.ScreenPointToRay(selectedTower);   // 스크린 좌표로 레이 생성
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Tower"))) // 레이와 타워의 충돌 여부 확인
+        {
+            // 충돌한 지점에 오브젝트가 있는지 확인
+            Debug.Log($"{hit.collider}");
+
+            // 2. 삭제 패널을 활성화 하라고 신호를 보내고
+            CanvasTower canvas = FindObjectOfType<CanvasTower>();
+            canvas.LookTowerDelete();
+
+            //3. 
+            if( canvas.OK != false)
+            {
+                DeleteTower();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
+    /// </summary>
+    void DeleteTower()
+    {
+        // Inventory playerGold = GetComponent<Inventory>();
+        // playerGold += gold * 0.8f;
+
+        Destroy(this.gameObject);
     }
 
     //protected virtual void Update()
@@ -151,26 +182,26 @@ public class TowerBase_1 : MonoBehaviour
     //    }
     //}
 
-    protected void Attack()
-    {
-        coolTime += Time.deltaTime;
+    //protected void Attack()
+    //{
+    //    coolTime += Time.deltaTime;
 
-        if(target != null && coolTime > fireInterval)
-        {
-            Vector3 dir = target.transform.position - fireTransform.position;
-            dir.y = 0;
+    //    if(target != null && coolTime > fireInterval)
+    //    {
+    //        Vector3 dir = target.transform.position - fireTransform.position;
+    //        dir.y = 0;
 
-            fireTransform.forward = dir.normalized;
-            Fire();
-            coolTime = 0;
-        }
-    }
+    //        fireTransform.forward = dir.normalized;
+    //        Fire();
+    //        coolTime = 0;
+    //    }
+    //}
 
-    protected virtual void Fire()       // 투사체 생성
-    {
-        GameObject obj= Instantiate(projectile, fireTransform);
-        obj.transform.SetParent(null);
-    }
+    //protected virtual void Fire()       // 투사체 생성
+    //{
+    //    GameObject obj= Instantiate(projectile, fireTransform);
+    //    obj.transform.SetParent(null);
+    //}
 
     //IEnumerator PeriodFire()            // 발사 시간
     //{
@@ -183,11 +214,10 @@ public class TowerBase_1 : MonoBehaviour
     //    }
     //}
 
-
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
     /// </summary>
-    public void DeleteTower()
+    public void Delete_Tower()
     {
         // Inventory inventory = GetComponent<Inventory>();
         // inventory.gold += goal * 0.8f;

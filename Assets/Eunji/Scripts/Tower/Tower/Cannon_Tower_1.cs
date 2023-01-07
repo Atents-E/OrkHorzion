@@ -16,18 +16,17 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 public class Cannon_Tower_1 : TowerBase_1
 {
     Transform childPos;                    // 발사각 확인 할 위치
-    Vector3 proCreatPos;                   // 투사체 생성 위치 Vector3 
-    Direction dir;                         // 발사각도를 확인할 수 있는 참조
+    Transform BulletPrefabPos;             // 투사체 생성 위치 Vector3
     Transform dirPos;
     Transform target;
 
-    protected override void Awake()
-    {
-        base.Awake();
+    public float fireInterval = 1.0f;
+    public float coolTime = 0.0f;
 
+    protected void Awake()
+    {
         childPos = transform.GetChild(1);
-        createPos = childPos.GetChild(0).transform.position;   // 투사체 생성 위치를 재 할당.
-        dir = childPos.GetComponent<Direction>();
+        BulletPrefabPos = childPos.GetChild(0);
 
         dirPos = transform.GetChild(1);
     }
@@ -36,7 +35,8 @@ public class Cannon_Tower_1 : TowerBase_1
     {
         if (other.CompareTag("Enemy"))
         {
-            target = other.transform;            
+            target = other.transform;
+            isFire = true;
         }        
     }
 
@@ -45,11 +45,13 @@ public class Cannon_Tower_1 : TowerBase_1
         if (other.CompareTag("Enemy"))
         {
             target = null;
+            isFire = false;
         }
     }
 
-    protected void Update()
-    {        
+    protected void FixedUpdate()
+    {
+        Attack();
         LookTarget();
     }
 
@@ -88,6 +90,31 @@ public class Cannon_Tower_1 : TowerBase_1
             }
             dirPos.transform.rotation = Quaternion.LookRotation(resultDir);
         }
+    }
+
+    bool isFire = false;
+    protected void Attack()
+    {
+        if (isFire)
+        {
+            coolTime += Time.deltaTime;
+
+            if (target != null && coolTime > fireInterval)
+            {
+                Vector3 dir = target.transform.position - BulletPrefabPos.position;
+                dir.y = 0;
+
+                BulletPrefabPos.forward = dir.normalized;
+                Fire();
+                coolTime = 0;
+            }
+        }
+    }
+
+    void Fire()
+    {
+        GameObject obj = Instantiate(projectile, BulletPrefabPos);
+        obj.transform.SetParent(null);
     }
 
     //public virtual bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수

@@ -93,6 +93,11 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             GameObject obj = Instantiate(towerPrefab, creatPos, transform.rotation);
 
         }
+        else
+        {
+            // 충돌한게 땅이 아닌데 타워가 생성 됨..
+            // 
+        }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
         transform.parent = null;

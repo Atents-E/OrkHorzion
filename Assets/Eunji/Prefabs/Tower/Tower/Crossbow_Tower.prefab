@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5486732644706761964}
-  - component: {fileID: 3270534306401222413}
-  - component: {fileID: 5071996280747368240}
   - component: {fileID: 5491285641324945477}
   - component: {fileID: 5491285641324945478}
+  - component: {fileID: 1509743887}
   m_Layer: 0
   m_Name: Crossbow_Tower
   m_TagString: Untagged
@@ -37,41 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3270534306401222413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5490125253788678494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4024433a251ded241ba657d72bbbef7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gold: 10
-  sightRange: 10
-  sightRadius: 5
-  proCreatSpeed: 3
-  fireAngle: 10
-  target: {fileID: 0}
-  projectile: {fileID: 8073189618203820264, guid: 515387c39d16922459c72650be1f3856, type: 3}
-  fireInterval: 1
-  coolTime: 0
---- !u!114 &5071996280747368240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5490125253788678494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34baeca02117b1438a3172037a8905f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnSpeed: 10
-  fireAngle: 10
 --- !u!136 &5491285641324945477
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -97,8 +61,28 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 5
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &1509743887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490125253788678494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8360d235d2c4fef429ca739c330616cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 10
+  sightRange: 5
+  sightRadius: 2.5
+  fireAngle: 10
+  turnSpeed: 180
+  projectile: {fileID: 8073189618203820264, guid: 515387c39d16922459c72650be1f3856, type: 3}
+  fireInterval: 1
+  coolTime: 0
 --- !u!1 &5490459349898986698
 GameObject:
   m_ObjectHideFlags: 0

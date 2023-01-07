@@ -362,8 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9019080477538201112}
-  - component: {fileID: 2345411998019529550}
-  - component: {fileID: 9019080477538201115}
+  - component: {fileID: 3955866926730367050}
   - component: {fileID: 9019080477538201109}
   - component: {fileID: 9019080477538201108}
   m_Layer: 6
@@ -390,7 +389,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2345411998019529550
+--- !u!114 &3955866926730367050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,32 +404,8 @@ MonoBehaviour:
   gold: 10
   sightRange: 5
   sightRadius: 2.5
-  proCreatSpeed: 3
   fireAngle: 10
-  turnSpeed: 10
-  target: {fileID: 0}
-  projectile: {fileID: 0}
-  fireInterval: 1
-  coolTime: 0
---- !u!114 &9019080477538201115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9019080477538201111}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb65d2adcdefa54458d70a4322f666d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gold: 10
-  sightRange: 5
-  sightRadius: 5
-  proCreatSpeed: 3
-  fireAngle: 30
-  turnSpeed: 10
-  target: {fileID: 0}
+  turnSpeed: 180
   projectile: {fileID: 1125468324877278409, guid: 92771115db052cd48838811a7e380345, type: 3}
   fireInterval: 1
   coolTime: 0

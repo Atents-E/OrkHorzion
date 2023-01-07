@@ -21,18 +21,18 @@ public class Cannon_Projectile : ProjectileBase
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
             // Enemey의 HP는 감소
-            MonsterBase monster = other.GetComponent<MonsterBase>();
-            float MonsterHp = monster.MonsterHp;
+            //MonsterBase monster = other.GetComponent<MonsterBase>();
+            //float MonsterHp = monster.MonsterHp;
 
-            if (MonsterHp != 0)
-            {
-                MonsterHp -= attackPower;
+            //if (MonsterHp != 0)
+            //{
+            //    MonsterHp -= attackPower;
 
-                if (MonsterHp < 0)
-                {
-                    MonsterHp = 0;
-                }
-            }
+            //    if (MonsterHp < 0)
+            //    {
+            //        MonsterHp = 0;
+            //    }
+            //}
 
             // Debug.Log($"{MonsterHp}");
 

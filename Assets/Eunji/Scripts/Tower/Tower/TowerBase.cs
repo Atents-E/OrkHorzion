@@ -191,7 +191,7 @@ public class TowerBase : MonoBehaviour
     public void DeleteTower()
     {
         // Inventory inventory = GetComponent<Inventory>();
-        // inventory.gold += goal * 0.8f;
+        // inventory.gold += gold * 0.8f;
 
         Destroy(this.gameObject);
     }

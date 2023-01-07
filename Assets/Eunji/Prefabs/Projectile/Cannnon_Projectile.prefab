@@ -9659,9 +9659,9 @@ GameObject:
   - component: {fileID: 1123435135479094409}
   - component: {fileID: 1147897658046259015}
   - component: {fileID: 1138249157929324341}
+  - component: {fileID: 559605091238345784}
   - component: {fileID: 1546563665}
   - component: {fileID: 1546563664}
-  - component: {fileID: 8962533657837982013}
   m_Layer: 0
   m_Name: Cannnon_Projectile
   m_TagString: Untagged
@@ -9693,7 +9693,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125468324877278409}
-  m_Mesh: {fileID: 4300004, guid: 5489ddad37b3d0744abdccd4a3ae1e20, type: 3}
+  m_Mesh: {fileID: 4300004, guid: e1cd1c38299fa574da337ed70203b665, type: 3}
 --- !u!23 &1138249157929324341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9736,6 +9736,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &559605091238345784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125468324877278409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122bb0e132952ed4298f35299da0546a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPower: 10
+  speed: 5
+  lifeTime: 5
 --- !u!54 &1546563665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9748,7 +9763,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -9765,17 +9780,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8962533657837982013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125468324877278409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3460a736abfed744da1173f5a7923c89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPower: 10
-  speed: 1
