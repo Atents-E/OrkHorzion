@@ -23,24 +23,12 @@ public class ProjectileBase : MonoBehaviour
 
     protected virtual void Awake()    
     {
-        //parentTarget = GetComponentInParent<TowerBase>();
-        //target = parentTarget.target;
-
         Destroy(this.gameObject, lifeTime); // 생성되면 lifeTime 뒤에 삭제
     }
 
     protected void Update()
     {
         transform.Translate(speed * Time.deltaTime * transform.forward, Space.World);
-        //if( target != null)
-        //{
-        //    Vector3 dir = (transform.position - target.transform.position).normalized;   // Monster에게 가는 방향벡터
-        //    dir.y = 0.5f;
-
-        //    transform.Translate(speed * Time.fixedDeltaTime * dir);         // 투사체 이동
-        //}
-
-        // Debug.Log($"{target.transform.position}");
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -49,19 +37,22 @@ public class ProjectileBase : MonoBehaviour
         {
             //// Enemey의 HP는 감소
             MonsterBase monster = other.GetComponent<MonsterBase>();
-            //float MonsterHp = monster.MonsterHp;
 
-            //if (MonsterHp != 0)
-            //{
-            //    MonsterHp -= attackPower;
+            if (monster != null)
+            {
+                float MonsterHp = monster.MonsterHp;
 
-            //    if (MonsterHp < 0)
-            //    {
-            //        MonsterHp = 0;
-            //    }
-            //}
+                if (MonsterHp > 0)
+                {
+                    MonsterHp -= attackPower;
+                }
+                else if( MonsterHp <= 0)
+                {
+                    MonsterHp = 0;
+                }
 
-            //Debug.Log($"{MonsterHp}");
+                Debug.Log($"{MonsterHp}");
+            }
 
             Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
         }

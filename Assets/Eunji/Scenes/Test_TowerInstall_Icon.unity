@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &374832757 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3498793020980507801, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-  m_PrefabInstance: {fileID: 3498793022350696855}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &468523517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,17 +1675,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1680380647}
     m_Modifications:
-    - target: {fileID: 312099531027683624, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7756156823203258836, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: m_Name
       value: TowerMemu_Panel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7756156823203258836, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7756156823203258837, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: m_Pivot.x
@@ -1776,10 +1763,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8141623956014149127, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
-      propertyPath: towerPrefab
-      value: 
-      objectReference: {fileID: 9019080477538201111, guid: 0b3ced19e70363f4f99fa76eaa265b1b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
 --- !u!224 &1321914802 stripped
@@ -2023,10 +2006,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2081273082}
-    - target: {fileID: 233168238782359881, guid: 07e4824ae7ca9cf48bcc98d034390d7d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
     - target: {fileID: 233168238782359886, guid: 07e4824ae7ca9cf48bcc98d034390d7d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2212,30 +2191,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerDelete_Panel
       objectReference: {fileID: 0}
-    - target: {fileID: 3498793020980507801, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 374832757}
-    - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 3498793021030361847, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3498793020980507780, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}

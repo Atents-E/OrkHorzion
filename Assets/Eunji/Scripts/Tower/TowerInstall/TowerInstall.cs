@@ -93,7 +93,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             // 타워를 살 수 있는 돈이 있는지 확인
             // 돈이 있으면 그 지점에 tower 생성
             Instantiate(towerPrefab, creatPos, transform.rotation);
-
+            Debug.Log("타워 설치");
             // 돈이 부족해서 타워를 구매할 수 없다는 창을 띄어줌
         }
         else
