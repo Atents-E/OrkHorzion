@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
 
 #if UNITY_EDIOR
 using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
@@ -20,7 +22,7 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 // 5. 삭제를 요청하면 타워 금액을 반환, 타워는 삭제된다.
 public class TowerBase_1 : MonoBehaviour
 {    
-    public int gold = 10;                   // 타워 가격
+    public int price = 10;                   // 타워 가격
 
     public float sightRange = 5.0f;         // 범위
     public float sightRadius = 2.5f;        // 범위 반지름
@@ -31,31 +33,11 @@ public class TowerBase_1 : MonoBehaviour
     
     //protected IEnumerator fireCoroutine;  // 코루틴을 끄려면 변수로 가지고 있어야 함.
 
-    GameObject target;                      // 타겟은 null
+    // GameObject target;                      // 타겟은 null
     public GameObject projectile;           // 투사체 프리팹
 
     protected Vector3 createPos;            // 투사체 생성 할 Vecotr3 위치
 
-
-    TowerInputActions inputActions;
-
-    private void Awake()
-    {
-        inputActions = new TowerInputActions();
-    }
-
-
-    private void OnEnable()
-    {
-        inputActions.Tower.Enable();
-        inputActions.Tower.Remove.performed += OnRemove;
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Tower.Remove.performed -= OnRemove;
-        inputActions.Tower.Disable();
-    }
 
     /// <summary>
     ///  인터펙터 창에서 값이 성공적으로 변경되었을 때 호출되는 함수  //인스펙터 청에서도 값이 변경되는 것을(재생 전) 바로바로 확인 가능
@@ -71,38 +53,14 @@ public class TowerBase_1 : MonoBehaviour
 
 
 
-    public  void OnRemove(InputAction.CallbackContext context)
-    {
-
-        Vector3 selectedTower = context.ReadValue<Vector3>();
-
-        // 1. 클릭 된 오브젝트가 타워인지 확인
-        Ray ray = Camera.main.ScreenPointToRay(selectedTower);   // 스크린 좌표로 레이 생성
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Tower"))) // 레이와 타워의 충돌 여부 확인
-        {
-            // 충돌한 지점에 오브젝트가 있는지 확인
-            Debug.Log($"{hit.collider}");
-
-            // 2. 삭제 패널을 활성화 하라고 신호를 보내고
-            CanvasTower canvas = FindObjectOfType<CanvasTower>();
-            canvas.LookTowerDelete();
-
-            //3. 
-            if( canvas.OK != false)
-            {
-                DeleteTower();
-            }
-        }
-    }
-
 
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
     /// </summary>
-    void DeleteTower()
+    protected void DeleteTower()
     {
         // Inventory playerGold = GetComponent<Inventory>();
-        // playerGold += gold * 0.8f;
+        // playerGold += price * 0.8f;
 
         Destroy(this.gameObject);
     }
@@ -217,13 +175,6 @@ public class TowerBase_1 : MonoBehaviour
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
     /// </summary>
-    public void Delete_Tower()
-    {
-        // Inventory inventory = GetComponent<Inventory>();
-        // inventory.gold += goal * 0.8f;
-
-        Destroy(this.gameObject);
-    }
 
 
 //    protected virtual void OnDrawGizmos/*Selected*/() // 씬창에서 타워의 공격 범위를 표시

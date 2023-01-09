@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Poison_Tower : TowerBase
 {
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         createPos = transform.GetChild(0).position;
     }
 

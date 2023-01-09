@@ -39,7 +39,7 @@ public class TowerBase : MonoBehaviour
 
     protected Vector3 createPos;               // 투사체 생성 할 Vecotr3 위치
     Transform fireTransform;
-    GameObject dirPos;                           // 회전 하는 오브젝트의 위치
+    // GameObject dirPos;                           // 회전 하는 오브젝트의 위치
 
 
     public float fireInterval = 1.0f;
@@ -54,7 +54,7 @@ public class TowerBase : MonoBehaviour
         createPos = transform.GetChild(0).transform.position;    // 투사체 생성 위치
         fireTransform = transform.GetChild(0);
 
-        dirPos = transform.GetChild(1).gameObject;
+        // dirPos = transform.GetChild(1).gameObject;
     }
 
     protected virtual void Start()    // 첫번째 업데이트가 일어나기 전에 호출
@@ -78,7 +78,6 @@ public class TowerBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        LookTarget();
         Attack();
     }
 
@@ -99,57 +98,6 @@ public class TowerBase : MonoBehaviour
         }
     }
 
-
-    protected virtual void LookTarget()   // 타겟을 보도록 회전
-    {
-        if (target != null)     // 타겟이 있다면,
-        {
-            // 각도를 사용하는 경우(등속도로 회전)
-            Vector3 shotToMonsterDir = target.transform.position - transform.position;  // 방향(타워)에서 적의 위치로 가는 방향 벡터 계산
-            shotToMonsterDir.y = 0;
-
-            // 정방향일 때 0~180도. 역방향일 떄 0~-180도        //왼손 좌표계에서 엄지 손가락이 나를 향할 때, 다른 손가락은 시계 방향으로 감긴다.
-            float betweenAngle = Vector3.SignedAngle(dirPos.transform.forward, shotToMonsterDir, transform.up);
-
-            Vector3 resultDir;
-            if (Mathf.Abs(betweenAngle) > 1.0f)    // 사이각이 일정 각도 이하인지 체크
-            {
-                // 사이각이 충분히 벌어진 경우
-                float rotateDirection = 1.0f;   //일단 +방향(정방향, 시계방향)으로 설정
-                if (betweenAngle < 0)
-                {
-                    rotateDirection = -1.0f;    // betweenAngle이 -면 rotateDirection도 -1로
-                }
-
-                // 초당 turnSpeed만큼 회전하는데 rotateDirection로 시계방향으로 회전할지 반시계 방향으로 회전할지 결정
-                currentAngle += (rotateDirection * turnSpeed * Time.deltaTime);
-
-                resultDir = Quaternion.Euler(0, currentAngle, 0) * initialForward;
-            }
-            else
-            {
-                //사이각이 거의 0인 경우
-                resultDir = shotToMonsterDir;
-            }
-            dirPos.transform.rotation = Quaternion.LookRotation(resultDir);
-        }
-    }
-
-    protected bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
-    {
-        if (target != null)
-        {
-            Vector3 dir = target.transform.position - dirPos.transform.position;
-            dir.y = 0;
-
-            return Vector3.Angle(dirPos.transform.forward, dir) < fireAngle;   // 방향의 앞쪽과 dir사이의 내각이 발사각보다 작다
-            // Debug.Log("타겟이 발사각 안에 있음");
-        }
-        else
-        {
-            return false;   // 발사각 안에 없다
-        }
-    }
 
 
     protected void Attack()
@@ -172,17 +120,6 @@ public class TowerBase : MonoBehaviour
         GameObject obj= Instantiate(projectile, fireTransform);
         obj.transform.SetParent(null);
     }
-
-    //IEnumerator PeriodFire()            // 발사 시간
-    //{
-    //    WaitForSeconds wait = new WaitForSeconds(proCreatSpeed);
-
-    //    while (isFiring)            // true일 동안에
-    //    {
-    //        Fire();             
-    //        yield return wait;      // 발사체 생성 속도에 맞추어서 생성
-    //    }
-    //}
 
 
     /// <summary>

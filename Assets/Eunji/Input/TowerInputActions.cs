@@ -29,9 +29,9 @@ public partial class @TowerInputActions : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Remove"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""c9d54948-b3df-48c0-8c40-babbd6656db2"",
-                    ""expectedControlType"": ""Vector3"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

@@ -89,14 +89,15 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             creatPos.y = 0;
             creatPos.z -= 1;
 
-            // 그 지점에 tower 생성
-            GameObject obj = Instantiate(towerPrefab, creatPos, transform.rotation);
 
+            // 타워를 살 수 있는 돈이 있는지 확인
+            // 돈이 있으면 그 지점에 tower 생성
+            Instantiate(towerPrefab, creatPos, transform.rotation);
+
+            // 돈이 부족해서 타워를 구매할 수 없다는 창을 띄어줌
         }
         else
         {
-            // 충돌한게 땅이 아닌데 타워가 생성 됨..
-            // 
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
@@ -105,6 +106,8 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         // 타워 UI = 처음 타워 위치로 이동
         transform.position = currentParent.position;
     }
+
+
 
     ///<summary>
     ///TowerMenu의 크기

@@ -13,7 +13,7 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 
 // 1. 투사체 생성 조건 설정(0번째 자식이 타겟을 바라본게 맞으면 투사체 생성(fireAngle이면))
 // 2. 투사체 생성 위치 변경
-public class Cannon_Tower_1 : TowerBase_1
+public class Spin_Tower : TowerBase_1
 {
     Transform childPos;                    // 발사각 확인 할 위치
     Transform BulletPrefabPos;             // 투사체 생성 위치 Vector3
@@ -69,7 +69,7 @@ public class Cannon_Tower_1 : TowerBase_1
 
             Vector3 resultDir = new Vector3();
 
-            if (Mathf.Abs(betweenAngle) > 1.0f)    // 사이각이 일정 각도 이하인지 체크
+            if (Mathf.Abs(betweenAngle) > 2.0f)    // 사이각이 일정 각도 이하인지 체크
             {
                 // 사이각이 충분히 벌어진 경우
                 float rotateDirection = 1.0f;   //일단 +방향(정방향, 시계방향)으로 설정                
