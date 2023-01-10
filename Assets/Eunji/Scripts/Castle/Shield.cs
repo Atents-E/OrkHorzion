@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ParticleSystemJobs;
 
-// ShieldBase ±â´É
-// 1. »ı¼º À§Ä¡´Â °ÅÁ¡Å¸¿ö¸¦ ÁßÁ¡À¸·Î ÇÑ´Ù
-// 2. »ı¼º µÇÀÚ¸¶ÀÚ È¸Àü
-// 3. HP°¡ 0°ú °°°Å³ª ÀûÀ¸¸é ÇØ´ç ¿ÀºêÁ§Æ®¸¦ »èÁ¦ÇÑ´Ù.
-// 4. °ø°İ ´çÇÏ¸é ±× ºÎÀ§¿¡ Å¸°İ ÀÌÆåÆ®¸¦ º¸¿©ÁØ´Ù.
+// ShieldBase ê¸°ëŠ¥
+// 1. ìƒì„± ìœ„ì¹˜ëŠ” ê±°ì íƒ€ì›Œë¥¼ ì¤‘ì ìœ¼ë¡œ í•œë‹¤
+// 2. ìƒì„± ë˜ìë§ˆì íšŒì „
+// 3. HPê°€ 0ê³¼ ê°™ê±°ë‚˜ ì ìœ¼ë©´ í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
+// 4. ê³µê²© ë‹¹í•˜ë©´ ê·¸ ë¶€ìœ„ì— íƒ€ê²© ì´í™íŠ¸ë¥¼ ë³´ì—¬ì¤€ë‹¤.
 
 public class ShieldBase : MonoBehaviour
 {
-    protected int goal = 100;               // ½Çµå ±İ¾×
-    protected float shildHP = 300.0f;       // ½Çµå HP
-    public float rotateSpeed = 30.0f;       // ½¯µå È¸Àü ¼Óµµ
-    public float removeSpeed = 30.0f;       // ½¯µå »èÁ¦ ½ºÇÇµå
-    public float removeTime = 5.0f;       // ½¯µå »èÁ¦ ½Ã°£
+    protected int goal = 100;               // ì‹¤ë“œ ê¸ˆì•¡
+    protected float shildHP = 300.0f;       // ì‹¤ë“œ HP
+    public float rotateSpeed = 30.0f;       // ì‰´ë“œ íšŒì „ ì†ë„
+    public float removeSpeed = 30.0f;       // ì‰´ë“œ ì‚­ì œ ìŠ¤í”¼ë“œ
+    public float removeTime = 5.0f;       // ì‰´ë“œ ì‚­ì œ ì‹œê°„
 
     public float remaining = 0.0f;
 
-    Transform shield;       // ½Ç½º À§Ä¡
-    Castle castle;          // °ÅÁ¡Å¸¿ö
+    Transform shield;       // ì‹¤ìŠ¤ ìœ„ì¹˜
+    Castle castle;          // ê±°ì íƒ€ì›Œ
     SphereCollider collider;
 
     public float ShildHP        
@@ -29,16 +29,16 @@ public class ShieldBase : MonoBehaviour
         set
         {
             ShildHP = value;
-            if (shildHP == 0)               // ½Çµå Ã¼·Â 0ÀÌ¸é
+            if (shildHP == 0)               // ì‹¤ë“œ ì²´ë ¥ 0ì´ë©´
             {
-                if(shildHP < 0)             // 0º¸´Ù ÀÛÀ¸¸é  
+                if(shildHP < 0)             // 0ë³´ë‹¤ ì‘ìœ¼ë©´  
                 {
-                    remaining = shildHP - value;    // ³²Àº µ¥¹ÌÁö¸¦ ÀúÀå
-                    castle.hp -= remaining;         // ³²Àº µ¥¹ÌÁö¸¸Å­ °ÅÁ¡Å¸¿ö Ã¼·ÂÀ» ÁÙÀÌ±â
+                    remaining = shildHP - value;    // ë‚¨ì€ ë°ë¯¸ì§€ë¥¼ ì €ì¥
+                    castle.HP -= remaining;         // ë‚¨ì€ ë°ë¯¸ì§€ë§Œí¼ ê±°ì íƒ€ì›Œ ì²´ë ¥ì„ ì¤„ì´ê¸°
                 }
 
-                RemoveDelay();              // ½Çµå Å©±â°¡ ÁÙ¾îµé°í
-                Destroy(this.gameObject, removeTime);   // 5ÃÊ µÚ ½Çµå »èÁ¦
+                RemoveDelay();              // ì‹¤ë“œ í¬ê¸°ê°€ ì¤„ì–´ë“¤ê³ 
+                Destroy(this.gameObject, removeTime);   // 5ì´ˆ ë’¤ ì‹¤ë“œ ì‚­ì œ
             }
         }
     }
@@ -49,7 +49,7 @@ public class ShieldBase : MonoBehaviour
         castle = FindObjectOfType<Castle>();
         collider = GetComponent<SphereCollider>();
 
-        transform.position = castle.transform.position + new Vector3(0, 0.5f, 0);   // Å¸¿ö À§Ä¡
+        transform.position = castle.transform.position + new Vector3(0, 0.5f, 0);   // íƒ€ì›Œ ìœ„ì¹˜
     }
 
     private void Update()
@@ -57,7 +57,7 @@ public class ShieldBase : MonoBehaviour
         shield .Rotate(rotateSpeed, rotateSpeed, rotateSpeed * Time.deltaTime);
     }
 
-    protected virtual IEnumerator RemoveDelay()    // ½Çµå°¡ »èÁ¦µÇ´Âµ¥ °É¸®´Â ½Ã°£
+    protected virtual IEnumerator RemoveDelay()    // ì‹¤ë“œê°€ ì‚­ì œë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
     {
         while (true)            
         {
@@ -66,12 +66,12 @@ public class ShieldBase : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)              // ½Çµå¿Í Ãæµ¹ÇÑ°Ô ÀûÀÇ °ø°İÀÌ¶ó¸é 
+    private void OnCollisionEnter(Collision collision)              // ì‹¤ë“œì™€ ì¶©ëŒí•œê²Œ ì ì˜ ê³µê²©ì´ë¼ë©´ 
     {
         if (collision.gameObject.CompareTag("MonsterAttack"))
         {
             MonsterBase monster = GetComponent<MonsterBase>();      // 
-            ShildHP -= monster.attackPower;                         // ÀûÀÇ °ø°İ·Â¸¸Å­ hp°¨¼Ò
+            ShildHP -= monster.attackPower;                         // ì ì˜ ê³µê²©ë ¥ë§Œí¼ hpê°ì†Œ
         }
     }
 

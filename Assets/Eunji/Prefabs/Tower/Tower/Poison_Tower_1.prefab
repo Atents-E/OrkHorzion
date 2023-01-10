@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4053054336437893717}
   - component: {fileID: 7614509667935897139}
   - component: {fileID: 7614509667935897147}
-  m_Layer: 0
-  m_Name: Poison_Tower
+  m_Layer: 6
+  m_Name: Poison_Tower_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,12 +100,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 10
-  sightRange: 10
-  sightRadius: 5
-  proCreatSpeed: 10
+  sightRange: 5
+  sightRadius: 2.5
+  proCreatSpeed: 3
   fireAngle: 10
+  turnSpeed: 10
   target: {fileID: 0}
   projectile: {fileID: 2022050941033226741, guid: 720ebf2f1720ad241b637b72af9e47ff, type: 3}
+  fireInterval: 1
+  coolTime: 0
 --- !u!136 &7614509667935897139
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -131,7 +134,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 5
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!1001 &7614509668522288270
 PrefabInstance:

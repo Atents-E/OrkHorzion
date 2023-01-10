@@ -11,34 +11,21 @@ public class Cannon_Projectile : ProjectileBase
 
     protected override void Awake()
     {
+        attackPower = 10.0f;
+        speed = 2.0f;
+        lifeTime = 2.0f;
+
         base.Awake();
-
     }
 
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-        {
-           // Enemey의 HP는 감소
-           //MonsterBase monster = other.GetComponent<MonsterBase>();
-           // float MonsterHp = monster.MonsterHp;
+    //protected override void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
+    //    {
 
-           // if (MonsterHp != 0)
-           // {
-           //     MonsterHp -= attackPower;
-
-           //     if (MonsterHp < 0)
-           //     {
-           //         MonsterHp = 0;
-           //     }
-           // }
-
-           // Debug.Log($"{MonsterHp}");
-
-
-            base.OnTriggerEnter(other);
-        }
-    }
+    //        base.OnTriggerEnter(other);
+    //    }
+    //}
 
 }

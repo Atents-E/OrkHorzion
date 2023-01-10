@@ -35,9 +35,10 @@ public class ProjectileBase : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
-            //// Enemey의 HP는 감소
-            MonsterBase monster = other.GetComponent<MonsterBase>();
+            // 1. monster의 체력이 있는 컴포넌트를 가져오고,
+            MonsterBase monster = other.GetComponent<MonsterBase>();   
 
+            //2. monster의 체력을 감소시킴
             if (monster != null)
             {
                 float MonsterHp = monster.MonsterHp;
@@ -45,10 +46,10 @@ public class ProjectileBase : MonoBehaviour
                 if (MonsterHp > 0)
                 {
                     MonsterHp -= attackPower;
-                }
-                else if( MonsterHp <= 0)
-                {
-                    MonsterHp = 0;
+                    if( MonsterHp < 0)
+                    {
+                        MonsterHp = 0;
+                    }
                 }
 
                 Debug.Log($"{MonsterHp}");

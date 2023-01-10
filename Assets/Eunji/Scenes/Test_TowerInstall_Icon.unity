@@ -1679,6 +1679,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerMemu_Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 7756156823203258836, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7756156823203258837, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2191,5 +2195,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerDelete_Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 3498793020980507801, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2081273082}
+    - target: {fileID: 3498793022655960422, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498793022655960422, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2081273082}
+    - target: {fileID: 3498793022655960422, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2081273082}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}

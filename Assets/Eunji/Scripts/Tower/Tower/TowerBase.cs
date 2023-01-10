@@ -107,7 +107,7 @@ public class TowerBase : MonoBehaviour
         if(target != null && coolTime > fireInterval)
         {
             Vector3 dir = target.transform.position - fireTransform.position;
-            dir.y = 0;
+            dir.y -= 0.05f;
 
             fireTransform.forward = dir.normalized;
             Fire();
