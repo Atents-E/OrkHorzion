@@ -23,7 +23,6 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// </summary>
     GameObject newParent;
 
-
     /// <summary>
     /// 생성 될 타워 프리팹
     /// </summary>
@@ -52,9 +51,9 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             //}
 
             // 드래그가 시작되면 부모자식 관계 끊기
-            transform.parent = null;
+            //transform.parent = null;
             // 새로운 부모관계 맺어주기
-            transform.SetParent(newParent.transform);
+            transform.SetParent(newParent.transform, worldPositionStays:false);
      
             // bool isDragging = false;    
             // transform.SetParent(worldPositionStays(isDragging));
@@ -101,8 +100,8 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
-        transform.parent = null;
-        transform.SetParent(currentParent);
+        //transform.parent = null;
+        transform.SetParent(currentParent , worldPositionStays:false);
         // 타워 UI = 처음 타워 위치로 이동
         transform.position = currentParent.position;
     }
