@@ -69,4 +69,5 @@ public class Wizard :Character
     public override void Die() => base.Die();
 
     public override void Recover() => base.Recover();
+
 }
