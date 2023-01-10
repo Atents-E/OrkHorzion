@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CamController : MonoBehaviour
 {
-    private GameObject player;
     private Vector3 offset;
-    // Start is called before the first frame update
+    Transform target = null;
+
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        offset = transform.position - player.transform.position;
+        target = GameManager.Inst.Character.transform;
+        offset = transform.position - target.transform.position;
     }
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        transform.position = target.position + offset;
     }
 }

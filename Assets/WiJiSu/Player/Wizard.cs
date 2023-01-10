@@ -11,14 +11,13 @@ public class Wizard :Character
     public float default_criticalChance = 0.3f; // 치명타 확률
     public float default_MoveSpeed = 6.0f; //이동 속도
 
+    //public Inventory inven;
 
-   // Transform hand_r;
     ParticleSystem weaponPS;
-
+    //StatManager statManager;
     protected override void Awake()
     {
         base.Awake();
-        //hand_r = GetComponentInChildren<WeaponPosition>().transform;
         weaponPS = GetComponentInChildren<ParticleSystem>();
 
         characterName = "마법사";
@@ -40,6 +39,11 @@ public class Wizard :Character
         Debug.Log($"공격력 : {atk}");
         Debug.Log($"치명타확률 : {criticalChance*100}%");
         Debug.Log($"이동속도 : {moveSpeed}");
+
+        //inven = new Inventory(2);
+        //statManager = GameManager_JANG.Inst.StatManager;
+        //statManager.WarriorInitializeStat(inven);
+        //GameManager_JANG.Inst.InventoryUI.InitializeInventoy(inven);
     }
 
     public void WeaponEffectEnable()
