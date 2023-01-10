@@ -7,6 +7,14 @@ public class GameManager : Singleton<GameManager>
     Character character;
     Warrior warrior;
     Wizard wizard;
+
+    ItemManager itemData;
+    StatManager statManager;
+    InventoryUI inventoryUI;
+
+    public ItemManager ItemData => itemData;
+    public StatManager StatManager => statManager;
+    public InventoryUI InventoryUI => inventoryUI;
     //Camera mainCamera; 
 
     public Character Character => character;
@@ -20,6 +28,10 @@ public class GameManager : Singleton<GameManager>
         character = FindObjectOfType<Character>();
         warrior = FindObjectOfType<Warrior>();
         wizard = FindObjectOfType<Wizard>();
+        itemData = GetComponent<ItemManager>();
+        statManager = GetComponent<StatManager>();
+        inventoryUI = FindObjectOfType<InventoryUI>();
+
         //mainCamera = FindObjectOfType<Camera>();
     }
 }

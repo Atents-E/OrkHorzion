@@ -90,9 +90,8 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     protected virtual void Start()
     {
-        hp = maxHp;
+        hp = MaxHP;
         isAlive = true;
-        
     }
 
     public virtual void Attack(IBattle target)
@@ -152,6 +151,57 @@ public class Character : MonoBehaviour, IBattle, IHealth
         transform.position = spotPos;
         Debug.Log($"{gameObject.name}가 다시 살아납니다");
        
+    }
+
+    /// <summary>
+    /// 스탯매니저를 통해 기본스탯을 변경하기 위한 함수(장명근작성)
+    /// </summary>
+    /// <param name="maxHp">최대 HP</param>
+    /// <param name="atk">공격력</param>
+    /// <param name="def">방어력</param>
+    /// <param name="moveSpeed">이동 속도</param>
+    /// <param name="criticalChance">치명타 확률</param>
+    public void ChangeStat(float maxHp, float atk, float def, float moveSpeed, float criticalChance)
+    {
+        MaxHP = maxHp;
+        this.atk = atk;
+        this.def = def;
+        this.moveSpeed = moveSpeed;
+        this.criticalChance = criticalChance;
+    }
+
+    /// <summary>
+    /// 아이템을 추가할 때마다 스탯을 더하기 위한 함수(장명근작성)
+    /// </summary>
+    /// <param name="maxHp">최대 HP</param>
+    /// <param name="atk">공격력</param>
+    /// <param name="def">방어력</param>
+    /// <param name="moveSpeed">이동 속도</param>
+    /// <param name="criticalChance">치명타 확률</param>
+    public void AddEffect(float maxHp, float atk, float def, float moveSpeed, float criticalChance)
+    {
+        MaxHP += maxHp;
+        this.atk += atk;
+        this.def += def;
+        this.moveSpeed += moveSpeed;
+        this.criticalChance += criticalChance;
+    }
+
+    /// <summary>
+    /// 아이템을 버릴 때마다 스탯을 빼기 위한 함수(장명근작성)
+    /// </summary>
+    /// <param name="maxHp">최대 HP</param>
+    /// <param name="atk">공격력</param>
+    /// <param name="def">방어력</param>
+    /// <param name="moveSpeed">이동 속도</param>
+    /// <param name="criticalChance">치명타 확률</param>
+    public void SubEffect(float maxHp, float atk, float def, float moveSpeed, float criticalChance)
+    {
+        MaxHP -= maxHp;
+        this.atk -= atk;
+        this.def -= def;
+        this.moveSpeed -= moveSpeed;
+        this.criticalChance -= criticalChance;
     }
 
 }
