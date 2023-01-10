@@ -6,6 +6,10 @@ public class EnemySpawner : MonoBehaviour
 {
     GameObject enemyPrefab;
 
+    List<EnemyBase> enemyList;  // 현재 맵에 존재하는 모든 적의 정보
+
+    public List<EnemyBase> EnemyList => enemyList;
+
     private Wave currentWave;   // 현재 웨이브 정보
 
     int waveCount = 0;
@@ -37,7 +41,12 @@ public class EnemySpawner : MonoBehaviour
         set => waveCount = value;
     }   
     public GameObject EnemyPrefab => enemyPrefab;
-    
+
+    private void Awake()
+    {
+        enemyList = new List<EnemyBase>();
+    }
+
     public void StartWave(Wave wave)
     {
         if (!isPlaying && Result <= 0)
@@ -57,14 +66,13 @@ public class EnemySpawner : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             result--;
-            Destroy(other.gameObject);
         }
     }
 
     IEnumerator SpawnEnemy()
     {
         // 현재 웨이브에서 생성한 적 숫자
-                spawnEnemyCount = 0;
+        spawnEnemyCount = 0;
         int index = 0;
         isPlaying = true;        
         // 현재 웨이브에서 생성되어야 하는 적의 숫자만큼 적을 생성하고 코루틴 종료
@@ -154,7 +162,10 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 default:
                     break;
-            }           
+            }
+
+            EnemyBase enemy = this.GetComponent<EnemyBase>();
+            enemyList.Add(enemy);
 
             // 현재 웨이브에서 생성한 적의 숫자 +1
             spawnEnemyCount++;
@@ -162,5 +173,15 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(currentWave.spawnTime);
         }
         isPlaying = false;
+    }
+
+    /// <summary>
+    /// 리스트에 있는 enemy를 지우는 함수
+    /// </summary>
+    /// <param name="enemy"></param>
+    public void DestroyEnemy(EnemyBase enemy)
+    {
+        enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
     }
 }

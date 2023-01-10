@@ -4,48 +4,48 @@ using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// ProjectileBase ±â´É
-// 1. »ı¼ºµÇ¸é »ı¼º½ÃÅ² Å¬·¡½ºÀÇ Å¸°ÙÀ¸·Î ³¯¾Æ°¨ 
-// 2. Å¸°Ù°ú ¸¸´Ù¸é Æ¯Á¤ ¿µÇâÀ» Å¸°Ù¿¡°Ô ¹ÌÄ§
-// 3. »ı¼ºµÇ°í 3ÃÊ µÚ¿¡ ÀÚµ¿ »èÁ¦
-// 4. Å¸°Ù°ú ¸¸³ª¸é Áï½Ã »èÁ¦µÈ´Ù
+// ProjectileBase ê¸°ëŠ¥
+// 1. ìƒì„±ë˜ë©´ ìƒì„±ì‹œí‚¨ í´ë˜ìŠ¤ì˜ íƒ€ê²Ÿìœ¼ë¡œ ë‚ ì•„ê° 
+// 2. íƒ€ê²Ÿê³¼ ë§Œë‹¤ë©´ íŠ¹ì • ì˜í–¥ì„ íƒ€ê²Ÿì—ê²Œ ë¯¸ì¹¨
+// 3. ìƒì„±ë˜ê³  3ì´ˆ ë’¤ì— ìë™ ì‚­ì œ
+// 4. íƒ€ê²Ÿê³¼ ë§Œë‚˜ë©´ ì¦‰ì‹œ ì‚­ì œëœë‹¤
 
 public class ProjectileBase : MonoBehaviour
 {
-    public float attackPower = 10.0f;   // ¹ß»çÃ¼ °ø°İ·Â
-    public float speed = 0.2f;          // Ã³À½ ¼Óµµ
+    public float attackPower = 10.0f;   // ë°œì‚¬ì²´ ê³µê²©ë ¥
+    public float speed = 0.2f;          // ì²˜ìŒ ì†ë„
     public float lifeTime = 2.0f;
 
-    protected GameObject target;        // ¹ß»çÃ¼¿Í ¸¸³¯ Å¸°Ù(Àû)
-
-    TowerBase parentTarget;             // ºÎ¸ğÀÇ Å¸°Ù
+    protected GameObject target;        // ë°œì‚¬ì²´ì™€ ë§Œë‚  íƒ€ê²Ÿ(ì )
+    Transform target2;
+    Cannon_Tower_1 parentTarget;             // ë¶€ëª¨ì˜ íƒ€ê²Ÿ
 
 
     protected virtual void Awake()    
     {
-        parentTarget = GetComponentInParent<TowerBase>();
-        target = parentTarget.target;
-
-        Destroy(this.gameObject, lifeTime); // »ı¼ºµÇ¸é 5ÃÊ µÚ¿¡ ¹ß»çÃ¼ »èÁ¦
+        parentTarget = GetComponentInParent<Cannon_Tower_1>();
+        //target = parentTarget.target.;
+        target2 = parentTarget.
+        Destroy(this.gameObject, lifeTime); // ìƒì„±ë˜ë©´ 5ì´ˆ ë’¤ì— ë°œì‚¬ì²´ ì‚­ì œ
     }
 
 
     protected void Update()
     {
-        Vector3 dir = (target.transform.position - transform.position).normalized;   // Monster¿¡°Ô °¡´Â ¹æÇâº¤ÅÍ
+        Vector3 dir = (target.transform.position - transform.position).normalized;   // Monsterì—ê²Œ ê°€ëŠ” ë°©í–¥ë²¡í„°
         dir.y += 0.5f;
 
-        transform.Translate(speed * Time.fixedDeltaTime * dir);         // Åõ»çÃ¼ ÀÌµ¿
+        transform.Translate(speed * Time.fixedDeltaTime * dir);         // íˆ¬ì‚¬ì²´ ì´ë™
 
         // Debug.Log($"{target.transform.position}");
     }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))   // Ãæµ¹ÀÌ Enemy¿Í ÀÏ¾î³µ´Ù¸é
+        if (other.gameObject.CompareTag("Enemy"))   // ì¶©ëŒì´ Enemyì™€ ì¼ì–´ë‚¬ë‹¤ë©´
         {
-            //// EnemeyÀÇ HP´Â °¨¼Ò
-            MonsterBase monster = other.GetComponent<MonsterBase>();
+            //// Enemeyì˜ HPëŠ” ê°ì†Œ
+            //MonsterBase monster = other.GetComponent<MonsterBase>();
             //float MonsterHp = monster.MonsterHp;
 
             //if (MonsterHp != 0)
@@ -60,7 +60,7 @@ public class ProjectileBase : MonoBehaviour
 
             //Debug.Log($"{MonsterHp}");
 
-            Destroy(this.gameObject); // Àû°ú Ãæµ¹ÇÏ¸é ¹ß»çÃ¼ »èÁ¦
+            Destroy(this.gameObject); // ì ê³¼ ì¶©ëŒí•˜ë©´ ë°œì‚¬ì²´ ì‚­ì œ
         }
     }
 }

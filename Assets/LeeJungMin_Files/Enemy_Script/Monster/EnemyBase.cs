@@ -20,13 +20,14 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public float attackPower = 10.0f;             // 공격력
     public float defencePower = 0.0f;             // 방어력
     public float monsterHp = 100.0f;              // 몬스터 HP
-    public float monsterMaxHp = 1000.0f;           // 몬스터 최대 HP
+    public float monsterMaxHp = 1000.0f;          // 몬스터 최대 HP
 
     protected Transform playerTarget = null;      // 플레이어가 없다
 
     public Transform damageTextPos;
     public GameObject damageTextPrefab;
 
+    private EnemySpawner enemySpawner;            // 적의 삭제를 본인이 하지 않고 EnemySpawner에 알려서 삭제
     //bool die = false;
 
     public float AttackPower => attackPower;
@@ -166,6 +167,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
+        //GameManager.Inst.EnemySpawner.DestroyEnemy(this);
+        enemySpawner.DestroyEnemy(this);
         looktargetOn = false;
         playerTarget = null;
         onDie?.Invoke();

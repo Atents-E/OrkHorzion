@@ -8,23 +8,23 @@ using UnityEngine.AI;
 public class Enemy_Navigation : MonoBehaviour
 {
     private WayPoint waypoint;
-    public Transform target;             // ³×ºñ¸Å½Ã Å¸°Ù
-    protected NavMeshAgent agent;          // ³×ºñ¸Å½Ã
+    public Transform target;             // ë„¤ë¹„ë§¤ì‹œ íƒ€ê²Ÿ
+    protected NavMeshAgent agent;          // ë„¤ë¹„ë§¤ì‹œ
 
     int index = 0;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();           // ³×ºñ¸Å½¬ ÄÄÆ÷³ÍÆ® Ã£±â
-        waypoint = FindObjectOfType<WayPoint>();        // ¿şÀÌÆ÷ÀÎÆ® ½ºÅ©¸³Æ® Ã£±â
+        agent = GetComponent<NavMeshAgent>();           // ë„¤ë¹„ë§¤ì‰¬ ì»´í¬ë„ŒíŠ¸ ì°¾ê¸°
+        waypoint = FindObjectOfType<WayPoint>();        // ì›¨ì´í¬ì¸íŠ¸ ìŠ¤í¬ë¦½íŠ¸ ì°¾ê¸°
     }
 
     private void Start()
     {
-        agent.SetDestination(waypoint.Current.position);        // Ã¹ ¹øÂ° ¿şÀÌÆ÷ÀÎÆ² ÇâÇØ °É¾î°¨
+        agent.SetDestination(waypoint.Current.position);        // ì²« ë²ˆì§¸ ì›¨ì´í¬ì¸í‹€ í–¥í•´ ê±¸ì–´ê°
     }   
 
-    public void Stopped(bool goStop)        // °É¾î°¥Áö ¸ØÃâÁö Á¤ÇÏ´Â ÇÔ¼ö
+    public void Stopped(bool goStop)        // ê±¸ì–´ê°ˆì§€ ë©ˆì¶œì§€ ì •í•˜ëŠ” í•¨ìˆ˜
     {
         agent.isStopped = goStop;
         agent.velocity = Vector3.zero;
@@ -46,14 +46,18 @@ public class Enemy_Navigation : MonoBehaviour
 
     public void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // °æ·Î °è»êÀÌ ¿Ï·á‰ç°í ¾ÆÁ÷ µµÂøÁöÁ¡À¸·Î ÀÎÁ¤µÇ´Â °Å¸®±îÁö ÀÌµ¿ÇÏÁö ¾Ê¾Ò´Ù.
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // ê²½ë¡œ ê³„ì‚°ì´ ì™„ë£Œë¬ê³  ì•„ì§ ë„ì°©ì§€ì ìœ¼ë¡œ ì¸ì •ë˜ëŠ” ê±°ë¦¬ê¹Œì§€ ì´ë™í•˜ì§€ ì•Šì•˜ë‹¤.
         {
-            // WaypointTarget = wayPoint.MoveNext();   // ´ÙÀ½ ¿şÀÌÆ÷ÀÎÆ® ÁöÁ¡À» moveTarget·Î ¼³Á¤
-            index++;        // ÀÎµ¦½º¸¦ 1 Áõ°¡ ½ÃÅ²´Ù.
-            index %= waypoint.transform.childCount;
-            agent.SetDestination(waypoint.wayPoints[index].position);   // ´ÙÀ½ ¿şÀÌÆ÷ÀÎÆ®¸¦ ÇâÇØ °É¾î°£´Ù.
-        } 
+            move();                        
+        }
     }
 
+    void move()
+    {
+        // WaypointTarget = wayPoint.MoveNext();   // ë‹¤ìŒ ì›¨ì´í¬ì¸íŠ¸ ì§€ì ì„ moveTargetë¡œ ì„¤ì •
+        index++;        // ì¸ë±ìŠ¤ë¥¼ 1 ì¦ê°€ ì‹œí‚¨ë‹¤.
+                        //index %= waypoint.transform.childCount;
+        agent.SetDestination(waypoint.wayPoints[index].position);   // ë‹¤ìŒ ì›¨ì´í¬ì¸íŠ¸ë¥¼ í–¥í•´ ê±¸ì–´ê°„ë‹¤.
+    }
     
 }
