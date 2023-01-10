@@ -11,8 +11,6 @@ using Unity.VisualScripting;
 
 public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    static int itemCount = 0;   // 생성된 아이템 총 갯수. 아이템 생성 아이디의 역할도 함.
-    
     /// <summary>
     /// 기존 부모 오브젝트
     /// </summary>
@@ -22,7 +20,6 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// (드래그 중일 때)변경 될 부모 오브젝트
     /// </summary>
     GameObject newParent;
-
 
     /// <summary>
     /// 생성 될 타워 프리팹
@@ -36,7 +33,6 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         newParent = GameObject.FindWithTag("Canvas");
     }
 
-
     /// <summary>
     /// 드래그 시작
     /// </summary>
@@ -46,18 +42,8 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         // 열려있는 상태일 때만 처리
         if (gameObject.activeSelf)
         {
-            //Vector2 screenPos = Mouse.current.position.ReadValue(); // 마우스의 위치(스크린좌표)를 구함
-            //if (!IsInsideTowerMenu(screenPos))                      // 마우스의 위치가 타워메뉴 밖에서 동작하는지 확인
-            //{
-            //}
-
-            // 드래그가 시작되면 부모자식 관계 끊기
-            transform.parent = null;
             // 새로운 부모관계 맺어주기
-            transform.SetParent(newParent.transform);
-     
-            // bool isDragging = false;    
-            // transform.SetParent(worldPositionStays(isDragging));
+            transform.SetParent(newParent.transform, worldPositionStays : false);
         }
     }
 
@@ -101,12 +87,11 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
-        transform.parent = null;
-        transform.SetParent(currentParent);
+        transform.SetParent(currentParent, worldPositionStays: false);
+
         // 타워 UI = 처음 타워 위치로 이동
         transform.position = currentParent.position;
     }
-
 
 
     ///<summary>

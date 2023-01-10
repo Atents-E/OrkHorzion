@@ -20,7 +20,6 @@ public class ProjectileBase : MonoBehaviour
 
     protected TowerBase parentTarget;             // 부모의 타겟
 
-
     protected virtual void Awake()    
     {
         Destroy(this.gameObject, lifeTime); // 생성되면 lifeTime 뒤에 삭제

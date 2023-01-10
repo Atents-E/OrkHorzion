@@ -19,9 +19,9 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 // 5. 삭제를 요청하면 타워 금액을 반환, 타워는 삭제된다.
 public class TowerBase : MonoBehaviour
 {
-    public int gold = 10;                   // 타워 가격
+    public int price = 10;                  // 타워 가격
 
-    public float sightRange = 5.0f;        // 범위
+    public float sightRange = 5.0f;         // 적을 확인하는 범위
     public float sightRadius = 2.5f;        // 범위 반지름
 
     public float proCreatSpeed = 3.0f;      // 투사체 생성 속도
@@ -32,34 +32,24 @@ public class TowerBase : MonoBehaviour
 
     protected bool isFiring = false;        // 발사 중인지 확인
     
-    //protected IEnumerator fireCoroutine;    // 코루틴을 끄려면 변수로 가지고 있어야 함.
-
     public GameObject target;               // 타겟은 null
     public GameObject projectile;           // 투사체 프리팹
 
-    protected Vector3 createPos;               // 투사체 생성 할 Vecotr3 위치
+    protected Vector3 createPos;            // 투사체 생성 할 Vecotr3 위치
     Transform fireTransform;
-    // GameObject dirPos;                           // 회전 하는 오브젝트의 위치
 
-
-    public float fireInterval = 1.0f;
-    public float coolTime = 0.0f;
-
-    protected Vector3 initialForward;                 // 처음 앞
+    public float fireInterval = 1.0f;       // 발사 간격
+    public float coolTime = 0.0f;           // 쿨타임
 
 
     protected virtual void Awake()
     {
-        //fireCoroutine = PeriodFire();               // 코루틴을 변수로 사용하려고 할당
         createPos = transform.GetChild(0).transform.position;    // 투사체 생성 위치
         fireTransform = transform.GetChild(0);
-
-        // dirPos = transform.GetChild(1).gameObject;
     }
 
     protected virtual void Start()    // 첫번째 업데이트가 일어나기 전에 호출
     {
-        //initialForward = transform.forward;         // 처음 앞은 게임 오브젝트의 앞
         SphereCollider col = GetComponent<SphereCollider>();    // 구 컬라이더 할당
         col.radius = sightRadius;                   // 
     }
@@ -99,19 +89,18 @@ public class TowerBase : MonoBehaviour
     }
 
 
-
     protected void Attack()
     {
-        coolTime += Time.deltaTime;
+        coolTime += Time.deltaTime;                 // 쿨타임에 시간 더하고,
 
-        if(target != null && coolTime > fireInterval)
+        if(target != null && coolTime > fireInterval)   // 적도 있고, 쿨타임이 차면
         {
-            Vector3 dir = target.transform.position - fireTransform.position;
+            Vector3 dir = target.transform.position - fireTransform.position;   
             dir.y -= 0.05f;
 
             fireTransform.forward = dir.normalized;
             Fire();
-            coolTime = 0;
+            coolTime = 0;                           // 쿨타임 초기화
         }
     }
 
@@ -120,7 +109,6 @@ public class TowerBase : MonoBehaviour
         GameObject obj= Instantiate(projectile, fireTransform);
         obj.transform.SetParent(null);
     }
-
 
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
