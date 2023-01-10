@@ -12,53 +12,48 @@ using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
 {
-    public float attackPower = 10.0f;   // 발사체 공격력
-    public float speed = 0.2f;          // 처음 속도
-    public float lifeTime = 2.0f;
+    public float attackPower = 10.0f;   // 투사체 공격력
+    public float speed = 2.0f;          // 투사체 속도
+    public float lifeTime = 2.0f;       // 투사체 유지 시간
 
     protected GameObject target;        // 발사체와 만날 타겟(적)
-    Transform target2;
-    Cannon_Tower_1 parentTarget;             // 부모의 타겟
+
+    protected TowerBase parentTarget;             // 부모의 타겟
 
 
     protected virtual void Awake()    
     {
-        parentTarget = GetComponentInParent<Cannon_Tower_1>();
-        //target = parentTarget.target.;
-        target2 = parentTarget.
-        Destroy(this.gameObject, lifeTime); // 생성되면 5초 뒤에 발사체 삭제
+        Destroy(this.gameObject, lifeTime); // 생성되면 lifeTime 뒤에 삭제
     }
-
 
     protected void Update()
     {
-        Vector3 dir = (target.transform.position - transform.position).normalized;   // Monster에게 가는 방향벡터
-        dir.y += 0.5f;
-
-        transform.Translate(speed * Time.fixedDeltaTime * dir);         // 투사체 이동
-
-        // Debug.Log($"{target.transform.position}");
+        transform.Translate(speed * Time.deltaTime * transform.forward, Space.World);
     }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
-            //// Enemey의 HP는 감소
-            //MonsterBase monster = other.GetComponent<MonsterBase>();
-            //float MonsterHp = monster.MonsterHp;
+            // 1. monster의 체력이 있는 컴포넌트를 가져오고,
+            MonsterBase monster = other.GetComponent<MonsterBase>();   
 
-            //if (MonsterHp != 0)
-            //{
-            //    MonsterHp -= attackPower;
+            //2. monster의 체력을 감소시킴
+            if (monster != null)
+            {
+                float MonsterHp = monster.MonsterHp;
 
-            //    if (MonsterHp < 0)
-            //    {
-            //        MonsterHp = 0;
-            //    }
-            //}
+                if (MonsterHp > 0)
+                {
+                    MonsterHp -= attackPower;
+                    if( MonsterHp < 0)
+                    {
+                        MonsterHp = 0;
+                    }
+                }
 
-            //Debug.Log($"{MonsterHp}");
+                Debug.Log($"{MonsterHp}");
+            }
 
             Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
         }

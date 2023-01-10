@@ -69,7 +69,7 @@ public class Warrior : Character
 
     public override void Attack(IBattle target) => base.Attack(target);
   
-    public override void Defence(float damage) => base.Defence(damage);
+    public override void TakeDamage(float damage) => base.TakeDamage(damage);
 
     public override void Die() => base.Die();
 

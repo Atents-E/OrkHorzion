@@ -1,0 +1,46 @@
+{
+    "name": "TowerInputActions",
+    "maps": [
+        {
+            "name": "Tower",
+            "id": "6e88b66e-b43e-4619-886e-03d89446319b",
+            "actions": [
+                {
+                    "name": "Remove",
+                    "type": "Button",
+                    "id": "c9d54948-b3df-48c0-8c40-babbd6656db2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2840c405-a4c4-47d1-b036-a0cb1294b90f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mouse",
+            "bindingGroup": "Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
