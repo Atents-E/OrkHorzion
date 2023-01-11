@@ -1,13 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
-using static UnityEngine.UI.GridLayoutGroup;
-using static UnityEditor.Progress;
-using Unity.VisualScripting;
+using TMPro;
+using UnityEngine.UI;
 
 public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -26,11 +22,32 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// </summary>
     public GameObject towerPrefab;
 
+    /// <summary>
+    /// 플레이어가 가진 골드
+    /// </summary>
+    PlayerGold playerGold;
+
+    TowerBase towerGold;
+
+    TextMeshProUGUI price_Text;
+
+    Button warningText;
+
     private void Awake()
     {
-        // this.gameObject.SetActive(false);
         currentParent = transform.parent;
         newParent = GameObject.FindWithTag("Canvas");
+
+        // 타워에 가격을 확인하여 타워 금액으로 설정
+        price_Text = GetComponentInParent<TowerInstall_Icon>().transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
+        // price_Text = GetComponentInParent<TowerInstall_Icon>().transform.GetComponentInChildren<TextMeshProUGUI>();
+        towerGold = towerPrefab.GetComponent<TowerBase>();
+        price_Text.text = ($"{towerGold.price}");
+    }
+
+    private void Start()
+    {
+        playerGold = GameManager.Inst.PlayerGold;
     }
 
     /// <summary>
@@ -75,15 +92,20 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             creatPos.y = 0;
             creatPos.z -= 1;
 
-
-            // 타워를 살 수 있는 돈이 있는지 확인
-            // 돈이 있으면 그 지점에 tower 생성
-            Instantiate(towerPrefab, creatPos, transform.rotation);
-            Debug.Log("타워 설치");
-            // 돈이 부족해서 타워를 구매할 수 없다는 창을 띄어줌
-        }
-        else
-        {
+            if (isEnoughGold())
+            {
+                // 타워를 살 수 있는 돈이 있는지 확인
+                // 돈이 있으면 그 지점에 tower 생성
+                Instantiate(towerPrefab, creatPos, transform.rotation);
+                Debug.Log("타워 설치");
+                // 돈이 부족해서 타워를 구매할 수 없다는 창을 띄어줌
+            }
+            else
+            {
+                // "골드가 부족합니다"라는 안내멘트를 해주는 창이 나옴.
+                warningText = newParent.transform.GetChild(3).GetComponent<Button>();
+                warningText.gameObject.SetActive(true);
+            }
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
@@ -91,6 +113,27 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
         // 타워 UI = 처음 타워 위치로 이동
         transform.position = currentParent.position;
+    }
+
+    /// <summary>
+    /// 타워금액만큼의 골드를 가지고 있는지 확인
+    /// </summary>
+    /// <returns>true면 돈이 충분하다, false면 돈이 부족하다</returns>
+    bool isEnoughGold()
+    {
+        bool result = false;
+
+        // 플레이어가 소유한 골드와 타워 가격을 비교해서
+        if (playerGold.nowGold > towerGold.price)
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+
+        return result; 
     }
 
 
