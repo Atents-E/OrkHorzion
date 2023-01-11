@@ -78,6 +78,11 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     //    Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
     //}
 
+    public void SetUp(EnemySpawner enemySpawner)
+    {
+        this.enemySpawner = enemySpawner;
+    }
+
     protected bool SearchPlayer()
     {
         bool result = false;
@@ -167,11 +172,12 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
-        //GameManager.Inst.EnemySpawner.DestroyEnemy(this);
-        enemySpawner.DestroyEnemy(this);
         looktargetOn = false;
         playerTarget = null;
         onDie?.Invoke();
+        GameManager.Inst.EnemySpawner.SetDel();
+      //  enemySpawner.DestroyEnemy(this);
+        GameManager.Inst.EnemySpawner.DestroyEnemy(this);
     }
 
 

@@ -15,107 +15,107 @@ using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때�
 // 2. 투사체 생성 위치 변경
 public class Spin_Tower : TowerBase_1
 {
-    Transform childPos;                    // 발사각 확인 할 위치
-    Transform BulletPrefabPos;             // 투사체 생성 위치 Vector3
-    Transform dirPos;
-    Transform target;
+    //Transform childPos;                    // 발사각 확인 할 위치
+    //Transform BulletPrefabPos;             // 투사체 생성 위치 Vector3
+    //Transform dirPos;
+    //Transform target;
 
-    public float fireInterval = 1.0f;
-    public float coolTime = 0.0f;
+    //public float fireInterval = 1.0f;
+    //public float coolTime = 0.0f;
 
-    protected void Awake()
-    {
-        childPos = transform.GetChild(1);
-        BulletPrefabPos = childPos.GetChild(0);
+    //protected void Awake()
+    //{
+    //    childPos = transform.GetChild(1);
+    //    BulletPrefabPos = childPos.GetChild(0);
 
-        dirPos = transform.GetChild(1);
-    }
+    //    dirPos = transform.GetChild(1);
+    //}
 
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            target = other.transform;
-            isFire = true;
-        }        
-    }
+    //protected void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        target = other.transform;
+    //        isFire = true;
+    //    }        
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            target = null;
-            isFire = false;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        target = null;
+    //        isFire = false;
+    //    }
+    //}
 
-    protected void FixedUpdate()
-    {
-        Attack();
-        LookTarget();
-    }
+    //protected void FixedUpdate()
+    //{
+    //    Attack();
+    //    LookTarget(true);
+    //}
 
 
-    protected void LookTarget()   // 타겟을 보도록 회전
-    {
-        if (target != null)     // 타겟이 있다면,
-        {
-            // 각도를 사용하는 경우(등속도로 회전)
-            Vector3 shotToMonsterDir = target.transform.position - childPos.position;  // 방향(타워)에서 적의 위치로 가는 방향 벡터 계산
-            shotToMonsterDir.y = 0;
+    //protected void LookTarget()   // 타겟을 보도록 회전
+    //{
+    //    if (target != null)     // 타겟이 있다면,
+    //    {
+    //        // 각도를 사용하는 경우(등속도로 회전)
+    //        Vector3 shotToMonsterDir = target.transform.position - childPos.position;  // 방향(타워)에서 적의 위치로 가는 방향 벡터 계산
+    //        shotToMonsterDir.y = 0;
 
-            // 정방향일 때 0~180도. 역방향일 떄 0~-180도        //왼손 좌표계에서 엄지 손가락이 나를 향할 때, 다른 손가락은 시계 방향으로 감긴다.
-            float betweenAngle = Vector3.SignedAngle(childPos.forward, shotToMonsterDir, transform.up);
+    //        // 정방향일 때 0~180도. 역방향일 떄 0~-180도        //왼손 좌표계에서 엄지 손가락이 나를 향할 때, 다른 손가락은 시계 방향으로 감긴다.
+    //        float betweenAngle = Vector3.SignedAngle(childPos.forward, shotToMonsterDir, transform.up);
 
-            Vector3 resultDir = new Vector3();
+    //        Vector3 resultDir = new Vector3();
 
-            if (Mathf.Abs(betweenAngle) > 2.0f)    // 사이각이 일정 각도 이하인지 체크
-            {
-                // 사이각이 충분히 벌어진 경우
-                float rotateDirection = 1.0f;   //일단 +방향(정방향, 시계방향)으로 설정                
-                if (betweenAngle < 0)
-                {
-                    rotateDirection = -1.0f;    // betweenAngle이 -면 rotateDirection도 -1로                   
-                }
+    //        if (Mathf.Abs(betweenAngle) > 2.0f)    // 사이각이 일정 각도 이하인지 체크
+    //        {
+    //            // 사이각이 충분히 벌어진 경우
+    //            float rotateDirection = 1.0f;   //일단 +방향(정방향, 시계방향)으로 설정                
+    //            if (betweenAngle < 0)
+    //            {
+    //                rotateDirection = -1.0f;    // betweenAngle이 -면 rotateDirection도 -1로                   
+    //            }
 
-                // 초당 turnSpeed만큼 회전하는데 rotateDirection로 시계방향으로 회전할지 반시계 방향으로 회전할지 결정
-                currentAngle += (rotateDirection * turnSpeed * Time.deltaTime);
+    //            // 초당 turnSpeed만큼 회전하는데 rotateDirection로 시계방향으로 회전할지 반시계 방향으로 회전할지 결정
+    //            currentAngle += (rotateDirection * turnSpeed * Time.deltaTime);
 
-                resultDir = Quaternion.Euler(0, currentAngle, 0) * transform.forward;
-            }
-            else
-            {
-                //사이각이 거의 0인 경우
-                resultDir = shotToMonsterDir;
-            }
-            dirPos.transform.rotation = Quaternion.LookRotation(resultDir);
-        }
-    }
+    //            resultDir = Quaternion.Euler(0, currentAngle, 0) * transform.forward;
+    //        }
+    //        else
+    //        {
+    //            //사이각이 거의 0인 경우
+    //            resultDir = shotToMonsterDir;
+    //        }
+    //        dirPos.transform.rotation = Quaternion.LookRotation(resultDir);
+    //    }
+    //}
 
-    bool isFire = false;
-    protected void Attack()
-    {
-        if (isFire)
-        {
-            coolTime += Time.deltaTime;
+    //bool isFire = false;
+    //protected void Attack()
+    //{
+    //    if (isFire)
+    //    {
+    //        coolTime += Time.deltaTime;
 
-            if (target != null && coolTime > fireInterval)
-            {
-                Vector3 dir = target.transform.position - BulletPrefabPos.position;
-                dir.y = 0;
+    //        if (target != null && coolTime > fireInterval)
+    //        {
+    //            Vector3 dir = target.transform.position - BulletPrefabPos.position;
+    //            dir.y = 0;
 
-                BulletPrefabPos.forward = dir.normalized;
-                Fire();
-                coolTime = 0;
-            }
-        }
-    }
+    //            BulletPrefabPos.forward = dir.normalized;
+    //            Fire();
+    //            coolTime = 0;
+    //        }
+    //    }
+    //}
 
-    void Fire()
-    {
-        GameObject obj = Instantiate(projectile, BulletPrefabPos);
-        obj.transform.SetParent(null);
-    }
+    //void Fire()
+    //{
+    //    GameObject obj = Instantiate(projectile, BulletPrefabPos);
+    //    obj.transform.SetParent(null);
+    //}
 
     //public virtual bool IsInFireAngle()        // 발사각 안에 있는지 확인하는 용도의 함수
     //{

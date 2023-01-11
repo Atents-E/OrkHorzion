@@ -12,7 +12,7 @@ public class Cannon_Projectile : ProjectileBase
     protected override void Awake()
     {
         attackPower = 10.0f;
-        speed = 2.0f;
+        speed = 5.0f;
         lifeTime = 2.0f;
 
         base.Awake();

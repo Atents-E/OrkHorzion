@@ -53,9 +53,10 @@ MonoBehaviour:
   sightRadius: 2.5
   fireAngle: 10
   turnSpeed: 180
-  projectile: {fileID: 0}
   fireInterval: 1
   coolTime: 0
+  projectile: {fileID: 8073189618203820264, guid: 515387c39d16922459c72650be1f3856, type: 3}
+  isonTarget: 0
 --- !u!136 &3218625178640340940
 CapsuleCollider:
   m_ObjectHideFlags: 0

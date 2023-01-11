@@ -200,9 +200,10 @@ MonoBehaviour:
   sightRadius: 2.5
   fireAngle: 10
   turnSpeed: 180
-  projectile: {fileID: 1125468324877278409, guid: 92771115db052cd48838811a7e380345, type: 3}
-  fireInterval: 1
+  attackRate: 1
+  fireInterval: 0.5
   coolTime: 0
+  projectile: {fileID: 1125468324877278409, guid: 92771115db052cd48838811a7e380345, type: 3}
 --- !u!136 &4513126570036456730
 CapsuleCollider:
   m_ObjectHideFlags: 0

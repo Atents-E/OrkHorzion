@@ -13,7 +13,7 @@ using UnityEngine;
 public class ProjectileBase : MonoBehaviour
 {
     public float attackPower = 10.0f;   // 투사체 공격력
-    public float speed = 2.0f;          // 투사체 속도
+    public float speed = 5.0f;          // 투사체 속도
     public float lifeTime = 2.0f;       // 투사체 유지 시간
 
     protected GameObject target;        // 발사체와 만날 타겟(적)

@@ -65,7 +65,9 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            result--;
+            EnemyBase enemyBase = other.GetComponent<EnemyBase>();
+            DestroyEnemy(enemyBase);
+            SetDel();
         }
     }
 
@@ -75,6 +77,7 @@ public class EnemySpawner : MonoBehaviour
         spawnEnemyCount = 0;
         int index = 0;
         isPlaying = true;        
+        
         // 현재 웨이브에서 생성되어야 하는 적의 숫자만큼 적을 생성하고 코루틴 종료
         while (spawnEnemyCount < currentWave.maxEnemyCount)
         {
@@ -164,7 +167,7 @@ public class EnemySpawner : MonoBehaviour
                     break;
             }
 
-            EnemyBase enemy = this.GetComponent<EnemyBase>();
+            EnemyBase enemy = GetComponent<EnemyBase>();
             enemyList.Add(enemy);
 
             // 현재 웨이브에서 생성한 적의 숫자 +1
@@ -183,5 +186,10 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
+    }
+
+    public void SetDel()
+    {
+        Result--;
     }
 }
