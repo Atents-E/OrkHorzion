@@ -58,5 +58,5 @@ public class Enemy_Navigation : MonoBehaviour
         index++;        // 인덱스를 1 증가 시킨다.
                         //index %= waypoint.transform.childCount;
         agent.SetDestination(waypoint.wayPoints[index].position);   // 다음 웨이포인트를 향해 걸어간다.
-    }    
+    }
 }

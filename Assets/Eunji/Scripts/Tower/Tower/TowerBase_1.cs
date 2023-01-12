@@ -140,8 +140,7 @@ public class TowerBase_1 : MonoBehaviour
                         // 초당 turnSpeed만큼 회전하는데 rotateDirection로 시계방향으로 회전할지 반시계 방향으로 회전할지 결정
                         currentAngle += (rotateDirection * turnSpeed * Time.deltaTime);
 
-                        resultDir = Quaternion.Euler(0, currentAngle, 0) * transform.forward;
-
+                        resultDir = Quaternion.Euler(30.0f, currentAngle, 0) * transform.forward;
                     }
                     else
                     {
