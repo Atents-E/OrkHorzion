@@ -160,8 +160,7 @@ public class TowerBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 몬스터가 있고, 쿨타임이 되었는지 확인
-    /// 몬스터 방향으로 투사체 발사
+    /// Attack함수 오버로딩
     /// </summary>
     /// <param name="isFire"></param>
     void Attack(bool isFire)
