@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8626054057940645695}
+  - component: {fileID: 4492911508332274949}
   m_Layer: 5
   m_Name: Tower_UI
   m_TagString: Untagged
@@ -129,6 +130,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4492911508332274949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8626054057940645694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db4dd78435ea1c48baad04dfbfbb776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8626054058539831107
 GameObject:
   m_ObjectHideFlags: 0

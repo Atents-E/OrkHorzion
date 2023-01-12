@@ -7,21 +7,21 @@ public class GameManager : Singleton<GameManager>
     Character character;
     Warrior warrior;
     Wizard wizard;
-    //Camera mainCamera; 
-    EnemySpawner enemySpawner;
+    PlayerGold playerGold;
+    Canvas canvas;
 
     public Character Character => character;
     public Warrior Warrior => warrior;   
     public Wizard Wizard => wizard;
-    //public Camera MainCamera => mainCamera;
-    public EnemySpawner EnemySpawner => enemySpawner;
-
+    public PlayerGold PlayerGold => playerGold;
+    public Canvas Canvas => canvas;
+    
     protected override void Initialize()
     {
         character = FindObjectOfType<Character>();
         warrior = FindObjectOfType<Warrior>();
         wizard = FindObjectOfType<Wizard>();
-        //mainCamera = FindObjectOfType<Camera>();
-        enemySpawner = FindObjectOfType<EnemySpawner>();
+        playerGold = FindObjectOfType<PlayerGold>();
+        canvas = FindObjectOfType<Canvas>();
     }
 }

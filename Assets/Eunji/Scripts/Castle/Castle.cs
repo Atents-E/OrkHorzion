@@ -2,42 +2,60 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// Castle의 기능
+// 1. 거점타워는 체력이 존재한다.
+// 2. 적의 공격에 의해 체력이 줄어든다.
+// 3. 체력이 0보다 작거나 같으면 게임이 끝난다.
 
 public class Castle : MonoBehaviour
 {
-    EnemyBase enemyBase;
+    /// <summary>
+    /// 최대 체력(처음 HP)
+    /// </summary>
+    public float maxHP = 500;
 
-    const float maxHP = 500;
-    public float hp = maxHP;
+    /// <summary>
+    /// 현재 HP
+    /// </summary>
+    public float hp = 500;
 
-    //Action isGameOver;
+    /// <summary>
+    /// 게임 오버를 확인하는 델리게이트
+    /// </summary>
+    Action isGameOver;
+
     public float HP
     {
         get => hp;              
         set                     
         {
-            hp -= value;
-            if (hp < 0)
+            if(hp != value)
             {
-                // 게임 종료 씬 호출;
-                GameOver();
+                hp = value;         
+                if( hp <= 0)
+                {
+                    isGameOver?.Invoke();   // 체력이 0이 되었는지 확인
+                }
+
+                hp = Mathf.Clamp(0, value, maxHP); 
+                
+                onHealthChange?.Invoke(hp/maxHP);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public Action<float> onHealthChange { get; set; }
+
+    private void Awake()
     {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("트리거");
-            enemyBase = other.GetComponent<EnemyBase>();
-            HP = enemyBase.attackPower;
-            enemyBase.Die();
-        }
+        isGameOver += GameOver;             // 체력이 0이 되면 실행 될 함수 연결
     }
 
     void GameOver()
     {
-        
+        SceneManager.LoadScene("GameOver");    // 게임 오버 씬 로드
     }
+
 }
