@@ -5,16 +5,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ¸ó½ºÅÍ¿Í ¹ß»çÃ¼°¡ ¸¸³ª¸é ¸ó½ºÅÍÀÇ Ã¼·ÂÀÌ ±ïÀÌ´ÂÁö Å×½ºÆ® ¿ëµµ
+/// ëª¬ìŠ¤í„°ì™€ ë°œì‚¬ì²´ê°€ ë§Œë‚˜ë©´ ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì´ ê¹ì´ëŠ”ì§€ í…ŒìŠ¤íŠ¸ ìš©ë„
 /// </summary>
 public class MonsterBase : MonoBehaviour 
 {
-    public float monsterHp = 100.0f;    // ¸ó½ºÅÍ Ã¼·Â
-    public float speed= 100.0f;    // ¸ó½ºÅÍ ÀÌ¼Ó
-    public float attackSpeed= 100.0f;    // ¸ó½ºÅÍ °ø¼Ó
+    public float monsterHp = 100.0f;    // ëª¬ìŠ¤í„° ì²´ë ¥
+    public float speed= 100.0f;    // ëª¬ìŠ¤í„° ì´ì†
+    public float attackSpeed= 100.0f;    // ëª¬ìŠ¤í„° ê³µì†
     public float attackPower = 10;
 
-    //InputActionTower inputAction;       // ÀÎÇ² ¾×¼Ç
+    //InputActionTower inputAction;       // ì¸í’‹ ì•¡ì…˜
 
     //private void Awake()
     //{
@@ -38,6 +38,6 @@ public class MonsterBase : MonoBehaviour
 
     //private void ShowMonsterHP(InputAction.CallbackContext _)
     //{
-    //    Debug.Log($"{MonsterHp}");  // (½ºÆäÀÌ½º Å°¸¦ ´©¸£¸é º¸¿©ÁÜ
+    //    Debug.Log($"{MonsterHp}");  // (ìŠ¤í˜ì´ìŠ¤ í‚¤ë¥¼ ëˆ„ë¥´ë©´ ë³´ì—¬ì¤Œ
     //}
 }

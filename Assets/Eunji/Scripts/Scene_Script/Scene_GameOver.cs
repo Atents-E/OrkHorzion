@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // Scene_GameOver 기능
+
 // 1. 재시작 버튼을 누르면 메인 씬으로 이동한다.
 
 public class Scene_GameOver : MonoBehaviour

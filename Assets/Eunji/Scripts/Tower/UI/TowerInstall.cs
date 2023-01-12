@@ -15,7 +15,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// <summary>
     /// (드래그 중일 때)변경 될 부모 오브젝트
     /// </summary>
-    GameObject newParent;
+    Canvas newParent;
 
     /// <summary>
     /// 생성 될 타워 프리팹
@@ -31,23 +31,26 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
     TextMeshProUGUI price_Text;
 
-    Button warningText;
+    TextMeshProUGUI warningText;             // 돈 부족 안내 해주는 버튼
+
 
     private void Awake()
     {
         currentParent = transform.parent;
-        newParent = GameObject.FindWithTag("Canvas");
 
         // 타워에 가격을 확인하여 타워 금액으로 설정
         price_Text = GetComponentInParent<TowerInstall_Icon>().transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
         // price_Text = GetComponentInParent<TowerInstall_Icon>().transform.GetComponentInChildren<TextMeshProUGUI>();
+
         towerGold = towerPrefab.GetComponent<TowerBase>();
         price_Text.text = ($"{towerGold.price}");
+
     }
 
     private void Start()
     {
         playerGold = GameManager.Inst.PlayerGold;
+        newParent = GameManager.Inst.Canvas; //GameObject.FindWithTag("Canvas");
     }
 
     /// <summary>
@@ -103,8 +106,10 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             else
             {
                 // "골드가 부족합니다"라는 안내멘트를 해주는 창이 나옴.
-                warningText = newParent.transform.GetChild(3).GetComponent<Button>();
+                // warningText = newParent.transform.GetChild(3).GetComponent<Button>();
+
                 warningText.gameObject.SetActive(true);
+                warningText.color = Color.white;
             }
         }
 
@@ -136,6 +141,15 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         return result; 
     }
 
+    void WarningText()
+    {
+        float wiat = 1.0f;
+
+        if( wiat > 0)
+        {
+            wiat -= Time.deltaTime;
+        }
+    }
 
     ///<summary>
     ///TowerMenu의 크기

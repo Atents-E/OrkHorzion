@@ -14,7 +14,6 @@ public class CanvasTower : MonoBehaviour
     GameObject button_OK;       // 삭제 확인 버튼
 
     Button okButton;            // ok버튼
-    bool ok = false;            // 삭제 확인용 변수
 
     /// <summary>
     /// 인풋 시스템
@@ -44,6 +43,11 @@ public class CanvasTower : MonoBehaviour
         inputActions.Tower.Disable();
     }
 
+    /// <summary>
+    /// 타워를 선택하고
+    /// ok(삭제 확인)버튼을 클릭하면 삭제
+    /// </summary>
+    /// <param name="_"></param>
     public void OnRemove(InputAction.CallbackContext _)
     {
         Vector3 selectedTower = Mouse.current.position.ReadValue();         // 마우스 위치 받아오고(마우스 위치는 스크린 좌표계)

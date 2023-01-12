@@ -8,18 +8,20 @@ public class GameManager : Singleton<GameManager>
     Warrior warrior;
     Wizard wizard;
     PlayerGold playerGold;
+    Canvas canvas;
 
     public Character Character => character;
     public Warrior Warrior => warrior;   
     public Wizard Wizard => wizard;
     public PlayerGold PlayerGold => playerGold;
-
+    public Canvas Canvas => canvas;
     
     protected override void Initialize()
     {
         character = FindObjectOfType<Character>();
         warrior = FindObjectOfType<Warrior>();
         wizard = FindObjectOfType<Wizard>();
-        playerGold = FindObjectOfType<PlayerGold>();    
+        playerGold = FindObjectOfType<PlayerGold>();
+        canvas = FindObjectOfType<Canvas>();
     }
 }
