@@ -21,27 +21,27 @@ public class StatManager : MonoBehaviour
 
     [Header("전사 기본 능력치")]
     [SerializeField]
-    private float warrior_default_MaxHp = 100;
+    private float warrior_default_MaxHp = 100.0f;
     [SerializeField]
-    private float warrior_default_Def = 20;
+    private float warrior_default_Def = 100.0f;
     [SerializeField]
-    private float warrior_default_Atk = 80;
+    private float warrior_default_Atk = 50.0f;
     [SerializeField]
-    private float warrior_default_CriticalChance = 0.0f;
+    private float warrior_default_CriticalChance = 0.3f;
     [SerializeField]
-    private float warrior_default_MoveSpeed = 30.0f;
+    private float warrior_default_MoveSpeed = 3.0f;
 
     [Header("마법사 기본 능력치")]
     [SerializeField]
-    private float wizard_default_MaxHp = 100;
+    private float wizard_default_MaxHp = 80.0f;
     [SerializeField]
-    private float wizard_default_Def = 20;
+    private float wizard_default_Def = 50.0f;
     [SerializeField]
-    private float wizard_default_Atk = 80;
+    private float wizard_default_Atk = 30.0f;
     [SerializeField]
-    private float wizard_default_CriticalChance = 0.0f;
+    private float wizard_default_CriticalChance = 0.3f;
     [SerializeField]
-    private float wizard_default_MoveSpeed = 30.0f;
+    private float wizard_default_MoveSpeed = 5.0f;
 
     [HideInInspector]
     public float Default_MaxHp = 0.0f;
