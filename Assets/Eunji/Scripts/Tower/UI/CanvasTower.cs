@@ -8,12 +8,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
+
 public class CanvasTower : MonoBehaviour
 {
     GameObject deletePanel;     // TowerDelete 게임 오브젝트
     GameObject button_OK;       // 삭제 확인 버튼
 
     Button okButton;            // ok버튼
+
+    TowerBase thisTower;
 
     /// <summary>
     /// 인풋 시스템
@@ -27,6 +30,7 @@ public class CanvasTower : MonoBehaviour
         deletePanel.SetActive(false);
 
         okButton = button_OK.GetComponentInChildren<Button>();
+        okButton.onClick.AddListener(() => thisTower.DeleteTower());
 
         inputActions = new TowerInputActions();
     }
@@ -63,8 +67,8 @@ public class CanvasTower : MonoBehaviour
             deletePanel.SetActive(true);
 
             // 3. 삭제 승낙이 되었으면 타워 가격의 일부를 반환하고, 타워 삭제
-            TowerBase thisTower = hit.collider.gameObject.GetComponent<TowerBase>();
-            okButton.onClick.AddListener(() => thisTower.DeleteTower());
+            thisTower = hit.collider.gameObject.GetComponent<TowerBase>();
         }
     }
+
 }

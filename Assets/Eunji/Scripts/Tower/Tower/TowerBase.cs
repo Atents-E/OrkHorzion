@@ -186,9 +186,11 @@ public class TowerBase : MonoBehaviour
     public void DeleteTower()
     {
         PlayerGold playerGold = GameManager.Inst.PlayerGold;
-        float returnGold = price * 0.8f; 
-        playerGold.NowGold += Mathf.FloorToInt(returnGold);
+        float returnGold = price * 0.8f;
 
-        Destroy(this.gameObject);
+        playerGold.NowGold += Mathf.FloorToInt(returnGold);
+        // 위에 코드에서 타워가 삭제될수록 NowGold에 반환되는 금액이 축척되는 문제가 발생..
+
+        Destroy(transform.gameObject);
     }
 }

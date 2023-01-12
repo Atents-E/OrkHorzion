@@ -99,16 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b07a3ce552e8844aa2ebfa2e772254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 10
+  price: 10
   sightRange: 5
   sightRadius: 2.5
-  proCreatSpeed: 3
   fireAngle: 10
   turnSpeed: 10
-  target: {fileID: 0}
-  projectile: {fileID: 2022050941033226741, guid: 720ebf2f1720ad241b637b72af9e47ff, type: 3}
+  attackRate: 1
   fireInterval: 1
   coolTime: 0
+  projectile: {fileID: 2022050941033226741, guid: 720ebf2f1720ad241b637b72af9e47ff, type: 3}
 --- !u!136 &7614509667935897139
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -117,7 +116,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7614509669149968950}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5040979
   m_Height: 1.8258396
