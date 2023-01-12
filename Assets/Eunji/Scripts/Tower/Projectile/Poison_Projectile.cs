@@ -22,7 +22,7 @@ public class Poison_Projectile : ProjectileBase
     //        Destroy(this.gameObject);
 
     //        MonsterBase monster = GetComponent<MonsterBase>();
- 
+
     //        for(int i = 0; i < reduceTiem; i++)     // 감속시간 동안
     //        {
     //            // Monster의 이속과 공속 감소

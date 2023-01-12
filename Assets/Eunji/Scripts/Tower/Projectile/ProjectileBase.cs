@@ -10,7 +10,7 @@ using UnityEngine;
 // 3. 생성되고 3초 뒤에 자동 삭제
 // 4. 타겟과 만나면 즉시 삭제된다
 
-public class ProjectileBase : MonoBehaviour
+public class ProjectileBase : MonoBehaviour, IBattle
 {
     public float attackPower = 10.0f;   // 투사체 공격력
     public float speed = 5.0f;          // 투사체 속도
@@ -20,6 +20,11 @@ public class ProjectileBase : MonoBehaviour
 
     protected TowerBase parentTarget;             // 부모의 타겟
 
+    MonsterBase monster;
+
+    public float AttackPower => attackPower;
+
+    public float DefencePower => 0.0f;
 
     protected virtual void Awake()    
     {
@@ -34,28 +39,32 @@ public class ProjectileBase : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-        {
-            // 1. monster의 체력이 있는 컴포넌트를 가져오고,
-            MonsterBase monster = other.GetComponent<MonsterBase>();   
+        {            
+            IBattle target = other.gameObject.GetComponent<IBattle>();
+            Attack(target);
 
-            //2. monster의 체력을 감소시킴
-            if (monster != null)
-            {
-                float MonsterHp = monster.MonsterHp;
-
-                if (MonsterHp > 0)
-                {
-                    MonsterHp -= attackPower;
-                    if( MonsterHp < 0)
-                    {
-                        MonsterHp = 0;
-                    }
-                }
-
-                Debug.Log($"{MonsterHp}");
-            }
 
             Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            IBattle target = collision.gameObject.GetComponent<IBattle>();
+            Attack(target);
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void Attack(IBattle target)
+    {
+        target?.TakeDamage(AttackPower);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        monster.MonsterHp -= damage;
     }
 }

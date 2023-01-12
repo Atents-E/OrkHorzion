@@ -48,7 +48,7 @@ public class Enemy_Navigation : MonoBehaviour
     {
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)  // 경로 계산이 완료됬고 아직 도착지점으로 인정되는 거리까지 이동하지 않았다.
         {
-            move();                        
+            move();
         }
     }
 
@@ -58,6 +58,5 @@ public class Enemy_Navigation : MonoBehaviour
         index++;        // 인덱스를 1 증가 시킨다.
                         //index %= waypoint.transform.childCount;
         agent.SetDestination(waypoint.wayPoints[index].position);   // 다음 웨이포인트를 향해 걸어간다.
-    }
-    
+    }    
 }
