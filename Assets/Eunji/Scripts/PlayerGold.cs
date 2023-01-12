@@ -11,11 +11,11 @@ using System;
 
 public class PlayerGold : MonoBehaviour
 {
-    public int maxGold = 1000000000;     // 최소 금액
-    public int nowGold = 100;             // 현재 금액
+    public int maxGold = 1000000000;     // 최대 금액
+    public int nowGold = 100;            // 현재 금액
 
-    TextMeshProUGUI gold_Text;              // 텍스트로 표시 할 골드 금액
-    Action OnGoldChange;                    // 델리게이트로 골드 소유량 변경 확인
+    TextMeshProUGUI gold_Text;           // 텍스트로 표시 할 골드 금액
+    Action OnGoldChange;                 // 델리게이트로 골드 소유량 변경 확인
 
     public int NowGold
     {
