@@ -63,8 +63,8 @@ public class CanvasTower : MonoBehaviour
             deletePanel.SetActive(true);
 
             // 3. 삭제 승낙이 되었으면 타워 가격의 일부를 반환하고, 타워 삭제
-            GameObject tower = hit.collider.gameObject;
-            okButton.onClick.AddListener(() => Destroy(tower.gameObject));
+            TowerBase thisTower = hit.collider.gameObject.GetComponent<TowerBase>();
+            okButton.onClick.AddListener(() => thisTower.DeleteTower());
         }
     }
 }

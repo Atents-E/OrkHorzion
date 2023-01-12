@@ -11,7 +11,7 @@ using System;
 
 public class PlayerGold : MonoBehaviour
 {
-    public int maxGold = 1000000000;     // 최대 금액
+    int maxGold = 1000000000;     // 최대 금액
     public int nowGold = 100;            // 현재 금액
 
     TextMeshProUGUI gold_Text;           // 텍스트로 표시 할 골드 금액
@@ -22,23 +22,22 @@ public class PlayerGold : MonoBehaviour
         get => nowGold;
         set
         {
-            if(nowGold != value)
+            if (nowGold != value)
             {
-                NowGold -= value;
+                nowGold = value;
                 nowGold = Mathf.Clamp(0, value, maxGold);
 
-                OnGoldChange?.Invoke(); 
+                OnGoldChange?.Invoke();
             }
         }
     }
 
-
     private void Awake()
     {
-        gold_Text = GetComponent<TextMeshProUGUI>();
-        OnGoldChange += GoldChange;
+        gold_Text = transform.GetComponentInChildren<TextMeshProUGUI>();
+        gold_Text.text = $"{nowGold}";             // 골드 금액 표시
 
-        gold_Text.text = $"{NowGold}";             // 골드 금액 표시
+        OnGoldChange += GoldChange;
     }
 
     /// <summary>
@@ -46,6 +45,7 @@ public class PlayerGold : MonoBehaviour
     /// </summary>
     private void GoldChange()
     {
-        gold_Text.text = $"{NowGold}";             // 골드 금액 표시
+        gold_Text.text = $"{nowGold}";             // 골드 금액 표시
+        Debug.Log($"현재 소유 골드 : {nowGold}");
     }
 }

@@ -4,9 +4,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    /// <summary>
+    /// 생성 될 타워 프리팹
+    /// </summary>
+    public GameObject towerPrefab;
+
     /// <summary>
     /// 기존 부모 오브젝트
     /// </summary>
@@ -18,20 +24,29 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     Canvas newParent;
 
     /// <summary>
-    /// 생성 될 타워 프리팹
-    /// </summary>
-    public GameObject towerPrefab;
-
-    /// <summary>
     /// 플레이어가 가진 골드
     /// </summary>
     PlayerGold playerGold;
 
+    /// <summary>
+    /// 타워 금액 비교용
+    /// </summary>
     TowerBase towerGold;
 
+    /// <summary>
+    /// 타워의 금액 표시용
+    /// </summary>
     TextMeshProUGUI price_Text;
 
-    TextMeshProUGUI warningText;             // 돈 부족 안내 해주는 버튼
+    /// <summary>
+    /// 골드 부족 안내
+    /// </summary>
+    TextMeshProUGUI warningText;
+
+    /// <summary>
+    /// 골드 부족 안내 지속되는 시간
+    /// </summary>
+    WaitForSeconds showTime = new WaitForSeconds(0.7f);
 
 
     private void Awake()
@@ -44,13 +59,17 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
         towerGold = towerPrefab.GetComponent<TowerBase>();
         price_Text.text = ($"{towerGold.price}");
-
     }
 
     private void Start()
     {
-        playerGold = GameManager.Inst.PlayerGold;
+        playerGold = GameManager.Inst.PlayerGold;      
         newParent = GameManager.Inst.Canvas; //GameObject.FindWithTag("Canvas");
+        warningText = newParent.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+
+        warningText.color = Color.clear;    // 안내창 알파값1로 초기화
+
+        //isLack += WarningText;              // 돈이 부족하면 안내창 알파값 0으로 변경
     }
 
     /// <summary>
@@ -83,34 +102,37 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        Ray ray =  Camera.main.ScreenPointToRay(eventData.position);   // 스크린 좌표로 레이 생성
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // 레이와 땅의 충돌 여부 확인
-        {
-            // 레이와 땅이 충돌했으면
-            //Debug.Log("레이와 땅이 충돌함");
-            
-            GameObject ground = hit.collider.gameObject;        // 충돌한 지점의 오브젝트를 찾아서
-            Vector3 creatPos = ground.transform.position;       // 찾은 오브젝트의 피벗을 중점으로 위치값 변경(오브젝트의 중간에 오도록)
-            creatPos.x += 1;
-            creatPos.y = 0;
-            creatPos.z -= 1;
+        int nowGold = playerGold.NowGold;
+        int price = towerGold.price;
 
-            if (isEnoughGold())
+        // 타워를 살 수 있는 돈이 있는지 확인
+        if (nowGold >= price)
+        {
+            // 타워 가격만큼 빼기
+            playerGold.NowGold -= price;
+            Debug.Log("타워를 구매 했습니다");
+
+            // 드롭 지점 지점을 체크
+            Ray ray =  Camera.main.ScreenPointToRay(eventData.position);   // 스크린 좌표로 레이 생성
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000.0f, LayerMask.GetMask("Ground"))) // 레이와 땅의 충돌 여부 확인
             {
-                // 타워를 살 수 있는 돈이 있는지 확인
-                // 돈이 있으면 그 지점에 tower 생성
+                // 레이와 땅이 충돌했으면
+                //Debug.Log("레이와 땅이 충돌함");
+            
+                GameObject ground = hit.collider.gameObject;        // 충돌한 지점의 오브젝트를 찾아서
+                Vector3 creatPos = ground.transform.position;       // 찾은 오브젝트의 피벗을 중점으로 위치값 변경(오브젝트의 중간에 오도록)
+                creatPos.x += 1;
+                creatPos.y = 0;
+                creatPos.z -= 1;
+
                 Instantiate(towerPrefab, creatPos, transform.rotation);
                 Debug.Log("타워 설치");
-                // 돈이 부족해서 타워를 구매할 수 없다는 창을 띄어줌
             }
-            else
-            {
-                // "골드가 부족합니다"라는 안내멘트를 해주는 창이 나옴.
-                // warningText = newParent.transform.GetChild(3).GetComponent<Button>();
-
-                warningText.gameObject.SetActive(true);
-                warningText.color = Color.white;
-            }
+        }
+        else
+        {
+            // 골드가 부족하다고 안내
+            StartCoroutine(WaringText());
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
@@ -121,34 +143,16 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     }
 
     /// <summary>
-    /// 타워금액만큼의 골드를 가지고 있는지 확인
+    /// showTime만큼 안내창을 보여주고, 투명하게 만듬
     /// </summary>
-    /// <returns>true면 돈이 충분하다, false면 돈이 부족하다</returns>
-    bool isEnoughGold()
+    /// <returns></returns>
+    IEnumerator WaringText()
     {
-        bool result = false;
+        warningText.color = Color.red;
+        yield return showTime;
 
-        // 플레이어가 소유한 골드와 타워 가격을 비교해서
-        if (playerGold.nowGold > towerGold.price)
-        {
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
-
-        return result; 
-    }
-
-    void WarningText()
-    {
-        float wiat = 1.0f;
-
-        if( wiat > 0)
-        {
-            wiat -= Time.deltaTime;
-        }
+        warningText.color = Color.clear;
+        yield return null;
     }
 
     ///<summary>

@@ -183,11 +183,11 @@ public class TowerBase : MonoBehaviour
     /// <summary>
     /// 타워의 금액의 80%를 반환하고, 타워를 삭제한다.
     /// </summary>
-    protected void DeleteTower()
+    public void DeleteTower()
     {
-        PlayerGold playerGold = GetComponent<PlayerGold>();
-        float returnGold = price * 0.8f;
-        playerGold.nowGold += Mathf.FloorToInt(returnGold);
+        PlayerGold playerGold = GameManager.Inst.PlayerGold;
+        float returnGold = price * 0.8f; 
+        playerGold.NowGold += Mathf.FloorToInt(returnGold);
 
         Destroy(this.gameObject);
     }
