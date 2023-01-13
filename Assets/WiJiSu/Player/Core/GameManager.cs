@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     ItemManager itemData;
     StatManager statManager;
     InventoryUI inventoryUI;
+    RewardPanel rewardPanel;
 
     PlayerGold playerGold;
     Canvas canvas;
@@ -26,6 +27,8 @@ public class GameManager : Singleton<GameManager>
     public StatManager StatManager => statManager;
     public InventoryUI InventoryUI => inventoryUI;
 
+    public RewardPanel RewardPanel => rewardPanel;
+
     public PlayerGold PlayerGold => playerGold;
     public Canvas Canvas => canvas;
     public Castle Castle => castle;
@@ -40,7 +43,8 @@ public class GameManager : Singleton<GameManager>
         itemData = GetComponent<ItemManager>();
         statManager = GetComponent<StatManager>();
         inventoryUI = FindObjectOfType<InventoryUI>();
-        playerGold = FindObjectOfType<PlayerGold>();
+        rewardPanel = FindObjectOfType<RewardPanel>();
+        playerGold = GetComponent<PlayerGold>();
         canvas = FindObjectOfType<Canvas>();
         castle = FindObjectOfType<Castle>();
         enemySpawner = FindObjectOfType<EnemySpawner>();

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Test_PlayerInventory : Test_Base_JANG
+public class Test_PlayerInventory_Warrior : Test_Base_JANG
 {
-    Wizard player;
+    Warrior player;
     InventoryUI invenUI;
     private void Start()
     {
-        player = FindObjectOfType<Wizard>();
+        player = FindObjectOfType<Warrior>();
         invenUI = FindObjectOfType<InventoryUI>();
     }
 
