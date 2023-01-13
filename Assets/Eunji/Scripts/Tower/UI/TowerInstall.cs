@@ -128,6 +128,10 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
                 Instantiate(towerPrefab, creatPos, transform.rotation);
                 Debug.Log("타워 설치");
             }
+            else if (Physics.Raycast(ray, out RaycastHit hit2, 1000.0f, LayerMask.GetMask("RodeGround")))
+            {
+                Debug.Log("아무것도 안되야 함");
+            }
         }
         else
         {
