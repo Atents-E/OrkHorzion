@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,9 +30,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerInputActions();
-
         anim = GetComponent<Animator>();
         character = GetComponent<Character>();
+    }
+
+    private void Start()
+    {
         walkSpeed = character.MoveSpeed;
         currentSpeed = character.MoveSpeed;
         runSpeed = walkSpeed + 5.0f;
@@ -45,17 +48,14 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Move.canceled += OnMove;
         inputActions.Player.MoveModeChange.performed += OnMoveModeChange;
         inputActions.Player.Attack.performed += OnAttack;
-        //inputActions.Player.Hit.performed += OnHit;
     }
 
     private void OnDisable()
     {
-        //inputActions.Player.Hit.performed -= OnHit;
         inputActions.Player.Attack.performed -= OnAttack;
         inputActions.Player.MoveModeChange.performed -= OnMoveModeChange;
         inputActions.Player.Move.canceled -= OnMove;
         inputActions.Player.Move.performed -= OnMove;
-        
         inputActions.Player.Disable();
     }
 

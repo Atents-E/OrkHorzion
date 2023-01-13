@@ -17,7 +17,7 @@ public class Test_Battle : TestBase
 
     protected override void Test1(InputAction.CallbackContext _)
     { 
-        warrior.TakeDamage(26);
+        warrior.TakeDamage(50);
        
     }
 

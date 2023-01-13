@@ -4,46 +4,35 @@ using UnityEngine;
 
 public class Wizard :Character
 {
-    public float default_Hp = 80.0f; // 체력
-    public float default_MaxHp = 80.0f; // 최대 체력
-    public float default_Def = 50.0f; // 방어력
-    public float default_Atk = 10.0f; // 공격력
-    public float default_criticalChance = 0.3f; // 치명타 확률
-    public float default_MoveSpeed = 6.0f; //이동 속도
-
-    //public Inventory inven;
+    public Inventory inven; 
+    StatManager statManager;
+    InventoryUI invenUI;
 
     ParticleSystem weaponPS;
-    //StatManager statManager;
+
     protected override void Awake()
     {
         base.Awake();
         weaponPS = GetComponentInChildren<ParticleSystem>();
-
+        invenUI = FindObjectOfType<InventoryUI>();
         characterName = "마법사";
-        maxHp = default_MaxHp;
-        hp = default_Hp;
-        def = default_Def;
-        atk = default_Atk;
-        criticalChance = default_criticalChance;
-        moveSpeed = default_MoveSpeed;
-
     }
 
     protected override void Start()
     {
+        inven = new Inventory(2);   // 인벤토리 생성자를 통해 해당 Warrior 플레이어가 가지고 있을 인벤토리 __ 장명근 작성
+        statManager = GameManager.Inst.StatManager; // 게임 매니저에서 스탯 매니저를 가져옴 __ 장명근 작성
+        statManager.WizardInitializeStat(inven);   // 스탯 매니저에서 입력한 스탯을 적용하고 가지고 있는 아이템에 따라 스탯이 바뀌기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
+        GameManager.Inst.InventoryUI.InitializeInventoy(inven); // 인벤토리 상황을 UI로 띄우기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
+
         base.Start();
+
         Debug.Log($"이름 : {characterName}");
         Debug.Log($"체력 : {hp} / {maxHp}");
         Debug.Log($"방어력 : {def}");
         Debug.Log($"공격력 : {atk}");
         Debug.Log($"치명타확률 : {criticalChance*100}%");
         Debug.Log($"이동속도 : {moveSpeed}");
-
-        //inven = new Inventory(2);
-        //statManager = GameManager_JANG.Inst.StatManager;
-        //statManager.WarriorInitializeStat(inven);
-        //GameManager_JANG.Inst.InventoryUI.InitializeInventoy(inven);
     }
 
     public void WeaponEffectEnable()
@@ -66,7 +55,12 @@ public class Wizard :Character
 
     public override void TakeDamage(float damage) => base.TakeDamage(damage);
 
-    public override void Die() => base.Die();
+    public override void Die()
+    {
+        base.Die();
+        inven.ClearInventory();
+        invenUI.Close();
+    }
 
     public override void Recover() => base.Recover();
 

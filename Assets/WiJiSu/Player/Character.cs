@@ -90,6 +90,8 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     protected virtual void Start()
     {
+        Vector3 spotPos = point.transform.position;
+        transform.position = spotPos;
         hp = MaxHP;
         isAlive = true;
     }

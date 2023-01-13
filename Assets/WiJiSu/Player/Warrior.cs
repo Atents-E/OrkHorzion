@@ -8,21 +8,19 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Warrior : Character
 {
-
     public Inventory inven; // 해당 Warrior 플레이어가 가질 인벤토리 변수 (보상탭에서 해당 인벤토리를 참조할 목적으로 접근제한자는 public으로 하였음) __ 장명근 작성
     StatManager statManager; // 스탯매니저에서 적용할 스탯을 받기 위한 스탯 매니저 변수 __ 장명근 작성
-
+    InventoryUI invenUI;
 
     Transform hand_r;
     Collider weaponBlade;
-
 
     protected override void Awake()
     {
         base.Awake();
         hand_r = GetComponentInChildren<WeaponPosition>().transform;
         weaponBlade = hand_r.GetComponentInChildren<Collider>();
-
+        invenUI = FindObjectOfType<InventoryUI>();
         characterName = "전사";
     }
 
@@ -32,7 +30,7 @@ public class Warrior : Character
         statManager = GameManager.Inst.StatManager; // 게임 매니저에서 스탯 매니저를 가져옴 __ 장명근 작성
         statManager.WarriorInitializeStat(inven);   // 스탯 매니저에서 입력한 스탯을 적용하고 가지고 있는 아이템에 따라 스탯이 바뀌기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
         GameManager.Inst.InventoryUI.InitializeInventoy(inven); // 인벤토리 상황을 UI로 띄우기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
-
+       
         base.Start();
 
         Debug.Log($"이름 : {characterName}");
@@ -70,7 +68,12 @@ public class Warrior : Character
   
     public override void TakeDamage(float damage) => base.TakeDamage(damage);
 
-    public override void Die() => base.Die();
+    public override void Die()
+    {
+        base.Die();
+        inven.ClearInventory();
+        invenUI.Close();
+    }
 
     public override void Recover() => base.Recover();
 }
