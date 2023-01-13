@@ -40,11 +40,11 @@ public class Castle_HP_Bar : MonoBehaviour
     {
         Castle castle = FindObjectOfType<Castle>();     // 추후 게임 매니저로 할당하기
         // Castle castle = GameManager.Inst.Castle;
-        max_HP = castle.maxHP;                          // 최대 HP
+        //max_HP = castle.maxHP;                          // 최대 HP
         maxHP_Text = $"/{max_HP:f0}";                     // 최대 HP 표시용 글자
         slider.value = 1;                               // 슬라이더 최대치로 해두기
         HP_Text.text = $"{max_HP} / {max_HP}";             // HP는 최대치/최대치
-        castle.onHealthChange += OnHealthChange;        // 거점타워의 HP가 변경되면 실행 되도록 함수 연결
+        //castle.onHealthChange += OnHealthChange;        // 거점타워의 HP가 변경되면 실행 되도록 함수 연결
     }
 
     /// <summary>

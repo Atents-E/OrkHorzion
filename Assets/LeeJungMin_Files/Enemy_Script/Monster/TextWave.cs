@@ -12,7 +12,7 @@ public class TextWave : MonoBehaviour
 
     private void Update()
     {
-        textEnemyCount.text = $"{enemySpawner.Result} / {enemySpawner.MaxEnemyCount}";
+        textEnemyCount.text = $"waves {enemySpawner.Result} / {enemySpawner.MaxEnemyCount}";
     }
 
 }
