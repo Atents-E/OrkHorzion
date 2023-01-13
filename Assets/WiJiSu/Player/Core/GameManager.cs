@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
         statManager = GetComponent<StatManager>();
         inventoryUI = FindObjectOfType<InventoryUI>();
         rewardPanel = FindObjectOfType<RewardPanel>();
-        playerGold = GetComponent<PlayerGold>();
+        playerGold = FindObjectOfType<PlayerGold>();
         canvas = FindObjectOfType<Canvas>();
         castle = FindObjectOfType<Castle>();
         enemySpawner = FindObjectOfType<EnemySpawner>();

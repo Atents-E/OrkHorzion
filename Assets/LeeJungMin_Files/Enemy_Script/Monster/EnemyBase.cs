@@ -22,6 +22,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public float monsterHp = 100.0f;              // 몬스터 HP
     public float monsterMaxHp = 1000.0f;          // 몬스터 최대 HP
 
+    public int gold;
+
     protected Transform playerTarget = null;      // 플레이어가 없다
 
     public Transform damageTextPos;
@@ -178,6 +180,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
         GameManager.Inst.EnemySpawner.SetDel();
       //  enemySpawner.DestroyEnemy(this);
         GameManager.Inst.EnemySpawner.DestroyEnemy(this);
+
+        GameManager.Inst.PlayerGold.NowGold += gold;
     }
 
 
