@@ -185,7 +185,7 @@ MonoBehaviour:
   attackPower: 10
   defencePower: 0
   monsterHp: 100
-  monsterMaxHp: 20000
+  monsterMaxHp: 3000
   damageTextPos: {fileID: 8789956200388816565}
   damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
   Rock: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}
@@ -457,7 +457,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 957781e2e64d0264f970dde36a30bd93, type: 2}
+  - {fileID: 2100000, guid: f85f98637ecc5db47a2e30081c78386e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

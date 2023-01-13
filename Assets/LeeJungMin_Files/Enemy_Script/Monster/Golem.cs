@@ -10,11 +10,11 @@ public class Golem : EnemyBase
 {
     public GameObject Rock;
 
-    public float waitTime = 2.0f;       // ¸ñÀûÁö¿¡ µµÂøÇßÀ» ¶§ ±â´Ù¸®´Â ½Ã°£
-    float waitTimer = 0;                // ³²¾ÆÀÖ´Â ±â´Ù·Á¾ß ÇÏ´Â ½Ã°£ 
+    public float waitTime = 2.0f;       // ëª©ì ì§€ì— ë„ì°©í–ˆì„ ë•Œ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
+    float waitTimer = 0;                // ë‚¨ì•„ìˆëŠ” ê¸°ë‹¤ë ¤ì•¼ í•˜ëŠ” ì‹œê°„ 
 
-    public float runWaitTime = 5.0f;   // ¸ñÀûÁö¿¡ µµÂøÇßÀ» ¶§ ±â´Ù¸®´Â ½Ã°£
-    float runWaitTimer = 0;            // ³²¾ÆÀÖ´Â ±â´Ù·Á¾ß ÇÏ´Â ½Ã°£ 
+    public float runWaitTime = 5.0f;   // ëª©ì ì§€ì— ë„ì°©í–ˆì„ ë•Œ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
+    float runWaitTimer = 0;            // ë‚¨ì•„ìˆëŠ” ê¸°ë‹¤ë ¤ì•¼ í•˜ëŠ” ì‹œê°„ 
     public float testHpCount =5;
     bool isDead = true;
     bool isTargetOn = false;
@@ -25,19 +25,21 @@ public class Golem : EnemyBase
 
     CapsuleCollider coll;
 
-    GolemState state = GolemState.Attack;  // ÇöÀç °ñ·½ÀÇ »óÅÂ
+    GolemState state = GolemState.Attack;  // í˜„ì¬ ê³¨ë ˜ì˜ ìƒíƒœ
 
     Transform rock_Spawner;
 
+    IBattle target;
+
     protected enum GolemState
     {
-        Run = 0,    // ¿şÀÌÆ÷ÀÎÆ®¸¦ ÇâÇØ °É¾î°¡´Â »óÅÂ
-        Attack,     // °ø°İ »óÅÂ
-        Die         // »ç¸Á »óÅÂ
+        Run = 0,    // ì›¨ì´í¬ì¸íŠ¸ë¥¼ í–¥í•´ ê±¸ì–´ê°€ëŠ” ìƒíƒœ
+        Attack,     // ê³µê²© ìƒíƒœ
+        Die         // ì‚¬ë§ ìƒíƒœ
     }
 
     /// <summary>
-    /// »óÅÂº° ¾÷µ¥ÀÌÅÍ ÇÔ¼ö¸¦ °¡Áú µ¨¸®°ÔÀÌÆ®
+    /// ìƒíƒœë³„ ì—…ë°ì´í„° í•¨ìˆ˜ë¥¼ ê°€ì§ˆ ë¸ë¦¬ê²Œì´íŠ¸
     /// </summary>
     Action stateUpdate;
 
@@ -48,26 +50,26 @@ public class Golem : EnemyBase
         {
             if (state != value)
             {
-                state = value;  // »õ·Î¿î »óÅÂ·Î º¯°æ
+                state = value;  // ìƒˆë¡œìš´ ìƒíƒœë¡œ ë³€ê²½
                 
                 switch (state)
                 {
                     case GolemState.Run:
                         isTargetOn = false;
-                        nav.Stopped(false);         // ¸ñÀûÁö¸¦ ÇâÇØ ¿òÁ÷ÀÎ´Ù.
-                        runWaitTimer = runWaitTime; // ±â´Ù¸®´Â ½Ã°£ ÃÊ±âÈ­
-                        stateUpdate = Update_Run;   // update¿¡¼­ ½ÇÇàµÉ µ¨¸®°ÔÀÌÆ® º¯°æ (2ÃÊ°£ ±â´Ù¸²)
+                        nav.Stopped(false);         // ëª©ì ì§€ë¥¼ í–¥í•´ ì›€ì§ì¸ë‹¤.
+                        runWaitTimer = runWaitTime; // ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ ì´ˆê¸°í™”
+                        stateUpdate = Update_Run;   // updateì—ì„œ ì‹¤í–‰ë  ë¸ë¦¬ê²Œì´íŠ¸ ë³€ê²½ (2ì´ˆê°„ ê¸°ë‹¤ë¦¼)
                         break;
 
                     case GolemState.Attack:
                         isTargetOn = false;
-                        nav.Stopped(true);          // ¿òÁ÷ÀÓÀ» ¸ØÃá´Ù
-                        waitTimer = waitTime;       // ±â´Ù¸®´Â ½Ã°£ ÃÊ±âÈ­
+                        nav.Stopped(true);          // ì›€ì§ì„ì„ ë©ˆì¶˜ë‹¤
+                        waitTimer = waitTime;       // ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ ì´ˆê¸°í™”
                         isTargetOn = true;
-                        anim.SetTrigger("Attack");  // °ø°İÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı
+                        anim.SetTrigger("Attack");  // ê³µê²©í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
                         
                         //Isthrow();
-                        stateUpdate = Update_attack;  // update¿¡¼­ ½ÇÇàµÉ µ¨¸®°ÔÀÌÆ® º¯°æ (2ÃÊ°£ ±â´Ù¸²)
+                        stateUpdate = Update_attack;  // updateì—ì„œ ì‹¤í–‰ë  ë¸ë¦¬ê²Œì´íŠ¸ ë³€ê²½ (2ì´ˆê°„ ê¸°ë‹¤ë¦¼)
                         break;
 
                     case GolemState.Die:
@@ -110,14 +112,15 @@ public class Golem : EnemyBase
     {
         anim = GetComponent<Animator>();
         nav = GetComponent<Enemy_Navigation>();
-        //anim.ResetTrigger("Attack");        // Æ®¸®°Å°¡ ½×ÀÌ´Â Çö»ó ¹æÁö
+        //anim.ResetTrigger("Attack");        // íŠ¸ë¦¬ê±°ê°€ ìŒ“ì´ëŠ” í˜„ìƒ ë°©ì§€
         coll = GetComponent<CapsuleCollider>();
+        target = GetComponent<IBattle>();
     }
 
     private void Start()
     {
-        //waitTimer = waitTime;       // ±â´Ù¸®´Â ½Ã°£ ÃÊ±âÈ­
-        State = GolemState.Run;             // ÃÊ±â »óÅÂ ¼³Á¤ (Idle)
+        //waitTimer = waitTime;       // ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ ì´ˆê¸°í™”
+        State = GolemState.Run;             // ì´ˆê¸° ìƒíƒœ ì„¤ì • (Idle)
 
         HP = MaxHP;
         onHealthChange += HP_Change;
@@ -127,8 +130,6 @@ public class Golem : EnemyBase
 
     private void FixedUpdate()
     {
-        HP -= testHpCount;
-
         stateUpdate();
         LookTarget();
     }
@@ -159,7 +160,7 @@ public class Golem : EnemyBase
     {
         if (isDead)
         {
-            //Debug.Log($"{gameObject.name}ÀÇ HP°¡ {HP}·Î º¯°æ µÇ¾ú½À´Ï´Ù.");
+            //Debug.Log($"{gameObject.name}ì˜ HPê°€ {HP}ë¡œ ë³€ê²½ ë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
 
     }

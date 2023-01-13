@@ -411,7 +411,7 @@ MonoBehaviour:
   attackPower: 10
   defencePower: 0
   monsterHp: 100
-  monsterMaxHp: 20000
+  monsterMaxHp: 4000
   damageTextPos: {fileID: 3921629979487527811}
   damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
 --- !u!1 &7252205959711020906

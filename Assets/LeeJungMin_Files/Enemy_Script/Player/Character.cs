@@ -33,23 +33,19 @@ public class Character : MonoBehaviour, IBattle, IHealth
     // 프로퍼티-----------------------------------------------------------------------------------------------------------
     public string CharacterName => characterName; // 캐릭터 이름 프로퍼티
 
-    public float DefencePower => def; // 캐릭터 방어력 프로퍼티
+    public float MaxHP
+    {
+        get => maxHp;  //캐릭터 최대 체력 프로퍼티
+        set => maxHp = value;
+    }
 
-    public float AttackPower => atk; // 캐릭터 공격력 프로퍼티
+    public float DEF => def; // 캐릭터 방어력 프로퍼티
+
+    public float ATK => atk; // 캐릭터 공격력 프로퍼티
 
     public float CriticalChance => criticalChance; // 캐릭터 치명타 확률 프로퍼티
 
     public float MoveSpeed => moveSpeed; // 캐릭터 이동속도 프로퍼티
-
-    public float MaxHP // 캐릭터 최대 체력 프로퍼티
-    {
-        get => maxHp;
-        set
-        {
-            // 나중에 유물효과로 최대체력 늘릴 때 쓰는 공간
-            maxHp = value;
-        }
-    }
 
     public float HP 
     { 
@@ -79,13 +75,17 @@ public class Character : MonoBehaviour, IBattle, IHealth
     
     public Action onDie { get; set; }
 
+    public float AttackPower => atk;
+
+    public float DefencePower => def;
+
     // --------------------------------------------------------------------------------------------------------
 
     protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
         point = GameObject.Find("SpawnPoint");
-        spawnPS = point.GetComponentInChildren<ParticleSystem>();
+        //spawnPS = point.GetComponentInChildren<ParticleSystem>();
     }
 
     protected virtual void Start()
@@ -97,7 +97,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     public virtual void Attack(IBattle target)
     {
-        float damage = AttackPower; // 데미지 = 해당 클래스의 공격력
+        float damage = ATK; // 데미지 = 해당 클래스의 공격력
         if (Random.Range(0.0f, 1.0f) < criticalChance)
         {
             Debug.Log("Critical★");
@@ -107,15 +107,9 @@ public class Character : MonoBehaviour, IBattle, IHealth
         target?.TakeDamage(damage);// 플레이어는 공격력만큼 데미지를 주지만 치명타가 뜨면 1.5배의 데미지를 준다.
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void Defence(float damage)
     {
-        if (isAlive)                // 살아있을 때만 데미지 입음.
-        {
-            anim.SetTrigger("Hit"); // 피격 애니메이션 재생            
-            float finalDamage = damage * (1.0f - DefencePower / (DefencePower + 100.0f));
-            HP -= finalDamage;
-            Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경되었습니다.");
-        }
+        
     }
 
     public virtual void Die()
@@ -150,8 +144,18 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
         Vector3 spotPos = point.transform.position;
         transform.position = spotPos;
-        Debug.Log($"{gameObject.name}가 다시 살아납니다");
-       
+        Debug.Log($"{gameObject.name}가 다시 살아납니다");       
+        
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (isAlive)                // 살아있을 때만 데미지 입음.
+        {
+            anim.SetTrigger("Hit"); // 피격 애니메이션 재생            
+            float finalDamage = damage * (1.0f - DEF / (DEF + 100.0f));
+            HP -= finalDamage;
+            Debug.Log($"{gameObject.name}의 HP가 {HP}로 변경되었습니다.");
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +11,12 @@ public class Warrior : Character
     public float default_Hp = 100.0f; // 체력
     public float default_MaxHp = 100.0f; // 최대 체력
     public float default_Def = 100.0f; // 방어력
-    public float default_Atk = 30.0f; // 공격력
+    public float default_Atk = 1000.0f; // 공격력
     public float default_criticalChance = 0.3f; // 치명타 확률
     public float default_MoveSpeed = 3.0f; //이동 속도
 
     Transform hand_r;
     Collider weaponBlade;
-
 
     protected override void Awake()
     {
@@ -70,7 +69,7 @@ public class Warrior : Character
 
     public override void Attack(IBattle target) => base.Attack(target);
   
-    public override void TakeDamage(float damage) => base.TakeDamage(damage);
+    //public override void TakeDamage(float damage) => base.TakeDamage(damage);
 
     public override void Die() => base.Die();
 

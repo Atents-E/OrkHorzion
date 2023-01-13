@@ -20,14 +20,15 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public float attackPower = 10.0f;             // 공격력
     public float defencePower = 0.0f;             // 방어력
     public float monsterHp = 100.0f;              // 몬스터 HP
-    public float monsterMaxHp = 1000.0f;           // 몬스터 최대 HP
+    public float monsterMaxHp = 1000.0f;          // 몬스터 최대 HP
 
     protected Transform playerTarget = null;      // 플레이어가 없다
 
     public Transform damageTextPos;
     public GameObject damageTextPrefab;
 
-    bool die = false;
+    private EnemySpawner enemySpawner;            // 적의 삭제를 본인이 하지 않고 EnemySpawner에 알려서 삭제
+    //bool die = false;
 
     public float AttackPower => attackPower;
     public float DefencePower => defencePower;
@@ -54,8 +55,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
 
                 if (monsterHp < 0)
                 {
-                    monsterHp = 0;
-                    die = true;
+                    monsterHp = 0;                    
+                    
                     Die();
                 }
 
@@ -70,12 +71,17 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     // 델리게이트
     public Action<float> onHealthChange { get; set; }
     public Action onDie { get; set; }
-    
+
     //void Die()
     //{
     //    looktargetOn = false;
     //    Destroy(gameObject, 3.0f);  // 3초뒤에 몬스터 오브젝트 삭제    
     //}
+
+    public void SetUp(EnemySpawner enemySpawner)
+    {
+        this.enemySpawner = enemySpawner;
+    }
 
     protected bool SearchPlayer()
     {
@@ -166,12 +172,12 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
-        if (die)
-        {
-            looktargetOn = false;
-            playerTarget = null;            
-            onDie?.Invoke();
-        }
+        looktargetOn = false;
+        playerTarget = null;
+        onDie?.Invoke();
+        GameManager.Inst.EnemySpawner.SetDel();
+      //  enemySpawner.DestroyEnemy(this);
+        GameManager.Inst.EnemySpawner.DestroyEnemy(this);
     }
 
 

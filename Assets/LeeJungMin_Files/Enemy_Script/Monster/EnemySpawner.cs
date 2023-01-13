@@ -6,11 +6,27 @@ public class EnemySpawner : MonoBehaviour
 {
     GameObject enemyPrefab;
 
-    private Wave currentWave;   // ÇöÀç ¿şÀÌºê Á¤º¸
+    List<EnemyBase> enemyList;  // í˜„ì¬ ë§µì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  ì ì˜ ì •ë³´
+
+    public List<EnemyBase> EnemyList => enemyList;
+
+    private Wave currentWave;   // í˜„ì¬ ì›¨ì´ë¸Œ ì •ë³´
 
     int waveCount = 0;
 
     bool isPlaying = false;
+
+    int spawnEnemyCount = 0;
+
+    int result = 0;
+
+    public int Result
+    {
+        get => result;
+        set => result = value;
+    }
+
+    public int MaxEnemyCount => currentWave.maxEnemyCount;
 
     public bool IsPlaying
     {
@@ -25,16 +41,22 @@ public class EnemySpawner : MonoBehaviour
         set => waveCount = value;
     }   
     public GameObject EnemyPrefab => enemyPrefab;
-    
+
+    private void Awake()
+    {
+        enemyList = new List<EnemyBase>();
+    }
+
     public void StartWave(Wave wave)
     {
-        spawnEnemy = SpawnEnemy();
-        if (!isPlaying)
+        if (!isPlaying && Result <= 0)
         {
-            // ¸Å°³º¯¼ö·Î ¹Ş¾Æ¿Â ¿şÀÌºê Á¤º¸ ÀúÀå
+            spawnEnemy = SpawnEnemy();
+            // ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜¨ ì›¨ì´ë¸Œ ì •ë³´ ì €ì¥
             currentWave = wave;
+
             waveCount++;
-            // ÇöÀç ¿şÀÌºê ½ÃÀÛ
+            // í˜„ì¬ ì›¨ì´ë¸Œ ì‹œì‘
             StartCoroutine(spawnEnemy);
         }
     }
@@ -43,24 +65,28 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
+            EnemyBase enemyBase = other.GetComponent<EnemyBase>();
+            DestroyEnemy(enemyBase);
+            SetDel();
         }
     }
 
     IEnumerator SpawnEnemy()
     {
-        // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºÇÑ Àû ¼ıÀÚ
-        int spawnEnemyCount = 0;
+        // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì  ìˆ«ì
+        spawnEnemyCount = 0;
         int index = 0;
         isPlaying = true;        
-        // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºµÇ¾î¾ß ÇÏ´Â ÀûÀÇ ¼ıÀÚ¸¸Å­ ÀûÀ» »ı¼ºÇÏ°í ÄÚ·çÆ¾ Á¾·á
+        
+        // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±ë˜ì–´ì•¼ í•˜ëŠ” ì ì˜ ìˆ«ìë§Œí¼ ì ì„ ìƒì„±í•˜ê³  ì½”ë£¨í‹´ ì¢…ë£Œ
         while (spawnEnemyCount < currentWave.maxEnemyCount)
         {
             switch (currentWave.spawnWave)
             {                
                 case 1:
-                    Debug.Log("1¹ø ¿şÀÌºê");
-                    index++;                    
+                    Debug.Log("1ë²ˆ ì›¨ì´ë¸Œ");
+                    index++;
+                    result++;
                     if (index > 0 && index <= 5)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -73,10 +99,11 @@ public class EnemySpawner : MonoBehaviour
                     {
                         Instantiate(currentWave.enemyPrefabs[2], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
                     }
-                    break;
+                    break;                    
                 case 2:
-                    Debug.Log("2¹ø ¿şÀÌºê");
+                    Debug.Log("2ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 3)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -95,8 +122,9 @@ public class EnemySpawner : MonoBehaviour
                     }
                     break;
                 case 3:
-                    Debug.Log("3¹ø ¿şÀÌºê");
+                    Debug.Log("3ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 2)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -115,8 +143,9 @@ public class EnemySpawner : MonoBehaviour
                     }
                     break;
                 case 4:
-                    Debug.Log("4¹ø ¿şÀÌºê");
+                    Debug.Log("4ë²ˆ ì›¨ì´ë¸Œ");
                     index++;
+                    result++;
                     if (index > 0 && index <= 3)
                     {
                         Instantiate(currentWave.enemyPrefabs[0], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
@@ -137,13 +166,30 @@ public class EnemySpawner : MonoBehaviour
                 default:
                     break;
             }
-            
 
-            // ÇöÀç ¿şÀÌºê¿¡¼­ »ı¼ºÇÑ ÀûÀÇ ¼ıÀÚ +1
+            EnemyBase enemy = GetComponent<EnemyBase>();
+            enemyList.Add(enemy);
+
+            // í˜„ì¬ ì›¨ì´ë¸Œì—ì„œ ìƒì„±í•œ ì ì˜ ìˆ«ì +1
             spawnEnemyCount++;
             
             yield return new WaitForSeconds(currentWave.spawnTime);
         }
         isPlaying = false;
+    }
+
+    /// <summary>
+    /// ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” enemyë¥¼ ì§€ìš°ëŠ” í•¨ìˆ˜
+    /// </summary>
+    /// <param name="enemy"></param>
+    public void DestroyEnemy(EnemyBase enemy)
+    {
+        enemyList.Remove(enemy);
+        Destroy(enemy.gameObject);
+    }
+
+    public void SetDel()
+    {
+        Result--;
     }
 }

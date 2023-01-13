@@ -15,18 +15,18 @@ public class Dragon : EnemyBase
     SpriteRenderer breath;
     SpriteRenderer heal;
 
-    DragonState state = DragonState.Attack;  // ÇöÀç µå·¡°ïÀÇ »óÅÂ
+    DragonState state = DragonState.Attack;  // í˜„ì¬ ë“œë˜ê³¤ì˜ ìƒíƒœ
 
-    public float waitTime = 2.0f;   // ¸ñÀûÁö¿¡ µµÂøÇßÀ» ¶§ ±â´Ù¸®´Â ½Ã°£
-    float waitTimer = 0;            // ³²¾ÆÀÖ´Â ±â´Ù·Á¾ß ÇÏ´Â ½Ã°£ 
+    public float waitTime = 2.0f;   // ëª©ì ì§€ì— ë„ì°©í–ˆì„ ë•Œ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
+    float waitTimer = 0;            // ë‚¨ì•„ìˆëŠ” ê¸°ë‹¤ë ¤ì•¼ í•˜ëŠ” ì‹œê°„ 
 
-    public float delayTime = 2.0f;   // ¸ñÀûÁö¿¡ µµÂøÇßÀ» ¶§ ±â´Ù¸®´Â ½Ã°£
-    float delayTimer = 0;            // ³²¾ÆÀÖ´Â ±â´Ù·Á¾ß ÇÏ´Â ½Ã°£ 
+    public float delayTime = 2.0f;   // ëª©ì ì§€ì— ë„ì°©í–ˆì„ ë•Œ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
+    float delayTimer = 0;            // ë‚¨ì•„ìˆëŠ” ê¸°ë‹¤ë ¤ì•¼ í•˜ëŠ” ì‹œê°„ 
 
-    bool isDead = true;              // Á×À¸¸é ÇÑ¹ø¸¸ ½ÇÇàµÇ°Ô ÇÏ´Â º¯¼ö
+    bool isDead = true;              // ì£½ìœ¼ë©´ í•œë²ˆë§Œ ì‹¤í–‰ë˜ê²Œ í•˜ëŠ” ë³€ìˆ˜
 
-    float hptotal = 3000.0f;        // HP ÃÑ È¸º¹·®
-    float duration = 3.0f;           // ÃÑ È¸º¹ÇÏ´Âµ¥ °É¸®´Â ½Ã°£
+    float hptotal = 3000.0f;        // HP ì´ íšŒë³µëŸ‰
+    float duration = 3.0f;           // ì´ íšŒë³µí•˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
     //float testTime = 0.0f;
 
@@ -35,7 +35,7 @@ public class Dragon : EnemyBase
     IBattle target;
 
     /// <summary>
-    /// µå·¡°ï »óÅÂ enum
+    /// ë“œë˜ê³¤ ìƒíƒœ enum
     /// </summary>
     protected enum DragonState
     {
@@ -50,7 +50,7 @@ public class Dragon : EnemyBase
     Action stateUpdate;
 
     /// <summary>
-    /// µå·¡°ï »óÅÂ¸¦ ¹Ù²ãÁÖ´Â ÇÁ·ÎÆÛÆ¼
+    /// ë“œë˜ê³¤ ìƒíƒœë¥¼ ë°”ê¿”ì£¼ëŠ” í”„ë¡œí¼í‹°
     /// </summary>
     protected DragonState State
     {
@@ -64,33 +64,33 @@ public class Dragon : EnemyBase
                 switch (state)
                 {
                     case DragonState.Attack:                        
-                        stateUpdate = Update_Attack;    // »óÅÂ¸¦ °ø°İÇÏ´Â ÇÔ¼ö·Î º¯°æ
+                        stateUpdate = Update_Attack;    // ìƒíƒœë¥¼ ê³µê²©í•˜ëŠ” í•¨ìˆ˜ë¡œ ë³€ê²½
                         break;
 
                     case DragonState.Delay:
                         particle.Stop();
                         isBreath = true;
-                        waitTimer = waitTime;           // waitTimer ½Ã°£ÃÊ ÃæÀü
-                        stateUpdate = Update_Delay;     // »óÅÂ¸¦ ±â´Ù¸®´Â ÇÔ¼ö·Î º¯°æ
+                        waitTimer = waitTime;           // waitTimer ì‹œê°„ì´ˆ ì¶©ì „
+                        stateUpdate = Update_Delay;     // ìƒíƒœë¥¼ ê¸°ë‹¤ë¦¬ëŠ” í•¨ìˆ˜ë¡œ ë³€ê²½
                         break;
 
                     case DragonState.Breath:   
                         if (isBreath)
                         {
                             isBreath = false;
-                            nav.Stopped(true);              // ³×ºñ°ÔÀÌ¼Ç ¸ØÃß±â
-                            anim.SetTrigger("IsBreath"); // ºê·¹½º ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+                            nav.Stopped(true);              // ë„¤ë¹„ê²Œì´ì…˜ ë©ˆì¶”ê¸°
+                            anim.SetTrigger("IsBreath"); // ë¸Œë ˆìŠ¤ ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
                             breath.color = Color.white;
                             //breath.SetActive(true);
                             breathArea.enabled = true;
-                            delayTimer = delayTime;         // delayTimer ½Ã°£ÃÊ ÃæÀü
-                            stateUpdate = Update_Breath;    // »óÅÂ¸¦ ºê·¹½º ÇÔ¼ö·Î º¯°æ
+                            delayTimer = delayTime;         // delayTimer ì‹œê°„ì´ˆ ì¶©ì „
+                            stateUpdate = Update_Breath;    // ìƒíƒœë¥¼ ë¸Œë ˆìŠ¤ í•¨ìˆ˜ë¡œ ë³€ê²½
                         }
                         break;
 
                     case DragonState.Heal:
                         nav.Stopped(false);
-                        stateUpdate = Update_Heal;      // »óÅÂ¸¦ È¸º¹ÇÏ´Â ÇÔ¼ö·Î º¯°æ
+                        stateUpdate = Update_Heal;      // ìƒíƒœë¥¼ íšŒë³µí•˜ëŠ” í•¨ìˆ˜ë¡œ ë³€ê²½
                         break;
 
                     case DragonState.Move:
@@ -107,7 +107,7 @@ public class Dragon : EnemyBase
     }
 
     /// <summary>
-    /// µô·¹ÀÌ °É¸®´Â ½Ã°£ ÇÁ·ÎÆÛÆ¼
+    /// ë”œë ˆì´ ê±¸ë¦¬ëŠ” ì‹œê°„ í”„ë¡œí¼í‹°
     /// </summary>
     public float DelayTimer
     {
@@ -119,7 +119,7 @@ public class Dragon : EnemyBase
     }
 
     /// <summary>
-    /// µô·¹ÀÌ »óÅÂ·Î ¹Ù²¼À» ¶§ nÃÊ¸¦ ±â´Ù¸®°í, ·£´ıÀ¸·Î »óÅÂ¸¦ º¯°æ½ÃÄÑÁÖ´Â ÇÁ·ÎÆÛÆ¼
+    /// ë”œë ˆì´ ìƒíƒœë¡œ ë°”ê¼ˆì„ ë•Œ nì´ˆë¥¼ ê¸°ë‹¤ë¦¬ê³ , ëœë¤ìœ¼ë¡œ ìƒíƒœë¥¼ ë³€ê²½ì‹œì¼œì£¼ëŠ” í”„ë¡œí¼í‹°
     /// </summary>
     public float WaitTimer
     {
@@ -130,7 +130,7 @@ public class Dragon : EnemyBase
 
             if (waitTimer < 0)
             {
-                // ½ºÅ³ »ç¿ë
+                // ìŠ¤í‚¬ ì‚¬ìš©
                 if (playerTarget != null)
                 {
                     float random = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -138,27 +138,27 @@ public class Dragon : EnemyBase
 
                     if (random < 0.4f)
                     {
-                        Debug.Log("±âº» °ø°İ");
+                        Debug.Log("ê¸°ë³¸ ê³µê²©");
                         State = DragonState.Attack;                        
                     }
                     else if (random < 0.7f)
                     {
                         if (isBreath)
                         {
-                            Debug.Log("ºê·¹½º ½ºÅ³ »ç¿ë");
+                            Debug.Log("ë¸Œë ˆìŠ¤ ìŠ¤í‚¬ ì‚¬ìš©");
                             State = DragonState.Breath;
                         }
                     }
                     else
                     {
-                        Debug.Log("Ã¼·Â È¸º¹");
+                        Debug.Log("ì²´ë ¥ íšŒë³µ");
                         heal.color = Color.white;
                         State = DragonState.Heal;
                     }
                 }
                 else
                 {
-                    //Debug.Log("´ë±â »óÅÂ");                    
+                    //Debug.Log("ëŒ€ê¸° ìƒíƒœ");                    
                 }
             }
         }
@@ -183,7 +183,7 @@ public class Dragon : EnemyBase
         isBreath = true;
         breathArea.enabled = false;
         State = DragonState.Delay;
-        SearchPlayer(); // ÇÃ·¹ÀÌ¾î Ã£±â
+        SearchPlayer(); // í”Œë ˆì´ì–´ ì°¾ê¸°
 
         HP = MaxHP;
         //particle.Stop();
@@ -194,7 +194,7 @@ public class Dragon : EnemyBase
 
     private void Update()
     {
-        Looktarget();   // ÇÃ·¹ÀÌ¾î ¹Ù¶óº¸±â
+        Looktarget();   // í”Œë ˆì´ì–´ ë°”ë¼ë³´ê¸°
     }
 
     private void FixedUpdate()
@@ -208,10 +208,10 @@ public class Dragon : EnemyBase
         if (other.CompareTag("Player") && target != null)
         {
             looktargetOn = true;
-            playerTarget = other.transform;         // playerTargetÀÌ nullÀÌ ¾Æ´Ï°Ô µÇ¾ú´Ù.
+            playerTarget = other.transform;         // playerTargetì´ nullì´ ì•„ë‹ˆê²Œ ë˜ì—ˆë‹¤.
             //State = DragonState.Delay;
             State = DragonState.Attack;
-            Debug.Log("ÇÃ·¹ÀÌ¾î¸¦ °ø°İÇÑ´Ù.");
+            Debug.Log("í”Œë ˆì´ì–´ë¥¼ ê³µê²©í•œë‹¤.");
         }
     }
 
@@ -219,31 +219,31 @@ public class Dragon : EnemyBase
     {
         if (other.CompareTag("Player"))
         {
-            playerTarget = null;                    // playerTargetÀÌ nullÀÌ µÇ¾ú´Ù.
+            playerTarget = null;                    // playerTargetì´ nullì´ ë˜ì—ˆë‹¤.
             looktargetOn = false;
             target = null;
             //State = DragonState.Move;
-            Debug.Log("ÇÃ·¹ÀÌ¾î°¡ µµ¸Á°¬´Ù.");
+            Debug.Log("í”Œë ˆì´ì–´ê°€ ë„ë§ê°”ë‹¤.");
         }
     }
 
-    private void Update_Attack()    // °ø°İ¿ë
+    private void Update_Attack()    // ê³µê²©ìš©
     {
         if (playerTarget != null)
         {
-            Debug.Log("±âº» °ø°İ »ç¿ë");
-            anim.SetTrigger("Attack");      // °ø°İÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+            Debug.Log("ê¸°ë³¸ ê³µê²© ì‚¬ìš©");
+            anim.SetTrigger("Attack");      // ê³µê²©í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
             Attack(target);
             State = DragonState.Delay;
         }
     }
 
-    private void Update_Delay()     // nÃÊ°£ ±â´Ù¸®±â
+    private void Update_Delay()     // nì´ˆê°„ ê¸°ë‹¤ë¦¬ê¸°
     {
         WaitTimer -= Time.deltaTime;
     }
 
-    private void Update_Breath()    // ºê·¹½º ½ºÅ³
+    private void Update_Breath()    // ë¸Œë ˆìŠ¤ ìŠ¤í‚¬
     {
         DelayTimer -= Time.deltaTime;
 
@@ -256,17 +256,17 @@ public class Dragon : EnemyBase
             //breath.SetActive(false);
             breathArea.enabled = false;
             breath.color = Color.clear;
-            Debug.Log("ºê·¹½º »ç¿ë ³¡³²"); 
+            Debug.Log("ë¸Œë ˆìŠ¤ ì‚¬ìš© ëë‚¨"); 
             State = DragonState.Delay;
         }
     }
 
     /// <summary>
-    /// ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ®·Î ºê·¹½º ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ½ÇÇàµÇ¸é ½ÇÇà
+    /// ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ë¡œ ë¸Œë ˆìŠ¤ ì• ë‹ˆë©”ì´ì…˜ì´ ì‹¤í–‰ë˜ë©´ ì‹¤í–‰
     /// </summary>
     public void DragonBreath()
     {
-        Debug.Log("ºê·¹½º »ç¿ë");
+        Debug.Log("ë¸Œë ˆìŠ¤ ì‚¬ìš©");
         particle.Play();
 
         delayTimer = delayTime;
@@ -285,7 +285,7 @@ public class Dragon : EnemyBase
     {
         float regenPerSec = hptotal / duration;
         float timeElapsed = 0.0f;        
-        Debug.Log("Ã¼·Â È¸º¹");
+        Debug.Log("ì²´ë ¥ íšŒë³µ");
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
@@ -298,19 +298,19 @@ public class Dragon : EnemyBase
 
     void HP_Change(float ratio)
     {
-        //Debug.Log($"HP°¡ º¯°æµÇ¾ú´Ù. : {HP}");
+        //Debug.Log($"HPê°€ ë³€ê²½ë˜ì—ˆë‹¤. : {HP}");
     }
 
-    private void Update_Die()       // »ç¸Á Ã³¸®
+    private void Update_Die()       // ì‚¬ë§ ì²˜ë¦¬
     {
         if (isDead)
         {
-            Debug.Log("»ç¸Á Ã³¸®");
+            Debug.Log("ì‚¬ë§ ì²˜ë¦¬");
             breath.color = Color.clear;
             heal.color = Color.clear;
             isDead = false;
-            anim.SetTrigger("IsDead");      // Á×´Â ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
-            nav.Stopped(true);              // ³×ºñ°ÔÀÌ¼Ç ¸ØÃß±â
+            anim.SetTrigger("IsDead");      // ì£½ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+            nav.Stopped(true);              // ë„¤ë¹„ê²Œì´ì…˜ ë©ˆì¶”ê¸°
 
             Destroy(this.gameObject, 2.0f);
         }
