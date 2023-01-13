@@ -388,6 +388,7 @@ MonoBehaviour:
   fireInterval: 1
   coolTime: 0
   projectile: {fileID: 8073189618203820264, guid: 515387c39d16922459c72650be1f3856, type: 3}
+  towerChoose: {fileID: 0}
 --- !u!136 &4130017348973828792
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -488,7 +489,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3042b019b052942a1baf7aa49d7ca6bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1364516efd920042b53255f86a7abce, type: 3}
   m_Color: {r: 0.3069142, g: 1, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0

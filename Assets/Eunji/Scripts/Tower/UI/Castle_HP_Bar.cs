@@ -32,7 +32,7 @@ public class Castle_HP_Bar : MonoBehaviour
     /// <summary>
     /// 공격 당했음을 표시 할 시간 
     /// </summary>
-    WaitForSeconds seeAttack = new WaitForSeconds(0.1f);
+    WaitForSeconds seeAttack = new WaitForSeconds(0.2f);
 
 
     private void Awake()

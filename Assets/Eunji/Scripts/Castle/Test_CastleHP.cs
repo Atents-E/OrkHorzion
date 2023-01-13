@@ -40,7 +40,7 @@ public class Test_CastleHP : MonoBehaviour
 
     private void CastleHpChange(InputAction.CallbackContext _)
     {
-        castle.hp -= 500;
-        Debug.Log($"{castle.hp}");
+        castle.HP -= 100;
+        Debug.Log($"{castle.HP}");
     }
 }
