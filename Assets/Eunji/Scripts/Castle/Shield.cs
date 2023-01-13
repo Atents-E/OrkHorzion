@@ -21,7 +21,7 @@ public class ShieldBase : MonoBehaviour
 
     Transform shield;       // 실스 위치
     Castle castle;          // 거점타워
-    SphereCollider collider;
+    //SphereCollider collider;
 
     public float ShildHP        
     {
@@ -47,7 +47,7 @@ public class ShieldBase : MonoBehaviour
     {
         shield = GetComponent<Transform>();
         castle = FindObjectOfType<Castle>();
-        collider = GetComponent<SphereCollider>();
+        //collider = GetComponent<SphereCollider>();
 
         transform.position = castle.transform.position + new Vector3(0, 0.5f, 0);   // 타워 위치
     }

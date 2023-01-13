@@ -1,15 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using System;
+using System.Collections;
 
 // Castle_HP_Bar의 기능 (수정 필요)
 // 1. 거점타워의 체력을 UI로 보여줌
 
 public class Castle_HP_Bar : MonoBehaviour
 {
+    /// <summary>
+    /// 최대체력 숫자
+    /// </summary>
+    float max_HP;
+
     /// <summary>
     /// 슬라이더
     /// </summary>
@@ -21,43 +25,55 @@ public class Castle_HP_Bar : MonoBehaviour
     TextMeshProUGUI HP_Text;
 
     /// <summary>
-    /// 최대체력 텍스트
+    /// 거점타워
     /// </summary>
-    string maxHP_Text;
+    Castle castle;
 
     /// <summary>
-    /// 최대체력 숫자
+    /// 공격 당했음을 표시 할 시간 
     /// </summary>
-    float max_HP;
+    WaitForSeconds seeAttack = new WaitForSeconds(0.1f);
+
 
     private void Awake()
     {
+        HP_Text = transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
         slider = GetComponent<Slider>();
-        HP_Text = GetComponentInChildren<TextMeshProUGUI>();
+        slider.value = 1;                               
     }
 
     private void Start()
     {
-        Castle castle = FindObjectOfType<Castle>();     // 추후 게임 매니저로 할당하기
-        // Castle castle = GameManager.Inst.Castle;
+        castle = GameManager.Inst.Castle;
         max_HP = castle.maxHP;                          // 최대 HP
-        maxHP_Text = $"/{max_HP:f0}";                     // 최대 HP 표시용 글자
-        slider.value = 1;                               // 슬라이더 최대치로 해두기
-        HP_Text.text = $"{max_HP} / {max_HP}";             // HP는 최대치/최대치
-        castle.onHealthChange += OnHealthChange;        // 거점타워의 HP가 변경되면 실행 되도록 함수 연결
+        castle.onHealthChange += OnHealthChange;        // 거점타워의 HP가 변경 실행 될 함수 연결
     }
 
     /// <summary>
-    /// HP가 변경되면 표시 될 텍스트(비율)
+    /// HP가 변경되면 변경 될 UI바
     /// </summary>
     /// <param name="ratio"></param>
     private void OnHealthChange(float ratio)
     {
+        StartCoroutine(OnHealthChange());       // 체력text의 색상을 변경
+
         ratio = Mathf.Clamp(ratio, 0, 1);       // 비율의 최소 최대값 고정
-        slider.value = ratio;               
-
+        slider.value = ratio;                   // 슬라이더 변경
         float hp = max_HP * ratio;              // 비율을 이용해서 현재 HP 계산
+        HP_Text.text = $"{hp:f0} / {max_HP}";      // UI 텍스트 변경(소수점 제거)
 
-        HP_Text.text = $"{hp:f0}{max_HP}";      // UI 텍스트 변경(소수점 제거)
+        Debug.Log($" 현재 HP : {castle.hp}");
+    }
+
+    /// <summary>
+    /// 거점 타워가 공격 당하면 체력을 빨간색으로 변경
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator OnHealthChange()
+    {
+        HP_Text.color = Color.red;    
+        yield return seeAttack;         // seeAttack시간이 지나면
+        HP_Text.color = Color.black;    // 검정색으로 보임 
     }
 }
+

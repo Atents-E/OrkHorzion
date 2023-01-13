@@ -25,7 +25,7 @@ public class PlayerGold : MonoBehaviour
             if (nowGold != value)
             {
                 nowGold = value;
-                nowGold = Mathf.Clamp(0, value, maxGold);
+                nowGold = Mathf.Clamp(value, 0, maxGold);
 
                 OnGoldChange?.Invoke();
             }

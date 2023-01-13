@@ -4,35 +4,37 @@ using UnityEngine;
 
 public enum TowerIDCode
 {
-    // º¯¼ö¸í : ±âº»¹öÀü
-    // º¯¼ö¸í + num : º¯¼ö ¾÷±×·¹ÀÌµå ¹öÀü
-    ShortTower = 0,
-    ShortTower_2,
-    ShortTower_3,
-    LongTower,
-    LongTower_2,
-    LongTower_3,
-    SlowlyTower,
-    SlowlyTower_2,
-    SlowlyTower_3,
-    KnockBackTower,
-    KnockBackTower_2,
-    KnockBackTower_3
+    // ë³€ìˆ˜ëª… : ê¸°ë³¸ë²„ì „
+    // ë³€ìˆ˜ëª… + num : ë³€ìˆ˜ ì—…ê·¸ë ˆì´ë“œ ë²„ì „
+    Crossbow = 0,
+    Crossbow_2,
+    Crossbow_3,
+    Cannnon,
+    Cannnon_2,
+    Cannnon_3,
+    Poison,
+    Poison_2,
+    Poison_3,
+    KnockBack,
+    KnockBack_2,
+    KnockBack_3
 }
 
 public enum ProjectileIDDode 
 {
-    ShortProjectile= 0,
-    ShortProjectile_2,
-    ShortProjectile_3,
-    LongProjectile,
-    LongProjectile_2,
-    LongProjectile_3,
-    SlowlyProjectile,
-    SlowlyProjectile_2,
-    SlowlyProjectile_3,
-    KnockBackProjectile,
-    KnockBackProjectile_2,
-    KnockBackProjectile_3
+    // ë³€ìˆ˜ëª… : ê¸°ë³¸ë²„ì „
+    // ë³€ìˆ˜ëª… + num : ë³€ìˆ˜ ì—…ê·¸ë ˆì´ë“œ ë²„ì „
+    Crossbow = 0,
+    Crossbow_2,
+    Crossbow_3,
+    Cannnon,
+    Cannnon_2,
+    Cannnon_3,
+    Poison,
+    Poison_2,
+    Poison_3,
+    KnockBack,
+    KnockBack_2,
+    KnockBack_3
 }
 

@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 // using static System.IO.Enumeration.FileSystemEnumerable<TResult>;
-using static UnityEngine.GraphicsBuffer;
+
+#if UNITY_EDIOR
+using UnityEditor;  // UNITY_EDIOR라는 전처리기가 설정되어있을 때만 실행버전에 넣어라
+#endif
 
 // TowerBase_Final 기능
 // 타워베이스와 타워베이스_1를 합침(회전타워와 회전하지 않는 타워 모두 상속 받도록 해야함)
 public class TowerBase : MonoBehaviour
 {
+    /// <summary>
+    /// 타워
+    /// </summary>
     public int price = 10;               // 타워 가격
 
     public float sightRange = 5.0f;         // 범위
-    public float sightRadius = 2.5f;        // 범위 반지름
+    float sightHalfAngle = 50.0f;
 
     public float fireAngle = 10.0f;         // 타워의 공격 각도
     public float turnSpeed = 180.0f;        // 타워의 회전속도
@@ -26,13 +33,19 @@ public class TowerBase : MonoBehaviour
     protected Transform BulletPrefabPos;    // 투사체 생성 위치 Vector3
     protected Transform attackTarget = null;    
 
-    Transform childPos;           // 발사각 확인 할 위치
+    public SpriteRenderer towerChoose;             // 선택한 타워를 알려줄 스프라이트
+    
+    Transform childPos;                     // 발사각 확인 할 위치
+
     protected List<Transform> enemys;       // 몬스터 리스트
 
     protected virtual void Awake()
     {
-        childPos = transform.GetChild(1);
+        childPos = transform.GetChild(2);
         BulletPrefabPos = childPos.GetChild(0);
+        towerChoose = transform.GetChild(1).GetComponent<SpriteRenderer>();
+
+        towerChoose.color = Color.clear;
 
         enemys = new List<Transform>();
     }
@@ -177,7 +190,7 @@ public class TowerBase : MonoBehaviour
     void Fire()
     {
         GameObject obj = Instantiate(projectile, BulletPrefabPos);
-        obj.transform.SetParent(null);
+        obj.transform.SetParent(transform);
     }
 
     /// <summary>
@@ -192,5 +205,32 @@ public class TowerBase : MonoBehaviour
         // 위에 코드에서 타워가 삭제될수록 NowGold에 반환되는 금액이 축척되는 문제가 발생..
 
         Destroy(transform.gameObject);
+    }
+
+    protected virtual void OnDrawGizmosSelected() // 기즈모
+    {
+#if UNITY_EDITOR
+
+        Handles.color = Color.green;                // 초록색으로 표시
+        Handles.DrawWireDisc(transform.position, transform.up, sightRange, 3.0f);     //시야 반경만큼 원 그리기 //원이 하나만 보임
+
+        if (attackTarget != null)                   // 타겟이 있다면
+        {
+            Handles.color = Color.red;              // 이후에 작성된 코드들은 빨간색으로 표시
+        }
+
+        Vector3 forward = transform.GetChild(1).forward;    // 움직일 방향 위치를 받아옴
+        forward.y = 0;
+        forward = forward.normalized * sightRange;
+
+        Handles.DrawDottedLine(transform.position, transform.position + forward, 2.0f); // 중심선 그리기
+
+        Quaternion q1 = Quaternion.AngleAxis(-sightHalfAngle, transform.up);            // up벡터를 축으로 반시계방향으로 sightHalfAngle만큼 회전
+        Quaternion q2 = Quaternion.AngleAxis(sightHalfAngle, transform.up);             // up벡터를 축으로 시계방향으로 sightHalfAngle만큼 회전
+
+        Handles.DrawLine(transform.position, transform.position + q1 * forward);        // 중심선을 반시계방향으로 회전시켜서 그리기
+        Handles.DrawLine(transform.position, transform.position + q2 * forward);        // 중심선을 시계방향으로 회전시켜서 그리기
+        Handles.DrawWireArc(transform.position, transform.up, q1 * forward, sightHalfAngle * 2, sightRange, 5.0f);  // 호 그리기
+#endif  
     }
 }

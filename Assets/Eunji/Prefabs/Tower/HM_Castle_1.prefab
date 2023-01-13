@@ -281,6 +281,8 @@ GameObject:
   - component: {fileID: 4995668684119280}
   - component: {fileID: 95526464585047132}
   - component: {fileID: 3845647384735491740}
+  - component: {fileID: 2076599536082213934}
+  - component: {fileID: 7962285613760589018}
   m_Layer: 0
   m_Name: HM_Castle_1
   m_TagString: Untagged
@@ -346,6 +348,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e04e6a55ce90646bad9fed599ef037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 1000
+  hp: 1000
+--- !u!114 &2076599536082213934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114270767557536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea13112fac1acc547b965a015f9b6764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &7962285613760589018
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114270767557536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.15
+  m_Height: 4.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.7, z: 0.15}
 --- !u!1 &1121474286941022
 GameObject:
   m_ObjectHideFlags: 0

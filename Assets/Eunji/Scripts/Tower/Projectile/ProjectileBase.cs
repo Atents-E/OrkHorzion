@@ -16,17 +16,18 @@ using System;
 
 public class ProjectileBase : MonoBehaviour
 {
-    public float attackPower = 10.0f;   // 투사체 공격력
-    public float speed = 2.0f;          // 투사체 속도
-    public float lifeTime = 2.0f;       // 투사체 유지 시간
+    protected float attackPower = 10.0f;        // 투사체 공격력
+    protected float speed = 2.0f;               // 투사체 속도
+    protected float lifeTime = 2.0f;            // 투사체 유지 시간
 
-    public float reduceSpeed = 0.003f;      // 감속 시키는 스피드
-    public float reduceAttack = 0.003f;     // 감속 시키는 공격력
-    public float holdTiem = 5.0f;           // 감속 시간 
+    protected float reduceSpeed = 0.003f;       // 감속 시키는 스피드
+    protected float reduceAttack = 0.003f;      // 감속 시키는 공격력
+    protected float holdTiem = 5.0f;            // 감속 시간 
 
     protected MonsterBase monster;                // 적
 
-    protected virtual void Awake()    
+
+    protected virtual void Awake()
     {
         Destroy(this.gameObject, lifeTime);         // 생성되면 lifeTime 뒤에 삭제
     }

@@ -3,25 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 
 public class CanvasTower : MonoBehaviour
 {
-    GameObject deletePanel;     // TowerDelete 게임 오브젝트
-    GameObject button_OK;       // 삭제 확인 버튼
+    /// <summary>
+    /// TowerDelete 게임 오브젝트
+    /// </summary>
+    GameObject deletePanel;
 
-    Button okButton;            // ok버튼
+    /// <summary>
+    /// 삭제 확인 버튼
+    /// </summary>
+    GameObject button_OK;
 
+    /// <summary>
+    /// ok버튼
+    /// </summary>
+    Button okButton;
+
+    /// <summary>
+    /// 선택한 타워
+    /// </summary>
     TowerBase thisTower;
+
+    /// <summary>
+    /// 타워를 선택하면 표시 될 스프라이트 랜더러
+    /// </summary>
+    SpriteRenderer towerChoose;
 
     /// <summary>
     /// 인풋 시스템
     /// </summary>
-    protected TowerInputActions inputActions;
+    TowerInputActions inputActions;
 
     private void Awake()
     {
@@ -31,17 +47,18 @@ public class CanvasTower : MonoBehaviour
 
         okButton = button_OK.GetComponentInChildren<Button>();
         okButton.onClick.AddListener(() => thisTower.DeleteTower());
+        okButton.onClick.AddListener(() => deletePanel.SetActive(false));
 
         inputActions = new TowerInputActions();
     }
 
-    protected void OnEnable()
+    void OnEnable()
     {
         inputActions.Tower.Enable();
         inputActions.Tower.Remove.performed += OnRemove;
     }
 
-    protected void OnDisable()
+    void OnDisable()
     {
         inputActions.Tower.Remove.performed -= OnRemove;
         inputActions.Tower.Disable();
@@ -52,7 +69,7 @@ public class CanvasTower : MonoBehaviour
     /// ok(삭제 확인)버튼을 클릭하면 삭제
     /// </summary>
     /// <param name="_"></param>
-    public void OnRemove(InputAction.CallbackContext _)
+    private void OnRemove(InputAction.CallbackContext _)
     {
         Vector3 selectedTower = Mouse.current.position.ReadValue();         // 마우스 위치 받아오고(마우스 위치는 스크린 좌표계)
         selectedTower.z = -10;
@@ -66,9 +83,20 @@ public class CanvasTower : MonoBehaviour
             // 2. 삭제 패널을 활성화 하라고 신호를 보내고
             deletePanel.SetActive(true);
 
-            // 3. 삭제 승낙이 되었으면 타워 가격의 일부를 반환하고, 타워 삭제
+            // 3. 해당 타워 찾기
             thisTower = hit.collider.gameObject.GetComponent<TowerBase>();
+
+            // 선택 타워 알려주기
+            towerChoose = thisTower.towerChoose;
+            StartCoroutine(TowerChose());
         }
+    }
+
+    IEnumerator TowerChose()
+    {
+        towerChoose.color = Color.green;
+        yield return new WaitForSeconds(0.5f);
+        towerChoose.color = Color.clear;
     }
 
 }

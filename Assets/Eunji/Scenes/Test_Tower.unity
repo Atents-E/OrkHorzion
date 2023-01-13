@@ -3134,10 +3134,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossbow_Tower_2
       objectReference: {fileID: 0}
-    - target: {fileID: 3218625178640340941, guid: 6775ec77627491145bc19c7513b296d2, type: 3}
-      propertyPath: projectile
-      value: 
-      objectReference: {fileID: 8073189618203820264, guid: 515387c39d16922459c72650be1f3856, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6775ec77627491145bc19c7513b296d2, type: 3}
 --- !u!1001 &4116232888936574682

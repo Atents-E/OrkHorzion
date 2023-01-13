@@ -22,9 +22,19 @@ public class Castle : MonoBehaviour
     public float hp = 500;
 
     /// <summary>
+    /// 씬을 로드할 숫자
+    /// </summary>
+    int sceneName = 0;  // --------------------------- 씬 추가하면 할당 할 숫자 변경 예정
+
+    /// <summary>
     /// 게임 오버를 확인하는 델리게이트
     /// </summary>
     Action isGameOver;
+
+    /// <summary>
+    /// 체력이 변경 되었는지 확인하는 델리게이트
+    /// </summary>
+    public Action<float> onHealthChange { get; set; }
 
     public float HP
     {
@@ -41,21 +51,23 @@ public class Castle : MonoBehaviour
 
                 hp = Mathf.Clamp(0, value, maxHP); 
                 
-                onHealthChange?.Invoke(hp/maxHP);
+                onHealthChange?.Invoke(hp / maxHP);
             }
         }
     }
 
-    public Action<float> onHealthChange { get; set; }
 
     private void Awake()
     {
+        hp = maxHP;
         isGameOver += GameOver;             // 체력이 0이 되면 실행 될 함수 연결
+
     }
 
     void GameOver()
     {
-        SceneManager.LoadScene("GameOver");    // 게임 오버 씬 로드
+        SceneManager.LoadScene("GameOver");     // 게임 오버 씬 로드(씬 추가하면 삭제)
+        // SceneManager.LoadScene(sceneName);  // 게임 오버 씬 로드(씬 추가하면 사용)
     }
 
 }

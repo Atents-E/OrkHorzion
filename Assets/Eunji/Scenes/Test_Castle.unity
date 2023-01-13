@@ -604,6 +604,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1044578482}
     m_Modifications:
+    - target: {fileID: 3648830282385028520, guid: 6ad84d0207f380f4f9b607632b2b9bb8, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3648830282385028526, guid: 6ad84d0207f380f4f9b607632b2b9bb8, type: 3}
       propertyPath: m_Name
       value: Castle_HP_Bar
