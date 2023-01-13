@@ -66,6 +66,7 @@ public class RewardPanel : MonoBehaviour
 
     public Sprite goldImage;
 
+    [HideInInspector]
     public bool isRoundEnd = false;
 
     int[] rewardGoldValue = { 500, 600, 700, 800, 900, 1000 };

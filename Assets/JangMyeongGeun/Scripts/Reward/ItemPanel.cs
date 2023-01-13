@@ -13,18 +13,19 @@ public class ItemPanel : MonoBehaviour, IPointerClickHandler
     TextMeshProUGUI itemName;
     TextMeshProUGUI itemDescription;
 
+    [HideInInspector]
     public ItemData_Base itemData;
+    [HideInInspector]
     public int goldValue;
 
     RewardPanel rewardPanel;
 
     public Action<ItemPanel> onClick;
-
+    [HideInInspector]
     public bool isSelect = false;
 
     Color panelColor = new Color(194 / 255f, 193 / 255f, 191 / 255f, 255 / 255f);    // 기본 패널 색
     Color selectColor = new Color(255 / 255f, 208 / 255f, 0 / 255f, 255 / 255f);     // 선택했을 때 나오는 패널 색
-    public Sprite goldIcon;
 
     private void Awake()
     {
