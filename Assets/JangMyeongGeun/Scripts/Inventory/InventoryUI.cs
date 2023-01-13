@@ -17,6 +17,8 @@ public class InventoryUI : MonoBehaviour
 
     CanvasGroup canvasGroup;
 
+    RewardPanel rewardPanel;
+
     /// <summary>
     /// 인벤토리창 열렸는지 확인할 수 있는 변수
     /// </summary>
@@ -51,6 +53,8 @@ public class InventoryUI : MonoBehaviour
     public void InitializeInventoy(Inventory playerInven)
     {
         inven = playerInven;
+        rewardPanel = GameManager.Inst.RewardPanel;
+        rewardPanel.GetPlayerInventory(playerInven);
 
         Close();
 

@@ -30,8 +30,6 @@ public class Inventory
     /// </summary>
     ItemManager itemManager;
 
-    InventoryUI invenUI;
-
     /// <summary>
     /// 특정 번째의 ItemSlot을 돌려주는 인덱서
     /// </summary>
@@ -60,7 +58,6 @@ public class Inventory
         }
 
         itemManager = GameManager.Inst.ItemData;
-        invenUI = GameManager.Inst.InventoryUI;
 
     }
 
@@ -165,7 +162,7 @@ public class Inventory
     /// 비어있는 슬롯을 찾는 함수
     /// </summary>
     /// <returns>비어있는 함수를 찾으면 null이 아니고 비어있는 함수가 없으면 null</returns>
-    private ItemSlot FindEmptySlot()
+    public ItemSlot FindEmptySlot()
     {
         foreach (var slot in slots)
         {
@@ -299,9 +296,12 @@ public class Inventory
         onRefreshSlot?.Invoke();
     }
 
+    /// <summary>
+    /// 현재 인벤토리의 아이템 슬롯리스트를 받는 함수
+    /// </summary>
+    /// <returns>현재 인벤토리의리스트</returns>
     public List<ItemSlot> GetInventorySlotList()
     {
         return slots;
     }
-
 }

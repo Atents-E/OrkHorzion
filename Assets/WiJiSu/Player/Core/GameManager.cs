@@ -11,10 +11,13 @@ public class GameManager : Singleton<GameManager>
     ItemManager itemData;
     StatManager statManager;
     InventoryUI inventoryUI;
+    RewardPanel rewardPanel;
 
     public ItemManager ItemData => itemData;
     public StatManager StatManager => statManager;
     public InventoryUI InventoryUI => inventoryUI;
+
+    public RewardPanel RewardPanel => rewardPanel;
     //Camera mainCamera; 
 
     public Character Character => character;
@@ -31,6 +34,7 @@ public class GameManager : Singleton<GameManager>
         itemData = GetComponent<ItemManager>();
         statManager = GetComponent<StatManager>();
         inventoryUI = FindObjectOfType<InventoryUI>();
+        rewardPanel = FindObjectOfType<RewardPanel>();
 
         //mainCamera = FindObjectOfType<Camera>();
     }
