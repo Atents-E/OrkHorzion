@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     Castle castle;
 
     EnemySpawner enemySpawner;
+    WaveSystem waveSystem;
 
     public Character Character => character;
     public Warrior Warrior => warrior;   
@@ -36,6 +37,7 @@ public class GameManager : Singleton<GameManager>
     public Castle Castle => castle;
 
     public EnemySpawner EnemySpawner => enemySpawner;
+    public WaveSystem WaveSystem => waveSystem;
 
     protected override void Initialize()
     {
@@ -51,5 +53,6 @@ public class GameManager : Singleton<GameManager>
         canvas = FindObjectOfType<Canvas>();
         castle = FindObjectOfType<Castle>();
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        waveSystem = FindObjectOfType<WaveSystem>();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveSystem : MonoBehaviour
@@ -13,6 +14,11 @@ public class WaveSystem : MonoBehaviour
     public int CurrentWave => currentWaveIndex + 1; // 시작이 0이기 때문에 +1
     public int MaxWave => waves.Length;
 
+    private void Start()
+    {
+        GameManager.Inst.RewardPanel.onSelect += StartWave;
+    }
+
     public void StartWave()
     {
         if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length -1)
@@ -20,7 +26,13 @@ public class WaveSystem : MonoBehaviour
             // 인덱스의 시작이 -1이기 때문에 웨이브 인덱스 증가를 제일 먼저 함
             currentWaveIndex++;
             // EnemySpawner의 StartWave()함수 호출. 현재 웨이브 정보 제공
-            enemyspawner.StartWave(waves[currentWaveIndex]);
+            enemyspawner.StartWave(waves[currentWaveIndex]); 
+
+            if(currentWaveIndex >= 2)
+            {
+                GameManager.Inst.RewardPanel.Open(false);                
+                Debug.Log("마지막 웨이브");
+            }
         }
     }
 }

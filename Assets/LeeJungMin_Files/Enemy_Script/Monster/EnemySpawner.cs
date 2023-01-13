@@ -175,7 +175,7 @@ public class EnemySpawner : MonoBehaviour
             
             yield return new WaitForSeconds(currentWave.spawnTime);
         }
-        isPlaying = false;
+        isPlaying = false;        
     }
 
     /// <summary>
@@ -186,6 +186,11 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
+
+        if (!IsPlaying && Result <= 0)
+        {
+            GameManager.Inst.RewardPanel.Open(true);
+        }
     }
 
     public void SetDel()

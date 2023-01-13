@@ -79,6 +79,7 @@ public class RewardPanel : MonoBehaviour
     int firstSelectIndex = -1;
     int secondSelectIndex = -1;
 
+    public Action onSelect;
 
     private void Awake()
     {
@@ -119,7 +120,21 @@ public class RewardPanel : MonoBehaviour
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
+        inventory.IncreaseSlot();
         SetReward();
+    }
+
+    bool a;
+    public void Open(bool a)
+    {
+        if (a)
+        {
+            canvasGroup.alpha = 1.0f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            inventory.IncreaseSlot();
+            SetReward(); 
+        }
     }
 
     public void Close()
@@ -247,20 +262,20 @@ public class RewardPanel : MonoBehaviour
                     {
                         // 빈 슬롯이 없으면
                         // 골드 배열 중 첫번째꺼(가장 싼) 골드 지급
-                        // GameManager.Inst.playerGold.nowGold += rewardGoldValue[0];
+                        GameManager.Inst.PlayerGold.NowGold += rewardGoldValue[0];
                         Debug.Log($"{itemPanels[i].itemData.name}은 슬롯이 없어 {rewardGoldValue[0]}골드로 대체되었습니다.");
                     }
-
                 }
                 else
                 {
                     // 골드 추가 코드
-                    // GameManager.Inst.playerGold.nowGold += itemPanels[i].goldValue; 
+                    GameManager.Inst.PlayerGold.NowGold += itemPanels[i].goldValue; 
                     Debug.Log($"{itemPanels[i].goldValue}골드 만큼 골드가 추가되었습니다.");
                 }
             }
         }
         Close();
+        onSelect?.Invoke();
     }
 
     private void OnClick(ItemPanel itemPanel)
