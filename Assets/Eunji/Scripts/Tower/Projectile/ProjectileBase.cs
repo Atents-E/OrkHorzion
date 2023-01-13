@@ -49,15 +49,18 @@ public class ProjectileBase : MonoBehaviour
     //        Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
     //    }
     //}
-
+    IBattle target;
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
         {
             // 1. monster의 체력이 있는 컴포넌트를 가져오기
-            monster = other.GetComponent<MonsterBase>();
+            //monster = other.GetComponent<MonsterBase>();
+            target = other.gameObject.GetComponent<IBattle>();
 
-            // 2. 발사체 삭제
+            target.Attack(target);
+
+            // 2. 발사체 삭제S
             Destroy(this.gameObject);
         }
     }

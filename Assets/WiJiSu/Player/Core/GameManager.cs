@@ -12,16 +12,25 @@ public class GameManager : Singleton<GameManager>
     StatManager statManager;
     InventoryUI inventoryUI;
 
-    public ItemManager ItemData => itemData;
-    public StatManager StatManager => statManager;
-    public InventoryUI InventoryUI => inventoryUI;
-    //Camera mainCamera; 
+    PlayerGold playerGold;
+    Canvas canvas;
+    Castle castle;
+
+    EnemySpawner enemySpawner;
 
     public Character Character => character;
     public Warrior Warrior => warrior;   
     public Wizard Wizard => wizard;
 
-    //public Camera MainCamera => mainCamera;
+    public ItemManager ItemData => itemData;
+    public StatManager StatManager => statManager;
+    public InventoryUI InventoryUI => inventoryUI;
+
+    public PlayerGold PlayerGold => playerGold;
+    public Canvas Canvas => canvas;
+    public Castle Castle => castle;
+
+    public EnemySpawner EnemySpawner => enemySpawner;
 
     protected override void Initialize()
     {
@@ -31,7 +40,9 @@ public class GameManager : Singleton<GameManager>
         itemData = GetComponent<ItemManager>();
         statManager = GetComponent<StatManager>();
         inventoryUI = FindObjectOfType<InventoryUI>();
-
-        //mainCamera = FindObjectOfType<Camera>();
+        playerGold = FindObjectOfType<PlayerGold>();
+        canvas = FindObjectOfType<Canvas>();
+        castle = FindObjectOfType<Castle>();
+        enemySpawner = FindObjectOfType<EnemySpawner>();
     }
 }

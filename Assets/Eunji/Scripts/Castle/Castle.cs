@@ -31,10 +31,13 @@ public class Castle : MonoBehaviour
     /// </summary>
     Action isGameOver;
 
+    EnemyBase enemyBase;
+
     /// <summary>
     /// 체력이 변경 되었는지 확인하는 델리게이트
     /// </summary>
     public Action<float> onHealthChange { get; set; }
+
 
     public float HP
     {
@@ -56,6 +59,23 @@ public class Castle : MonoBehaviour
         }
     }
 
+    Golem_Rock rock;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            enemyBase = other.GetComponent<EnemyBase>();
+            HP -= enemyBase.attackPower;
+            enemyBase.Die();
+        }
+
+        if (other.CompareTag("Rock"))
+        {
+           rock = other.GetComponent<Golem_Rock>();
+            HP -= rock.attackPower;
+        }
+        
+    }
 
     private void Awake()
     {

@@ -21,15 +21,15 @@ public class Cannon_Projectile : ProjectileBase
         base.Awake();
     }
 
-    protected override void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-        {
-            monster = other.GetComponent<MonsterBase>();
+    //protected override void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
+    //    {
+    //        monster = other.GetComponent<MonsterBase>();
 
-            Damage();   // 적의 체력을 저하시키는 함수 실행
+    //        Damage();   // 적의 체력을 저하시키는 함수 실행
 
-            Destroy(this.gameObject);
-        }
-    }
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 }
