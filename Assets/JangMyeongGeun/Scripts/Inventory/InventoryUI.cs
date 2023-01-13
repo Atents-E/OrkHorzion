@@ -30,7 +30,7 @@ public class InventoryUI : MonoBehaviour
     public bool IsOpen
     {
         get => isOpen;
-        private set
+        set
         {
             if (isOpen != value)
             { 

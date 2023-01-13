@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     ItemManager itemData;
     StatManager statManager;
     InventoryUI inventoryUI;
+    TowerMenuPanel towerMenuPanel;
     RewardPanel rewardPanel;
 
     PlayerGold playerGold;
@@ -26,6 +27,7 @@ public class GameManager : Singleton<GameManager>
     public ItemManager ItemData => itemData;
     public StatManager StatManager => statManager;
     public InventoryUI InventoryUI => inventoryUI;
+    public TowerMenuPanel TowerMenuPanel => towerMenuPanel;
 
     public RewardPanel RewardPanel => rewardPanel;
 
@@ -43,6 +45,7 @@ public class GameManager : Singleton<GameManager>
         itemData = GetComponent<ItemManager>();
         statManager = GetComponent<StatManager>();
         inventoryUI = FindObjectOfType<InventoryUI>();
+        towerMenuPanel = FindObjectOfType<TowerMenuPanel>();
         rewardPanel = FindObjectOfType<RewardPanel>();
         playerGold = FindObjectOfType<PlayerGold>();
         canvas = FindObjectOfType<Canvas>();

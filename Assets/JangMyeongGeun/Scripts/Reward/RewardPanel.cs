@@ -80,7 +80,6 @@ public class RewardPanel : MonoBehaviour
     int secondSelectIndex = -1;
 
 
-
     private void Awake()
     {
         rewardItemList = new List<ItemData_Base>();
@@ -106,6 +105,8 @@ public class RewardPanel : MonoBehaviour
     {
         itemManager = GameManager.Inst.ItemData;
         rewardItems = itemManager.ItemDatas;
+        //EnemySpawner enemySpawner = GameManager.Inst.EnemySpawner;
+        //enemySpawner.onRoundEnd += 
     }
 
     public void GetPlayerInventory(Inventory inventory)
@@ -118,6 +119,7 @@ public class RewardPanel : MonoBehaviour
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
+        SetReward();
     }
 
     public void Close()
