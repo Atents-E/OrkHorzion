@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 public class Test_PlayerInventory : Test_Base_JANG
 {
-    Test_Player_JANG player;
+    Wizard player;
     InventoryUI invenUI;
 
 
     private void Start()
     {
-        player = FindObjectOfType<Test_Player_JANG>();
+        player = FindObjectOfType<Wizard>();
         invenUI = FindObjectOfType<InventoryUI>();
     }
 
@@ -48,10 +48,10 @@ public class Test_PlayerInventory : Test_Base_JANG
 
     protected override void OnTest9(InputAction.CallbackContext obj)
     {
-        Debug.Log($"플레이어 체력 : {player.HP} / {player.MAXHP}");
-        Debug.Log($"플레이어 공격력 : {player.ATK}");
-        Debug.Log($"플레이어 방어력 : {player.DEF}");
-        Debug.Log($"플레이어 치명타확률 : {player.CriticalChance * 100}%");
+        Debug.Log($"현재 체력 : {player.HP} / {player.MaxHP}");
+        Debug.Log($"현재 공격력 : {player.AttackPower}");
+        Debug.Log($"현재 방어력 : {player.DefencePower}");
+        Debug.Log($"현재 치명타확률 : {player.CriticalChance * 100}%");
     }
 
 }

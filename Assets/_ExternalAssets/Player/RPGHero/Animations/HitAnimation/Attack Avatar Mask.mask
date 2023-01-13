@@ -122,7 +122,7 @@ AvatarMask:
   - m_Path: root/pelvis/thigh_l
     m_Weight: 0
   - m_Path: root/pelvis/thigh_l/calf_l
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: root/pelvis/thigh_l/calf_l/foot_l
     m_Weight: 1
   - m_Path: root/pelvis/thigh_l/calf_l/foot_l/ball_l
@@ -130,11 +130,11 @@ AvatarMask:
   - m_Path: root/pelvis/thigh_r
     m_Weight: 0
   - m_Path: root/pelvis/thigh_r/calf_r
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: root/pelvis/thigh_r/calf_r/foot_r
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: root/pelvis/thigh_r/calf_r/foot_r/ball_r
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: root/weaponShield_l
     m_Weight: 0
   - m_Path: root/weaponShield_r

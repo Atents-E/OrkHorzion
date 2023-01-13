@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using static StatManager;
 
 public class StatManager : MonoBehaviour
 {
@@ -17,107 +19,141 @@ public class StatManager : MonoBehaviour
 
     // 1. 인벤토리 리스트에 변화가 있을 때마다의 이벤트함수에 등록하여 효과를 적용한다.
 
-    [Header("기본 능력치")]
+    [Header("전사 기본 능력치")]
     [SerializeField]
-    private float default_MaxHp = 100;
-    public float Default_MaxHp => default_MaxHp;
+    private float warrior_default_MaxHp = 100.0f;
+    [SerializeField]
+    private float warrior_default_Def = 100.0f;
+    [SerializeField]
+    private float warrior_default_Atk = 50.0f;
+    [SerializeField]
+    private float warrior_default_CriticalChance = 0.3f;
+    [SerializeField]
+    private float warrior_default_MoveSpeed = 3.0f;
+
+    [Header("마법사 기본 능력치")]
+    [SerializeField]
+    private float wizard_default_MaxHp = 80.0f;
+    [SerializeField]
+    private float wizard_default_Def = 50.0f;
+    [SerializeField]
+    private float wizard_default_Atk = 30.0f;
+    [SerializeField]
+    private float wizard_default_CriticalChance = 0.3f;
+    [SerializeField]
+    private float wizard_default_MoveSpeed = 5.0f;
+
+    [HideInInspector]
+    public float Default_MaxHp = 0.0f;
+    [HideInInspector]
+    public float Default_Def = 0.0f;
+    [HideInInspector]
+    public float Default_Atk = 0.0f;
+    [HideInInspector]
+    public float Default_CriticalChance = 0.0f;
+    [HideInInspector]
+    public float Default_MoveSpeed = 0.0f;
 
     [HideInInspector]
     public float extra_MaxHp = 0.0f;
-
-
-    [SerializeField]
-    private float default_Def = 20;
-
-    public float Default_Def => default_Def;
-
     [HideInInspector]
     public float extra_Def = 0.0f;
-
-
-    [SerializeField]
-    private float default_Atk = 80;
-
-    public float Default_Atk => default_Atk;
-
     [HideInInspector]
     public float extra_Atk = 0.0f;
-
-    [SerializeField]
-    private float default_AtkSpeed = 40.0f;
-
-    public float Default_AtkSpeed => default_AtkSpeed;
-
-    [HideInInspector]
-    public float extra_AtkSpeed = 0.0f;
-
-    [SerializeField]
-    private float default_CriticalChance = 0.0f;
-
-    public float Default_CriticalChance => default_CriticalChance;
-
     [HideInInspector]
     public float extra_CriticalChance = 0.0f;
-
-    [SerializeField]
-    private float default_MoveSpeed = 30.0f;
-
-    public float Default_MoveSpeed => default_MoveSpeed;
-
     [HideInInspector]
     public float extra_MoveSpeed = 0.0f;
 
-    Test_Player_JANG player;
     Inventory inven;
 
     public List<ItemSlot> slots;
 
-    public void InitializeStat(Inventory inven)
+    public void WarriorInitializeStat(Inventory inven)
     {
-        player = GameManager_JANG.Inst.Player;
-        SetPlayerStat();
+        Warrior warrior = GameManager.Inst.Warrior;
+        SetWarriorStat(warrior);
+
         ResetExtraStat();
+
         this.inven = inven;
         inven.onRefreshSlot += RefreshSlots;
-        inven.onAddSlotItemEffect = (itemData) => AddEffect(itemData);
-        inven.onSubSlotItemEffect = (itemData,itemCount) => SubEffect(itemData,itemCount);
+        inven.onAddSlotItemEffect = (itemData) => AddEffect(warrior, itemData);
+        inven.onSubSlotItemEffect = (itemData, itemCount) => SubEffect(warrior, itemData, itemCount);
     }
 
-    private void SetPlayerStat()
+    public void WizardInitializeStat(Inventory inven)
     {
-        player.MAXHP = default_MaxHp;
-        player.HP = default_MaxHp;
-        player.DEF = default_Def;
-        player.ATK = default_Atk;
-        player.ATKSpeed = default_AtkSpeed;
-        player.CriticalChance = default_CriticalChance;
-        player.MoveSpeed = default_MoveSpeed;
+        Wizard wizard = GameManager.Inst.Wizard;
+        SetWizardStat(wizard);
+
+        ResetExtraStat();
+
+        this.inven = inven;
+        inven.onRefreshSlot += RefreshSlots;
+        inven.onAddSlotItemEffect = (itemData) => AddEffect(wizard, itemData);
+        inven.onSubSlotItemEffect = (itemData, itemCount) => SubEffect(wizard, itemData, itemCount);
     }
 
-    private void AddEffect(ItemData_Base itemData)
+    private void SetWarriorStat(Character warrior)
+    {
+        Default_MaxHp = warrior_default_MaxHp;
+        Default_Def = warrior_default_Def;
+        Default_Atk = warrior_default_Atk;
+        Default_CriticalChance = warrior_default_CriticalChance;
+        Default_MoveSpeed = warrior_default_MoveSpeed;
+
+        warrior.ChangeStat(
+            Default_MaxHp,
+            Default_Atk,
+            Default_Def,
+            Default_MoveSpeed,
+            Default_CriticalChance
+            );
+    }
+
+    private void SetWizardStat(Character wizard)
+    {
+        Default_MaxHp = wizard_default_MaxHp;
+        Default_Def = wizard_default_Def;
+        Default_Atk = wizard_default_Atk;
+        Default_CriticalChance = wizard_default_CriticalChance;
+        Default_MoveSpeed = wizard_default_MoveSpeed;
+
+        wizard.ChangeStat(
+            Default_MaxHp,
+            Default_Atk,
+            Default_Def,
+            Default_MoveSpeed,
+            Default_CriticalChance
+            );
+    }
+
+    private void AddEffect(Character character, ItemData_Base itemData)
     {
         itemData.Effect(this);
 
-        player.MAXHP += extra_MaxHp;
-        player.DEF += extra_Def;
-        player.ATK += extra_Atk;
-        player.ATKSpeed += extra_AtkSpeed;
-        player.CriticalChance += extra_CriticalChance;
-        player.MoveSpeed += extra_MoveSpeed;
+        character.AddEffect(
+            extra_MaxHp,
+            extra_Atk,
+            extra_Def,
+            extra_MoveSpeed,
+            extra_CriticalChance
+            );
 
         ResetExtraStat();
     }
-    private void SubEffect(ItemData_Base itemData, uint itemCount)
+    private void SubEffect(Character character, ItemData_Base itemData, uint itemCount)
     {
         itemData.Effect(this);
 
-        player.MAXHP -= (extra_MaxHp * itemCount);
-        player.DEF -= (extra_Def * itemCount);
-        player.ATK -= (extra_Atk * itemCount);
-        player.ATKSpeed -= (extra_AtkSpeed * itemCount);
-        player.CriticalChance -= (extra_CriticalChance * itemCount);
-        player.MoveSpeed -= (extra_MoveSpeed * itemCount);
-
+        character.SubEffect(
+            extra_MaxHp * itemCount,
+            extra_Atk * itemCount,
+            extra_Def * itemCount,
+            extra_MoveSpeed * itemCount,
+            extra_CriticalChance * itemCount
+            );
         ResetExtraStat();
     }
 
@@ -127,7 +163,6 @@ public class StatManager : MonoBehaviour
         extra_MaxHp = 0.0f;
         extra_Def = 0.0f;
         extra_Atk = 0.0f;
-        extra_AtkSpeed = 0.0f;
         extra_CriticalChance = 0.0f;
         extra_MoveSpeed = 0.0f;
     }
