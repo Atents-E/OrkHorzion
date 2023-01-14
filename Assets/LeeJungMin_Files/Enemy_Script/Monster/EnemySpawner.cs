@@ -61,15 +61,15 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            EnemyBase enemyBase = other.GetComponent<EnemyBase>();
-            DestroyEnemy(enemyBase);
-            SetDel();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        EnemyBase enemyBase = other.GetComponent<EnemyBase>();
+    //        DestroyEnemy(enemyBase);
+    //        SetDel();
+    //    }
+    //}
 
     IEnumerator SpawnEnemy()
     {
@@ -167,8 +167,8 @@ public class EnemySpawner : MonoBehaviour
                     break;
             }
 
-            EnemyBase enemy = GetComponent<EnemyBase>();
-            enemyList.Add(enemy);
+            //EnemyBase enemy = GetComponent<EnemyBase>();
+            //enemyList.Add(enemy);
 
             // 현재 웨이브에서 생성한 적의 숫자 +1
             spawnEnemyCount++;
@@ -184,8 +184,8 @@ public class EnemySpawner : MonoBehaviour
     /// <param name="enemy"></param>
     public void DestroyEnemy(EnemyBase enemy)
     {
-        enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
+        //enemyList.Remove(enemy);
 
         if (!IsPlaying && Result <= 0)
         {
@@ -194,7 +194,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void SetDel()
-    {
+    {        
         Result--;
     }
 }

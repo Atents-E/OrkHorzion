@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.EventTrigger;
 
 // Castle의 기능
 // 1. 거점타워는 체력이 존재한다.
@@ -66,8 +67,11 @@ public class Castle : MonoBehaviour
         {
             enemyBase = other.GetComponent<EnemyBase>();
             HP -= enemyBase.attackPower;
-            Destroy(other.gameObject);
+
+            //enemyBase.Die();
+            //Destroy(other.gameObject);
             GameManager.Inst.EnemySpawner.SetDel();
+            GameManager.Inst.EnemySpawner.DestroyEnemy(enemyBase);
         }
 
         if (other.CompareTag("Rock"))

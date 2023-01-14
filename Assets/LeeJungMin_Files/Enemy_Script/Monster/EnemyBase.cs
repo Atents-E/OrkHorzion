@@ -178,8 +178,8 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
         playerTarget = null;
         onDie?.Invoke();
         GameManager.Inst.EnemySpawner.SetDel();
-      //  enemySpawner.DestroyEnemy(this);
         GameManager.Inst.EnemySpawner.DestroyEnemy(this);
+        //enemySpawner.DestroyEnemy(this);
         GameManager.Inst.PlayerGold.NowGold += gold;
     }
 
