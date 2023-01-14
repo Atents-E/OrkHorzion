@@ -203,6 +203,30 @@ public class Inventory
         }
     }
 
+    public void PlayerRemoveItem()
+    {
+        int lastIndex = -1;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i].IsEmpty)
+            {
+                lastIndex = i;
+            }
+        }
+
+        if (lastIndex != -1)
+        {
+            onSubSlotItemEffect?.Invoke(slots[lastIndex].ItemData, slots[lastIndex].ItemCount);
+            slots[lastIndex].ClearSlotItem();
+            AlignItemSlot(slots[lastIndex]);
+        }
+        else
+        {
+            Debug.Log("현재 가지고 있는 아이템이 없습니다.");
+        }
+
+    }
+
     /// <summary>
     /// 찾으려는 아이템 슬롯을 찾아서 인덱스를 리턴하는 함수
     /// </summary>

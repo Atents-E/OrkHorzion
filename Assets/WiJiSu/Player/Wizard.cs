@@ -58,8 +58,7 @@ public class Wizard :Character
     public override void Die()
     {
         base.Die();
-        inven.ClearInventory();
-        invenUI.Close();
+        inven.DecreaseSlot(2);
     }
 
     public override void Recover() => base.Recover();

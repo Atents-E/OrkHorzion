@@ -25,7 +25,7 @@ public class StatManager : MonoBehaviour
     [SerializeField]
     private float warrior_default_Def = 100.0f;
     [SerializeField]
-    private float warrior_default_Atk = 50.0f;
+    private float warrior_default_Atk = 100.0f;
     [SerializeField]
     private float warrior_default_CriticalChance = 0.3f;
     [SerializeField]
@@ -35,9 +35,9 @@ public class StatManager : MonoBehaviour
     [SerializeField]
     private float wizard_default_MaxHp = 80.0f;
     [SerializeField]
-    private float wizard_default_Def = 50.0f;
+    private float wizard_default_Def = 80.0f;
     [SerializeField]
-    private float wizard_default_Atk = 30.0f;
+    private float wizard_default_Atk = 80.0f;
     [SerializeField]
     private float wizard_default_CriticalChance = 0.3f;
     [SerializeField]
