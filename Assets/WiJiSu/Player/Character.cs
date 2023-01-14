@@ -50,7 +50,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
             {
                 // 나중에 유물효과로 최대체력 늘릴 때 쓰는 공간
                 maxHp = value;
-                onMaxHealthChange?.Invoke(maxHp); // 정민님 Help 
+                onMaxHealthChange?.Invoke(hp/maxHp);
             }
         }
     }
@@ -81,7 +81,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
     
     public Action <float> onHealthChange { get; set; }
 
-    public Action<float> onMaxHealthChange;
+    public Action<float> onMaxHealthChange { get; set; }
     public Action onDie { get; set; }
 
     // --------------------------------------------------------------------------------------------------------
