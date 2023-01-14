@@ -22,5 +22,6 @@ public class ItemData_Health : ItemData_Base
         //Debug.Log("체력용1 아이템 획득");
         //player.MAXHP += hpBonus; 
         //Debug.Log($"체력 : {player.MAXHP}");
+        statManager.extra_MaxHp += hpBonus;
     }
 }
