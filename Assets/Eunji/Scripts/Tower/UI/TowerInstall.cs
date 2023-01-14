@@ -21,7 +21,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// <summary>
     /// (드래그 중일 때)변경 될 부모 오브젝트
     /// </summary>
-    Canvas newParent;
+    Canvas canvas;
 
     /// <summary>
     /// 플레이어가 가진 골드
@@ -38,17 +38,6 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     /// </summary>
     TextMeshProUGUI price_Text;
 
-    /// <summary>
-    /// 골드 부족 안내
-    /// </summary>
-    TextMeshProUGUI warningText;
-
-    /// <summary>
-    /// 골드 부족 안내 지속되는 시간
-    /// </summary>
-    WaitForSeconds showTime = new WaitForSeconds(0.7f);
-
-
     private void Awake()
     {
         currentParent = transform.parent;
@@ -64,12 +53,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     private void Start()
     {
         playerGold = GameManager.Inst.PlayerGold;      
-        newParent = GameManager.Inst.Canvas; //GameObject.FindWithTag("Canvas");
-        warningText = newParent.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
-
-        warningText.color = Color.clear;    // 안내창 알파값1로 초기화
-
-        //isLack += WarningText;              // 돈이 부족하면 안내창 알파값 0으로 변경
+        canvas = GameManager.Inst.Canvas;
     }
 
     /// <summary>
@@ -82,7 +66,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         if (gameObject.activeSelf)
         {
             // 새로운 부모관계 맺어주기
-            transform.SetParent(newParent.transform, worldPositionStays : false);
+            transform.SetParent(canvas.transform, worldPositionStays : false);
         }
     }
 
@@ -136,7 +120,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         else
         {
             // 골드가 부족하다고 안내
-            StartCoroutine(WaringText());
+            StartCoroutine(playerGold.WaringText());
         }
 
         // 부모 끊고, 기존 부모와 다시 맺어주기
@@ -144,19 +128,6 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
         // 타워 UI = 처음 타워 위치로 이동
         transform.position = currentParent.position;
-    }
-
-    /// <summary>
-    /// showTime만큼 안내창을 보여주고, 투명하게 만듬
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator WaringText()
-    {
-        warningText.color = Color.red;
-        yield return showTime;
-
-        warningText.color = Color.clear;
-        yield return null;
     }
 
     ///<summary>
