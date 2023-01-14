@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Build/Scenes/Start.unity
     guid: c9027bddcc6fb2444a8b8e884c5235fd
   - enabled: 1
+    path: Assets/Build/Scenes/CharactersSelect.unity
+    guid: 41583517d4ba2f5499545a78459ef049
+  - enabled: 1
     path: Assets/Build/Scenes/Warrior.unity
     guid: 009c87c7197d171499ccb756e7b65177
   - enabled: 1
-    path: Assets/Build/Scenes/CharactersSelect.unity
-    guid: 41583517d4ba2f5499545a78459ef049
+    path: Assets/Build/Scenes/Wizard.unity
+    guid: e69d54420a4c7c548aac9bc942c77ed9
   m_configObjects: {}

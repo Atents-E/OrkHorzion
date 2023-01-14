@@ -68,6 +68,7 @@ public class SelectPlayer : MonoBehaviour
             else
             {
                 // wizard씬
+                SceneManager.LoadScene("Wizard");
             }
 
         });
