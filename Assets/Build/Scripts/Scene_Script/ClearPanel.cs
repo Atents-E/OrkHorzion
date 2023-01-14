@@ -28,12 +28,7 @@ public class ClearPanel : MonoBehaviour
     /// </summary>
     int dieCount = 0;
 
-    /// <summary>
-    /// 처치한 몬스터의 수
-    /// </summary>
-    int monsterKill= 0;
-
-    bool isPlay = false;
+    bool isPlay = true;
 
     /// <summary>
     /// 게임 재시작 버튼
@@ -59,7 +54,6 @@ public class ClearPanel : MonoBehaviour
         time_Text = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         gold_Text = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         die_Text = transform.GetChild(5).GetComponent<TextMeshProUGUI>();
-        Kill_Text = transform.GetChild(6).GetComponent<TextMeshProUGUI>();
 
         Close();
     }
@@ -68,16 +62,11 @@ public class ClearPanel : MonoBehaviour
     {
         WaveSystem StartWave = GameManager.Inst.WaveSystem;
         StartWave.onClear += Open;
-
-        onOpen += TextChange;
     }
 
     private void Update()
     {
-        if (isPlay)
-        {
-            time += Time.deltaTime;     // 플레이 시간 누적
-        }
+        TimerStart();
     }
 
 
@@ -86,10 +75,10 @@ public class ClearPanel : MonoBehaviour
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        
+
         isPlay = false;
 
-        onOpen?.Invoke();
+        RefreshText();
     }
 
     void Close()
@@ -104,23 +93,24 @@ public class ClearPanel : MonoBehaviour
         SceneManager.LoadScene("Start");
     }
 
-    void TextChange()
+    void RefreshText()
     {
         PlayerGold playerGold = GameManager.Inst.PlayerGold;
 
         // 죽은 횟수 찾고
         // 플레이가 죽은 걸 확인하는 순간을 
         Character player = GameManager.Inst.Character;
-        die_Text.text = ($"죽은 횟수 : {player.dieCount}");
+        die_Text.text = $"Player Die : {player.dieCount}";
 
-        // 처치한 적 찾아야 함 
-        EnemyBase enemy = GameManager.Inst.EnemyBase;
-        Kill_Text.text = ($"죽인 몬스터 수 : {enemy.dieCount}");
-
-        time_Text.text = ($"플레이 시간 : {time}");
-        gold_Text.text = ($" 돈 : {playerGold.nowGold}");
+        time_Text.text = $"Play Time : {time:f0} Sec";
+        gold_Text.text = $"Gold : {playerGold.nowGold}";
         // die_Text.text = ($"죽은 횟수 : {}");
         // Kill_Text.text = ($"처치한 적 : {}");
+    }
+
+    public void TimerStart()
+    {
+        time += Time.deltaTime;     // 플레이 시간 누적
     }
 
 }
