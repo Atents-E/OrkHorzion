@@ -16,27 +16,27 @@ public class Test_Inventory : Test_Base_JANG
 
     protected override void OnTest1(InputAction.CallbackContext obj)
     {
-        inven.AddItem(ItemIDCode.ATK1);
+        //inven.AddItem(ItemIDCode.ATK1);
     }
 
     protected override void OnTest2(InputAction.CallbackContext obj)
     {
-        inven.AddItem(ItemIDCode.ATK2);
+        //inven.AddItem(ItemIDCode.ATK2);
     }
 
     protected override void OnTest3(InputAction.CallbackContext obj)
     {
-        inven.AddItem(ItemIDCode.ATK3);
+        //inven.AddItem(ItemIDCode.ATK3);
     }
 
     protected override void OnTest4(InputAction.CallbackContext obj)
     {
-        inven.AddItem(ItemIDCode.Debuff1);
+        //inven.AddItem(ItemIDCode.Debuff1);
     }
 
     protected override void OnTest5(InputAction.CallbackContext obj)
     {
-        inven.AddItem(ItemIDCode.Gold1);
+        //inven.AddItem(ItemIDCode.Gold1);
     }
 
     protected override void OnTest6(InputAction.CallbackContext obj)

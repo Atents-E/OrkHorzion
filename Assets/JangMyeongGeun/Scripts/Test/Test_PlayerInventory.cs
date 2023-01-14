@@ -26,20 +26,25 @@ public class Test_PlayerInventory : Test_Base_JANG
 
     protected override void OnTest3(InputAction.CallbackContext obj)
     {
-        player.inven.AddItem(ItemIDCode.DEF1);
+        player.inven.AddItem(ItemIDCode.ATK2);
     }
 
     protected override void OnTest4(InputAction.CallbackContext obj)
     {
-        player.inven.AddItem(ItemIDCode.Health1);
+        player.inven.AddItem(ItemIDCode.ATK3);
     }
 
     protected override void OnTest5(InputAction.CallbackContext obj)
     {
+        player.inven.AddItem(ItemIDCode.Buff1);
+    }
+
+    protected override void OnTest7(InputAction.CallbackContext obj)
+    {
         player.inven.IncreaseSlot();
     }
 
-    protected override void OnTest6(InputAction.CallbackContext obj)
+    protected override void OnTest8(InputAction.CallbackContext obj)
     {
         player.inven.DecreaseSlot(2);
     }
@@ -49,6 +54,7 @@ public class Test_PlayerInventory : Test_Base_JANG
         Debug.Log($"현재 체력 : {player.HP} / {player.MaxHP}");
         Debug.Log($"현재 공격력 : {player.AttackPower}");
         Debug.Log($"현재 방어력 : {player.DefencePower}");
+        Debug.Log($"현재 이동속도 : {player.MoveSpeed}");
         Debug.Log($"현재 치명타확률 : {player.CriticalChance * 100}%");
     }
 

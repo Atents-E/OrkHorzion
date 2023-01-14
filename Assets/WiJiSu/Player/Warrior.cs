@@ -31,8 +31,6 @@ public class Warrior : Character
         statManager.WarriorInitializeStat(inven);   // 스탯 매니저에서 입력한 스탯을 적용하고 가지고 있는 아이템에 따라 스탯이 바뀌기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
         GameManager.Inst.InventoryUI.InitializeInventoy(inven); // 인벤토리 상황을 UI로 띄우기 위해 해당 플레이어의 인벤토리를 인수로 넘김 __ 장명근 작성
 
-        int i = 0;
-
         base.Start();
 
         Debug.Log($"이름 : {characterName}");

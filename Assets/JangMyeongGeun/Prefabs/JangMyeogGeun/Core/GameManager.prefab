@@ -49,9 +49,8 @@ MonoBehaviour:
   ItemDatas:
   - {fileID: 11400000, guid: 7e3003384577f804b83b2271b22f12f9, type: 2}
   - {fileID: 11400000, guid: 0fea6f6aa620a49489cdcbe4b5b8bf1b, type: 2}
-  - {fileID: 11400000, guid: 2448a871ff34e3b4fab11b33c22c5865, type: 2}
-  - {fileID: 11400000, guid: 8460d6e426d03034ba58859fe93f0c89, type: 2}
-  - {fileID: 11400000, guid: af5ce52f69cd83f4ebdb29a2850cad14, type: 2}
+  - {fileID: 11400000, guid: c86032785908a2b4eb3d835d87520ae2, type: 2}
+  - {fileID: 11400000, guid: 1686980f87ce37049961ea125a31faad, type: 2}
   - {fileID: 11400000, guid: f9f39fc3acda9f647a857f7951826024, type: 2}
   - {fileID: 11400000, guid: 56f405d456bcc8e41b68ebeefe718dd5, type: 2}
 --- !u!114 &7798502985812196643
@@ -80,12 +79,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warrior_default_MaxHp: 100
   warrior_default_Def: 100
-  warrior_default_Atk: 50
+  warrior_default_Atk: 100
   warrior_default_CriticalChance: 0.3
   warrior_default_MoveSpeed: 3
   wizard_default_MaxHp: 80
-  wizard_default_Def: 50
-  wizard_default_Atk: 30
+  wizard_default_Def: 80
+  wizard_default_Atk: 80
   wizard_default_CriticalChance: 0.3
   wizard_default_MoveSpeed: 5
   Default_MaxHp: 0

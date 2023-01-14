@@ -9,10 +9,8 @@ using UnityEngine;
 public enum ItemType
 {
     Atk = 1,    // 공격 계열
-    Debuff,     // 디버프 계열
-    Gold,       // 재화 계열
+    Buff,     // 디버프 계열
     Health,     // 회복 계열
-    Special,     // 특수 계열
     Def         // 방어 계열
 }
 

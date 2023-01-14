@@ -15,10 +15,10 @@ MonoBehaviour:
   id: 2
   itemType: 1
   itemTypeIcon: {fileID: -318043847, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
-  itemName: "\uBC88\uAC1C \uC560\uD638\uAC00"
-  itemIcon: {fileID: 108625691, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
-  description: "\uACF5\uACA9\uC2DC 20% \uD655\uB960\uB85C \uACF5\uACA9\uB825\uC758
-    33% \uD53C\uD574\uB97C \uC785\uD788\uB294 \uBC88\uAC1C\uACF5\uACA9\n(\uC911\uCCA9\uBD88\uAC00)"
-  maxStackCount: 1
+  itemName: "\uC720\uB839\uC758 \uAC80"
+  itemIcon: {fileID: 2036158569, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
+  description: "\uCD94\uAC00 \uACF5\uACA9\uB825 +30\n(\uC911\uCCA9\uBD88\uAC00)"
+  maxStackCount: 3
   atkBonus: 0
+  otherAtkBonus: 30
   criticalBonus: 0

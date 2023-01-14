@@ -17,8 +17,8 @@ MonoBehaviour:
   itemTypeIcon: {fileID: -318043847, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
   itemName: "\uCD5C\uD6C4\uC758 \uC2EC\uD310"
   itemIcon: {fileID: -2012542527, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
-  description: "\uC801\uC758 \uCCB4\uB825\uC774 8% \uC774\uD558\uAC00 \uB418\uBA74
-    \uC989\uC0AC\uC2DC\uD0A8\uB2E4. \n(\uC911\uCCA9\uBD88\uAC00)"
-  maxStackCount: 1
+  description: "\uCD94\uAC00 \uCE58\uBA85\uD0C0 \uD655\uB960 +5%\n(\uC911\uCCA9\uBD88\uAC00)"
+  maxStackCount: 3
   atkBonus: 0
-  criticalBonus: 0
+  otherAtkBonus: 0
+  criticalBonus: 5
