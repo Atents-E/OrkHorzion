@@ -20,6 +20,11 @@ public class WaveSystem : MonoBehaviour
     private void Start()
     {
         GameManager.Inst.RewardPanel.onSelect += StartWave;
+        enemyspawner.lastRound += () => { currentWaveIndex++; };
+        enemyspawner.onSpawnDragon += (dragon) => {
+            GameObject dg = dragon;
+            StartCoroutine(dragonDie(dg)) ;
+            };
     }
 
     public void StartWave()
@@ -30,17 +35,33 @@ public class WaveSystem : MonoBehaviour
             currentWaveIndex++;
             // EnemySpawner의 StartWave()함수 호출. 현재 웨이브 정보 제공
             enemyspawner.StartWave(waves[currentWaveIndex]); 
+        }
+    }
 
-            if(currentWaveIndex > waves.Length - 1)
+    private void LastRoundEnd()
+    {
+        GameManager.Inst.RewardPanel.Open(false);
+        Debug.Log("마지막 웨이브");
+
+        onClear?.Invoke();
+    }
+
+    IEnumerator dragonDie(GameObject dragon)
+    {
+        while (true)
+        {
+            if (dragon.IsDestroyed())
             {
-                GameManager.Inst.RewardPanel.Open(false);                
-                Debug.Log("마지막 웨이브");
-
-                onClear?.Invoke();
+                LastRoundEnd();
+                break;
             }
+            yield return null;
         }
     }
 }
+
+
+
 
 [System.Serializable]
 public struct Wave

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class EnemySpawner : MonoBehaviour
 
     public List<EnemyBase> EnemyList => enemyList;
 
+    public Action<GameObject> onSpawnDragon;
+
     private Wave currentWave;   // 현재 웨이브 정보
 
     int waveCount = 0;
@@ -20,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     int result = 0;
 
+    public Action lastRound;
     public int Result
     {
         get => result;
@@ -144,6 +148,8 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 case 4:
                     Debug.Log("4번 웨이브");
+                    lastRound?.Invoke();
+
                     index++;
                     result++;
                     if (index > 0 && index <= 3)
@@ -160,7 +166,8 @@ public class EnemySpawner : MonoBehaviour
                     }
                     else if (index > 9 && index <= currentWave.maxEnemyCount)
                     {
-                        Instantiate(currentWave.enemyPrefabs[3], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
+                        GameObject obj = Instantiate(currentWave.enemyPrefabs[3], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
+                        onSpawnDragon?.Invoke(obj);
                     }
                     break;
                 default:
