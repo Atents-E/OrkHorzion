@@ -14,7 +14,6 @@ public class PlayerHP_Bar : MonoBehaviour
     float maxHP;
     float Hp;
     Character character;
-
     private void Awake()
     {
         slider = GetComponent<Slider>();
@@ -65,6 +64,5 @@ public class PlayerHP_Bar : MonoBehaviour
 
         //HP_Text.text = $"{hp:f0}{maxHP_Text}";
     }
-
 
 }
