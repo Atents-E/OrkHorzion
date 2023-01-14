@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Eunji/Scenes/GameOver.unity
-    guid: 8790526c699639f4a965cd3b8d6427d4
+    path: Assets/Build/Scenes/Start.unity
+    guid: c9027bddcc6fb2444a8b8e884c5235fd
+  - enabled: 1
+    path: Assets/Build/Scenes/Warrior.unity
+    guid: 009c87c7197d171499ccb756e7b65177
+  - enabled: 1
+    path: Assets/Build/Scenes/CharactersSelect.unity
+    guid: 41583517d4ba2f5499545a78459ef049
   m_configObjects: {}
