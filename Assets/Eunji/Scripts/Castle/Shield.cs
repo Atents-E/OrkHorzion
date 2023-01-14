@@ -17,7 +17,9 @@ public class Shield : MonoBehaviour
     /// 실드 가격
     /// </summary>
     public int price = 100;
-    
+
+    public float maxHP = 50.0f;
+
     /// <summary>
     /// 실드가 생성되자마자 가지는 총 HP
     /// </summary>
@@ -73,6 +75,11 @@ public class Shield : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);                             // 해당 오브젝트 끄기
+    }
+
     private void Start()
     {
         castle = GameManager.Inst.Castle;
@@ -88,8 +95,8 @@ public class Shield : MonoBehaviour
         size += Time.deltaTime;                                 // 사이즈는 시간만큼 줄어들고,
         transform.localScale = new Vector3(size, size, size);
         yield return delayTime;                                // 대기 시간만큼 줄어드는 모습이 보임
-    
-        Destroy(this.gameObject);                               // 해당 오브젝트 삭제
+
+        gameObject.SetActive(false);                             // 해당 오브젝트 끄기
     }
 
 }
