@@ -23,7 +23,6 @@ public class EnemySpawner : MonoBehaviour
 
     int result = 0;
 
-    public Action lastRound;
     public int Result
     {
         get => result;
@@ -148,8 +147,6 @@ public class EnemySpawner : MonoBehaviour
                     break;
                 case 4:
                     Debug.Log("4번 웨이브");
-                    lastRound?.Invoke();
-
                     index++;
                     result++;
                     if (index > 0 && index <= 3)

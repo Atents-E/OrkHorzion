@@ -19,8 +19,7 @@ public class WaveSystem : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Inst.RewardPanel.onSelect += StartWave;
-        enemyspawner.lastRound += () => { currentWaveIndex++; };
+        GameManager.Inst.RewardPanel.onSelect += StartWave;       
         enemyspawner.onSpawnDragon += (dragon) => {
             GameObject dg = dragon;
             StartCoroutine(dragonDie(dg)) ;
