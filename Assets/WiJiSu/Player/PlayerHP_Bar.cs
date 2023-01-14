@@ -24,18 +24,10 @@ public class PlayerHP_Bar : MonoBehaviour
         Character character = GameManager.Inst.Character;
         maxHP = character.MaxHP;
         Hp = character.HP;
-        maxHP_Text =  $" / {maxHP :f0}";
         slider.value = 1;
-        character.onMaxHealthChange += (maxHP) => { this.maxHP = maxHP; }; 
         HP_Text.text = $"{Hp} / {maxHP}";
         character.onHealthChange += OnHealthChange;
-    }
-
-    private void Update()
-    {
-        Character character = GameManager.Inst.Character;
-        maxHP = character.MaxHP;
-        maxHP_Text =  $"/{maxHP:f0}";
+        character.onMaxHealthChange += (maxHP) => { this.maxHP = maxHP; RefreshHPBarText(Hp, maxHP); }; 
     }
 
     private void OnHealthChange(float ratio)
@@ -44,7 +36,15 @@ public class PlayerHP_Bar : MonoBehaviour
         slider.value = ratio;
 
         float hp = maxHP * ratio;
-        HP_Text.text = $"{hp:f0}{maxHP_Text}";
-    } 
+        Hp = hp;
+        RefreshHPBarText(hp, maxHP);
+    }
+
+    void RefreshHPBarText(float hp, float maxHP)
+    {
+        HP_Text.text = $"{hp:f0} / {maxHP:f0}";
+    }
+
+
 
 }
