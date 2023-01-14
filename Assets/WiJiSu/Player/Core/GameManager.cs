@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -38,6 +39,7 @@ public class GameManager : Singleton<GameManager>
 
     public EnemySpawner EnemySpawner => enemySpawner;
     public WaveSystem WaveSystem => waveSystem;
+
 
     protected override void Initialize()
     {

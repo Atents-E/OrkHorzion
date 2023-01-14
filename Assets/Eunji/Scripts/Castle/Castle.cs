@@ -29,7 +29,7 @@ public class Castle : MonoBehaviour
     /// <summary>
     /// 게임 오버를 확인하는 델리게이트
     /// </summary>
-    Action isGameOver;
+    public Action isGameOver;
 
     EnemyBase enemyBase;
 
@@ -66,7 +66,8 @@ public class Castle : MonoBehaviour
         {
             enemyBase = other.GetComponent<EnemyBase>();
             HP -= enemyBase.attackPower;
-            enemyBase.Die();
+            Destroy(other.gameObject);
+            GameManager.Inst.EnemySpawner.SetDel();
         }
 
         if (other.CompareTag("Rock"))
@@ -80,14 +81,7 @@ public class Castle : MonoBehaviour
     private void Awake()
     {
         hp = maxHP;
-        isGameOver += GameOver;             // 체력이 0이 되면 실행 될 함수 연결
-
     }
 
-    void GameOver()
-    {
-        SceneManager.LoadScene("GameOver");     // 게임 오버 씬 로드(씬 추가하면 삭제)
-        // SceneManager.LoadScene(sceneName);  // 게임 오버 씬 로드(씬 추가하면 사용)
-    }
 
 }

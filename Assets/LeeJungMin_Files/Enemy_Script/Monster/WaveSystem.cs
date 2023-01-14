@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class WaveSystem : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class WaveSystem : MonoBehaviour
 
     public int CurrentWave => currentWaveIndex + 1; // 시작이 0이기 때문에 +1
     public int MaxWave => waves.Length;
+
+    public Action onClear;
 
     private void Start()
     {
@@ -32,6 +35,8 @@ public class WaveSystem : MonoBehaviour
             {
                 GameManager.Inst.RewardPanel.Open(false);                
                 Debug.Log("마지막 웨이브");
+
+                onClear?.Invoke();
             }
         }
     }
