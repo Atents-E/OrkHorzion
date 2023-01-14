@@ -4938,19 +4938,19 @@ PrefabInstance:
       objectReference: {fileID: 602408310}
     - target: {fileID: 626603883, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: waves.Array.data[0].spawnTime
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 626603883, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: waves.Array.data[1].spawnTime
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 626603883, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: waves.Array.data[2].spawnTime
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 626603883, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: waves.Array.data[3].spawnTime
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1623589481961224424, guid: 887cb5094f05d0f4cbd7a7228a49e903, type: 3}
       propertyPath: m_Size.x
@@ -7141,7 +7141,7 @@ PrefabInstance:
       objectReference: {fileID: 602408310}
     - target: {fileID: 6234759193661973005, guid: bb22e3ed94e52ba4ab8aa04831ceb453, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234759194140545282, guid: bb22e3ed94e52ba4ab8aa04831ceb453, type: 3}
       propertyPath: m_Name
