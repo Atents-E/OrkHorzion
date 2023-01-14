@@ -25,6 +25,7 @@ public class Character : MonoBehaviour, IBattle, IHealth
     protected float criticalChance; // 캐릭터 치명타 확률
     protected float moveSpeed; // 캐릭터 이동속도
 
+    public int dieCount = 0;
     public bool isAlive = true;
 
     Animator anim;
@@ -126,12 +127,12 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     public virtual void Die()
     {
-            Debug.Log($"{gameObject.name}가 죽었습니다");
-            isAlive = false;
-            anim.SetBool("IsAlive", isAlive);   // 죽었다고 표시해서 사망 애니메이션 재생
-            onDie?.Invoke();
-            Invoke("Recover", 3f);
-
+        dieCount++;
+        Debug.Log($"{gameObject.name}가 죽었습니다");
+        isAlive = false;
+        anim.SetBool("IsAlive", isAlive);   // 죽었다고 표시해서 사망 애니메이션 재생
+        onDie?.Invoke();
+        Invoke("Recover", 3f);
     }
 
     public virtual void Recover()

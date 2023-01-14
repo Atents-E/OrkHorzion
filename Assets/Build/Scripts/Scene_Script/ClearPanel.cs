@@ -110,9 +110,12 @@ public class ClearPanel : MonoBehaviour
 
         // 죽은 횟수 찾고
         // 플레이가 죽은 걸 확인하는 순간을 
-        
-        // 처치한 적 찾아야 함 
+        Character player = GameManager.Inst.Character;
+        die_Text.text = ($"죽은 횟수 : {player.dieCount}");
 
+        // 처치한 적 찾아야 함 
+        EnemyBase enemy = GameManager.Inst.EnemyBase;
+        Kill_Text.text = ($"죽인 몬스터 수 : {enemy.dieCount}");
 
         time_Text.text = ($"플레이 시간 : {time}");
         gold_Text.text = ($" 돈 : {playerGold.nowGold}");

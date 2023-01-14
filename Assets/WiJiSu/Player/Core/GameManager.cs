@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     Canvas canvas;
     Castle castle;
 
+    EnemyBase enemyBase;
     EnemySpawner enemySpawner;
     WaveSystem waveSystem;
 
@@ -37,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     public Canvas Canvas => canvas;
     public Castle Castle => castle;
 
+    public EnemyBase EnemyBase => enemyBase;
     public EnemySpawner EnemySpawner => enemySpawner;
     public WaveSystem WaveSystem => waveSystem;
 
@@ -54,6 +56,7 @@ public class GameManager : Singleton<GameManager>
         playerGold = FindObjectOfType<PlayerGold>();
         canvas = FindObjectOfType<Canvas>();
         castle = FindObjectOfType<Castle>();
+        enemyBase = FindObjectOfType<EnemyBase>();
         enemySpawner = FindObjectOfType<EnemySpawner>();
         waveSystem = FindObjectOfType<WaveSystem>();
     }

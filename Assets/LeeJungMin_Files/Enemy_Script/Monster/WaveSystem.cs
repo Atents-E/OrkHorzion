@@ -31,7 +31,7 @@ public class WaveSystem : MonoBehaviour
             // EnemySpawner의 StartWave()함수 호출. 현재 웨이브 정보 제공
             enemyspawner.StartWave(waves[currentWaveIndex]); 
 
-            if(currentWaveIndex >= 2)
+            if(currentWaveIndex > waves.Length - 1)
             {
                 GameManager.Inst.RewardPanel.Open(false);                
                 Debug.Log("마지막 웨이브");

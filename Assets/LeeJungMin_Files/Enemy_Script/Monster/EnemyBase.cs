@@ -23,6 +23,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     public float monsterMaxHp = 1000.0f;          // 몬스터 최대 HP
 
     public int gold;
+    public int dieCount = 0;
 
     protected Transform playerTarget = null;      // 플레이어가 없다
 
@@ -174,6 +175,7 @@ public class EnemyBase : MonoBehaviour, IBattle, IHealth
     /// </summary>
     public void Die()
     {
+        dieCount++;
         looktargetOn = false;
         playerTarget = null;
         onDie?.Invoke();
