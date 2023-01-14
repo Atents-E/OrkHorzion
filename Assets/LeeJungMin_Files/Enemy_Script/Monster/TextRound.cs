@@ -13,7 +13,6 @@ public class TextRound : MonoBehaviour
     private void Update()
     {
         textRoundCount.text = $"Round {wave.CurrentWave} / {wave.MaxWave}";
-        Debug.Log(wave.CurrentWave);
     }
 
 }
