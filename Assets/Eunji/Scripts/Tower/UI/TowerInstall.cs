@@ -106,7 +106,7 @@ public class TowerInstall : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
                 GameObject ground = hit.collider.gameObject;        // 충돌한 지점의 오브젝트를 찾아서
                 Vector3 creatPos = ground.transform.position;       // 찾은 오브젝트의 피벗을 중점으로 위치값 변경(오브젝트의 중간에 오도록)
                 creatPos.x += 1;
-                creatPos.y = 0;
+                creatPos.y += 1.8f;
                 creatPos.z -= 1;
 
                 Instantiate(towerPrefab, creatPos, transform.rotation);
