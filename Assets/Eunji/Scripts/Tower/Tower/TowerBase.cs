@@ -37,7 +37,8 @@ public class TowerBase : MonoBehaviour
     
     Transform childPos;                     // 발사각 확인 할 위치
 
-    protected List<Transform> enemys;       // 몬스터 리스트
+    protected GameObject enemy;
+    //protected List<Transform> enemys;       // 몬스터 리스트
 
     protected virtual void Awake()
     {
@@ -47,7 +48,7 @@ public class TowerBase : MonoBehaviour
 
         towerChoose.color = Color.clear;
 
-        enemys = new List<Transform>();
+        //enemys = new List<Transform>();
     }
 
     /// <summary>
@@ -75,10 +76,12 @@ public class TowerBase : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            enemy = other.gameObject;
+
             //StartCoroutine(AttackToTarget());
             //attackTarget = other.transform;            
             //isFire = true;
-            enemys.Add(other.transform);
+            //enemys.Add(other.transform);
         }
     }
 
@@ -90,9 +93,11 @@ public class TowerBase : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            enemy = other.gameObject;
+            enemy = null;
             //StartCoroutine(SearchTarget());
             //isFire = false;
-            enemys.Remove(other.transform);
+            // enemys.Remove(other.transform);
         }
     }
 
@@ -101,21 +106,23 @@ public class TowerBase : MonoBehaviour
     /// </summary>
     protected void LookTarget()   // 타겟을 보도록 회전
     {
-        if (enemys != null)     // 타겟이 있다면,
+        if (enemy != null)     // 타겟이 있다면,
         {
             Attack(true);
-            float closestDistSqr = 10.0f;
+            attackTarget = enemy.transform;
 
-            for (int i = 0; i < enemys.Count; i++)
-            {
-                float distance = Vector3.Distance(enemys[i].transform.position, transform.position);
-                if (distance <= sightRange && distance <= closestDistSqr)
-                {
-                    closestDistSqr = distance;
-                    attackTarget = enemys[i].transform;
-                }
+            //float closestDistSqr = 10.0f;
 
-                if (attackTarget != null)
+            //for (int i = 0; i < enemys.Count; i++)
+            //{
+            //float distance = Vector3.Distance(enemys[i].transform.position, transform.position);
+            //if (distance <= sightRange && distance <= closestDistSqr)
+            //{
+            //    closestDistSqr = distance;
+            //    attackTarget = enemys[i].transform;
+            //}
+
+            if (attackTarget != null)
                 {
                     // 각도를 사용하는 경우(등속도로 회전)
                     Vector3 shotToMonsterDir = attackTarget.transform.position - childPos.position;  // 방향(타워)에서 적의 위치로 가는 방향 벡터 계산
@@ -147,7 +154,7 @@ public class TowerBase : MonoBehaviour
                         resultDir = shotToMonsterDir;
                     }
                     childPos.transform.rotation = Quaternion.LookRotation(resultDir);
-                }
+                //}
             }
         }
     }
@@ -159,6 +166,7 @@ public class TowerBase : MonoBehaviour
     protected virtual void Attack()     // 확인하고, virtual 삭제 예정
     {
         coolTime += Time.deltaTime;                 // 쿨타임에 시간 더하고,
+        attackTarget = enemy.transform;
 
         if (attackTarget != null && coolTime > fireInterval)   // 적도 있고, 쿨타임이 차면
         {
@@ -202,7 +210,6 @@ public class TowerBase : MonoBehaviour
         float returnGold = price * 0.8f;
 
         playerGold.NowGold += Mathf.FloorToInt(returnGold);
-        // 위에 코드에서 타워가 삭제될수록 NowGold에 반환되는 금액이 축척되는 문제가 발생..
 
         Destroy(transform.gameObject);
     }

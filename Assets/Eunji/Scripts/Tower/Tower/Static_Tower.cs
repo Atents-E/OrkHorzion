@@ -17,7 +17,7 @@ public class Static_Tower : TowerBase
     {
         BulletPrefabPos = transform.GetChild(0);            // 투사체 생성 위치
 
-        enemys = new List<Transform>();
+        //enemys = new List<Transform>();
     }
 
     protected override void Update()
@@ -27,11 +27,15 @@ public class Static_Tower : TowerBase
 
     void StaticAttack()
     {
-        for (int i = 0; i < enemys.Count; i++)
+        if(enemy != null)
         {
-            attackTarget = enemys[i].transform;
             Attack();
         }
+        //for (int i = 0; i < enemys.Count; i++)
+        //{
+        //    attackTarget = enemys[i].transform;
+        //    Attack();
+        //}
     }
 
     protected override void OnDrawGizmosSelected() // 기즈모

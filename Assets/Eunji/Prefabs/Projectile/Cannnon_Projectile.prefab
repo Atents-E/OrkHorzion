@@ -9748,9 +9748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122bb0e132952ed4298f35299da0546a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 10
+  attackPower: 100
   speed: 5
   lifeTime: 5
+  reduceSpeed: 0
+  reduceAttack: 0
+  holdTiem: 0
 --- !u!54 &1546563665
 Rigidbody:
   m_ObjectHideFlags: 0

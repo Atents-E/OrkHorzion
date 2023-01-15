@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3498793020980507801, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3498793021030361845, guid: 5070fe1e53c21394588f87c3a0f30b32, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -894,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7756156823203258836, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7756156823203258837, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: m_Pivot.x
@@ -983,15 +983,15 @@ PrefabInstance:
     - target: {fileID: 8141623956014149127, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: towerPrefab
       value: 
-      objectReference: {fileID: 3326490668876182071, guid: 3cc120df1ddf4fd4a8f21e5024ed7bd7, type: 3}
+      objectReference: {fileID: 5490125253788678494, guid: 74b98628c9e40084bae70f0e143735bc, type: 3}
     - target: {fileID: 8141623956644821133, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: towerPrefab
       value: 
-      objectReference: {fileID: 4514088052916078816, guid: cea8ac8a2de36024d8a2d63a6ca938c3, type: 3}
+      objectReference: {fileID: 22246304345306220, guid: c2652e88a4c2cb64fa1849db8866e147, type: 3}
     - target: {fileID: 8141623957793493459, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
       propertyPath: towerPrefab
       value: 
-      objectReference: {fileID: 9019080477538201111, guid: 0b3ced19e70363f4f99fa76eaa265b1b, type: 3}
+      objectReference: {fileID: 1889817555266600315, guid: 6775ec77627491145bc19c7513b296d2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb5e1ff9d3285994b801e78c94bba1e3, type: 3}
 --- !u!224 &6234759193661973004 stripped

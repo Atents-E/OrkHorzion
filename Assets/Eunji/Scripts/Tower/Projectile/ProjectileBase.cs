@@ -16,15 +16,15 @@ using System;
 
 public class ProjectileBase : MonoBehaviour
 {
-    protected float attackPower = 10.0f;        // 투사체 공격력
-    protected float speed = 2.0f;               // 투사체 속도
-    protected float lifeTime = 2.0f;            // 투사체 유지 시간
+    public float attackPower = 100.0f;        // 투사체 공격력
+    public float speed = 2.0f;               // 투사체 속도
+    public float lifeTime = 2.0f;            // 투사체 유지 시간
 
-    protected float reduceSpeed = 0.003f;       // 감속 시키는 스피드
-    protected float reduceAttack = 0.003f;      // 감속 시키는 공격력
-    protected float holdTiem = 5.0f;            // 감속 시간 
+    public float reduceSpeed = 0.003f;       // 감속 시키는 스피드
+    public float reduceAttack = 0.003f;      // 감속 시키는 공격력
+    public float holdTiem = 5.0f;            // 감속 시간 
 
-    protected MonsterBase monster;                // 적
+    protected EnemyBase enemy;                // 적
 
 
     protected virtual void Awake()
@@ -37,19 +37,9 @@ public class ProjectileBase : MonoBehaviour
         transform.Translate(speed * Time.deltaTime * transform.forward, Space.World);
     }
 
-    //// 01.12 정민님 코드(인터페이스 사용)
-    //protected virtual void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
-    //    {
-    //        IBattle target = other.gameObject.GetComponent<IBattle>();
-    //        Attack(target);
-
-
-    //        Destroy(this.gameObject); // 적과 충돌하면 발사체 삭제
-    //    }
-    //}
     IBattle target;
+
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))   // 충돌이 Enemy와 일어났다면
@@ -58,35 +48,35 @@ public class ProjectileBase : MonoBehaviour
             //monster = other.GetComponent<MonsterBase>();
             target = other.gameObject.GetComponent<IBattle>();
 
-            target.Attack(target);
+            target.TakeDamage(attackPower);
 
-            // 2. 발사체 삭제S
+            // 2. 발사체 삭제
             Destroy(this.gameObject);
         }
     }
 
-    /// <summary>
-    /// 체력 감소
-    /// </summary>
-    protected void Damage()
-    {
-        // 몬스터가 있으면
-        if (monster != null)
-        {
-            // 몬스터 체력을 지역 변수로 선언
-            float MonsterHp = monster.MonsterHp;
+    ///// <summary>
+    ///// 체력 감소
+    ///// </summary>
+    //protected void Damage()
+    //{
+    //    // 몬스터가 있으면
+    //    if (monster != null)
+    //    {
+    //        // 몬스터 체력을 지역 변수로 선언
+    //        float MonsterHp = monster.MonsterHp;
             
-            if (MonsterHp > 0)
-            {
-                MonsterHp -= attackPower;
-                if (MonsterHp < 0)
-                {
-                    MonsterHp = 0;
-                }
-            }
-            Debug.Log($"몬스터의 현재 체력 : {MonsterHp}");
-        }
-    }
+    //        if (MonsterHp > 0)
+    //        {
+    //            MonsterHp -= attackPower;
+    //            if (MonsterHp < 0)
+    //            {
+    //                MonsterHp = 0;
+    //            }
+    //        }
+    //        Debug.Log($"몬스터의 현재 체력 : {MonsterHp}");
+    //    }
+    //}
 
     /// <summary>
     /// 디버프 효과
@@ -94,27 +84,27 @@ public class ProjectileBase : MonoBehaviour
     protected void Debuff()
     {
         // 몬스터가 있으면
-        if(monster != null)
+        if(enemy != null)
         {
-            // 몬스터의 처음 이속, 공속을 저장
-            float currentSpeed = monster.speed;
-            float currentAttackSpeed = monster.attackSpeed;
+            //// 몬스터의 처음 이속, 공속을 저장
+            //float currentSpeed = enemy.speed;
+            //float currentAttackSpeed = enemy.attackSpeed;
 
-            if (IsDebuffTime())  // 감속 유지 시간 동안 이속 공속 감속
-            {
-                // Monster의 이속과 공속 감소
-                monster.speed -= reduceSpeed;
-                monster.attackSpeed -= reduceAttack;
+            //if (IsDebuffTime())  // 감속 유지 시간 동안 이속 공속 감속
+            //{
+            //    // Monster의 이속과 공속 감소
+            //    enemy.speed -= reduceSpeed;
+            //    enemy.attackSpeed -= reduceAttack;
                 
-                Debug.Log($" 이속 저하. 현재 이도  : {monster.speed}");
-                Debug.Log($" 공속 저하. 현재 공도: {monster.attackSpeed}");
-            }
-            else
-            {
-                // 시간이 끝나면 몬스터의 이속과 공속 원상복구
-                monster.speed = currentSpeed;
-                monster.attackSpeed = currentAttackSpeed;
-            }
+            //    Debug.Log($" 이속 저하. 현재 이도  : {enemy.speed}");
+            //    Debug.Log($" 공속 저하. 현재 공도: {enemy.attackSpeed}");
+            //}
+            //else
+            //{
+            //    // 시간이 끝나면 몬스터의 이속과 공속 원상복구
+            //    enemy.speed = currentSpeed;
+            //    enemy.attackSpeed = currentAttackSpeed;
+            //}
         }
     }
 
@@ -139,4 +129,5 @@ public class ProjectileBase : MonoBehaviour
 
         return holdTime;
     }
+
 }
