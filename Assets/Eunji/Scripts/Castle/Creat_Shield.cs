@@ -51,18 +51,34 @@ public class Creat_Shield : MonoBehaviour
 
     void ShieldChange()
     {
-        if (playerGold.nowGold > shield.price)
+        // 돈이 있다 
+        if (playerGold.nowGold > shield.price )
         {
-            playerGold.NowGold -= shield.price;
-            Debug.Log($"현재 금액 {playerGold.NowGold}");
+            // 실드가 있다 없다
             if (isExist)
             {
-                shield.shildHP = shield.maxHP;
-                StartCoroutine(overlap());
+                // 체력을 확인했는데 풀이 아니다
+                if( shield.shildHP != shield.maxHP)
+                {
+                    // 돈 빼고,
+                    playerGold.NowGold -= shield.price;
+                    // 충전
+                    shield.shildHP = shield.maxHP;
+                    // 중첩 표시
+                    StartCoroutine(overlap());
+                }
+                else
+                {
+                    // 체력이 이미 다 있다는거 알림
+                }
             }
             else
             {
+                // 돈 빼고,
+                playerGold.NowGold -= shield.price;
+                // 실드 활성화
                 shield.gameObject.SetActive(true);
+                // 실드 여부 true로 변경
                 isExist = true;
             }
         }

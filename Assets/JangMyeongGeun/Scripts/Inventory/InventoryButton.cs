@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventoryButton : MonoBehaviour
 {
     InventoryUI invenUI;
+    TowerMenuPanel towerMenuPanel;
     Button button;
 
     private void Awake()
@@ -16,6 +17,7 @@ public class InventoryButton : MonoBehaviour
     void Start()
     {
         invenUI = GameManager.Inst.InventoryUI;
+        towerMenuPanel = GameManager.Inst.TowerMenuPanel;
         button.onClick.AddListener(() => InventoryOpenClose(invenUI.IsOpen));
     }
     private void InventoryOpenClose(bool isOpen)
@@ -28,5 +30,10 @@ public class InventoryButton : MonoBehaviour
         {
             invenUI.Open();
         }
+        if (towerMenuPanel.IsOpen)
+        {
+            towerMenuPanel.InventoryOpenClose(towerMenuPanel.IsOpen);
+        }
+
     }
 }

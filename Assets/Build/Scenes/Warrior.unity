@@ -6296,6 +6296,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textRoundCount: {fileID: 1661915188}
   wave: {fileID: 1210323285}
+--- !u!1 &1805256688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6234759193661973005, guid: bb22e3ed94e52ba4ab8aa04831ceb453, type: 3}
+  m_PrefabInstance: {fileID: 1940332590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1805256693
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805256688}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1811895378
 PrefabInstance:
   m_ObjectHideFlags: 0

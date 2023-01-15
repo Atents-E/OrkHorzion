@@ -30,11 +30,6 @@ public class CanvasTower : MonoBehaviour
     TowerBase thisTower;
 
     /// <summary>
-    /// 타워를 선택하면 표시 될 스프라이트 랜더러
-    /// </summary>
-    SpriteRenderer towerChoose;
-
-    /// <summary>
     /// 인풋 시스템
     /// </summary>
     TowerInputActions inputActions;
@@ -85,18 +80,6 @@ public class CanvasTower : MonoBehaviour
 
             // 3. 해당 타워 찾기
             thisTower = hit.collider.gameObject.GetComponent<TowerBase>();
-
-            // 선택 타워 알려주기
-            towerChoose = thisTower.towerChoose;
-            StartCoroutine(TowerChose());
         }
     }
-
-    IEnumerator TowerChose()
-    {
-        towerChoose.color = Color.green;
-        yield return new WaitForSeconds(0.5f);
-        towerChoose.color = Color.clear;
-    }
-
 }
