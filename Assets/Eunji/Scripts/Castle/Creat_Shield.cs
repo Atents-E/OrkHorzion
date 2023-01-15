@@ -33,19 +33,18 @@ public class Creat_Shield : MonoBehaviour
 
     WaitForSeconds showTime = new WaitForSeconds(0.7f);
 
-
-    private void Start()
+    private void Awake()
     {
         button = GetComponentInChildren<Button>();
         warningText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         priceText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    }
 
+    private void Start()
+    {
         castle = GameManager.Inst.Castle;
         playerGold = GameManager.Inst.PlayerGold;
-        shield = castle.transform.GetComponentInChildren<Shield>();
-
-        priceText.text =
-            $"{shield.price}";
+        shield = castle.transform.GetChild(0).GetComponent<Shield>();
 
         button.onClick.AddListener(ShieldChange);
     }
