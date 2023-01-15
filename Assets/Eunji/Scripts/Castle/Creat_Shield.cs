@@ -33,37 +33,52 @@ public class Creat_Shield : MonoBehaviour
 
     WaitForSeconds showTime = new WaitForSeconds(0.7f);
 
-
-    private void Start()
+    private void Awake()
     {
         button = GetComponentInChildren<Button>();
         warningText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         priceText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    }
 
+    private void Start()
+    {
         castle = GameManager.Inst.Castle;
         playerGold = GameManager.Inst.PlayerGold;
-        shield = castle.transform.GetComponentInChildren<Shield>();
-
-        priceText.text =
-            $"{shield.price}";
+        shield = castle.transform.GetChild(0).GetComponent<Shield>();
 
         button.onClick.AddListener(ShieldChange);
     }
 
     void ShieldChange()
     {
-        if (playerGold.nowGold > shield.price)
+        // 돈이 있다 
+        if (playerGold.nowGold > shield.price )
         {
-            playerGold.NowGold -= shield.price;
-            Debug.Log($"현재 금액 {playerGold.NowGold}");
+            // 실드가 있다 없다
             if (isExist)
             {
-                shield.shildHP = shield.maxHP;
-                StartCoroutine(overlap());
+                // 체력을 확인했는데 풀이 아니다
+                if( shield.shildHP != shield.maxHP)
+                {
+                    // 돈 빼고,
+                    playerGold.NowGold -= shield.price;
+                    // 충전
+                    shield.shildHP = shield.maxHP;
+                    // 중첩 표시
+                    StartCoroutine(overlap());
+                }
+                else
+                {
+                    // 체력이 이미 다 있다는거 알림
+                }
             }
             else
             {
+                // 돈 빼고,
+                playerGold.NowGold -= shield.price;
+                // 실드 활성화
                 shield.gameObject.SetActive(true);
+                // 실드 여부 true로 변경
                 isExist = true;
             }
         }

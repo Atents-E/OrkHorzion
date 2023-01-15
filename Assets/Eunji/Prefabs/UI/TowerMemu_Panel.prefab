@@ -751,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4018994654855979167, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4018994654855979167, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -804,6 +804,14 @@ PrefabInstance:
     - target: {fileID: 4018994654855979167, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766885368566667550, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766885368566667550, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 907b22dfc88d530458a9658012bd510f, type: 3}
@@ -936,7 +944,7 @@ PrefabInstance:
     - target: {fileID: 1972502227776337423, guid: af3a1e78e560bb24a9cfedc2b030cb61, type: 3}
       propertyPath: towerPrefab
       value: 
-      objectReference: {fileID: 5490125253788678494, guid: 74b98628c9e40084bae70f0e143735bc, type: 3}
+      objectReference: {fileID: 1889817555266600315, guid: 6775ec77627491145bc19c7513b296d2, type: 3}
     - target: {fileID: 8068105651587793184, guid: af3a1e78e560bb24a9cfedc2b030cb61, type: 3}
       propertyPath: m_Type
       value: 3

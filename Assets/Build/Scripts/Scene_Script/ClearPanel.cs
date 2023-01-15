@@ -18,17 +18,8 @@ public class ClearPanel : MonoBehaviour
     /// </summary>
     float time = 0;
 
-    /// <summary>
-    /// 플레이어가 최종적으로 들고 있는 돈
-    /// </summary>
-    int gold = 0;
 
-    /// <summary>
-    /// 플레이어가 죽은 횟수
-    /// </summary>
-    int dieCount = 0;
-
-    bool isPlay = true;
+    // bool isPlay = true;
 
     /// <summary>
     /// 게임 재시작 버튼
@@ -76,7 +67,7 @@ public class ClearPanel : MonoBehaviour
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
-        isPlay = false;
+        // isPlay = false;
 
         RefreshText();
     }
@@ -96,16 +87,11 @@ public class ClearPanel : MonoBehaviour
     void RefreshText()
     {
         PlayerGold playerGold = GameManager.Inst.PlayerGold;
-
-        // 죽은 횟수 찾고
-        // 플레이가 죽은 걸 확인하는 순간을 
         Character player = GameManager.Inst.Character;
-        die_Text.text = $"Player Die : {player.dieCount}";
 
         time_Text.text = $"Play Time : {time:f0} Sec";
+        die_Text.text = $"Player Die : {player.dieCount}";
         gold_Text.text = $"Gold : {playerGold.nowGold}";
-        // die_Text.text = ($"죽은 횟수 : {}");
-        // Kill_Text.text = ($"처치한 적 : {}");
     }
 
     public void TimerStart()
