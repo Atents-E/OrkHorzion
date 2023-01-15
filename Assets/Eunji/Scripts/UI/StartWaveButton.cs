@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StartWaveButton : MonoBehaviour
 {
     CanvasGroup canvasGroup;
-    WaveSystem waveSystem;
+    Button button;
 
 
     private void Awake()
@@ -16,9 +16,8 @@ public class StartWaveButton : MonoBehaviour
 
     void Start()
     {
-        waveSystem = GameManager.Inst.WaveSystem;
-
-        waveSystem.onWaveStart += Close;
+        button = GetComponent<Button>();
+        button.onClick.AddListener(Close);
     }
 
     void Open()

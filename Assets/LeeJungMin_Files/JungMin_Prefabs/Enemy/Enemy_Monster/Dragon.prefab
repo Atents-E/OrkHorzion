@@ -2188,7 +2188,7 @@ MonoBehaviour:
   attackPower: 10
   defencePower: 0
   monsterHp: 100
-  monsterMaxHp: 5000
+  monsterMaxHp: 10000
   gold: 500
   dieCount: 0
   damageTextPos: {fileID: 1095136622832880659}

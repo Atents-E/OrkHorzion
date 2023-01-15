@@ -180,12 +180,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e578606585135614a85cfef654d13438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 50
+  attackPower: 150
   speed: 3
   lifeTime: 3
   reduceSpeed: 0
   reduceAttack: 0
-  holdTiem: 0
+  holdTime: 5
 --- !u!65 &8135168947101881726
 BoxCollider:
   m_ObjectHideFlags: 0
