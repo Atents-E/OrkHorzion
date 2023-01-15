@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42842aa3777f4714e9042090a31554b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPower: 0
+  attackPower: 77
   speed: 3
   lifeTime: 3
   reduceSpeed: 10
   reduceAttack: 10
-  holdTiem: 3
+  holdTime: 5
 --- !u!54 &-7672042261352309286
 Rigidbody:
   m_ObjectHideFlags: 0

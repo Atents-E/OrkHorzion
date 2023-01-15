@@ -22,13 +22,15 @@ public class ProjectileBase : MonoBehaviour
 
     public float reduceSpeed = 0.003f;       // 감속 시키는 스피드
     public float reduceAttack = 0.003f;      // 감속 시키는 공격력
-    public float holdTiem = 5.0f;            // 감속 시간 
+    public float holdTime = 5.0f;            // 감속 시간 
+    protected float currentAttackSpeed;
 
     protected EnemyBase enemy;                // 적
-
+    DamageText enemyAttackSpeed;
 
     protected virtual void Awake()
     {
+
         Destroy(this.gameObject, lifeTime);         // 생성되면 lifeTime 뒤에 삭제
     }
 
@@ -49,6 +51,10 @@ public class ProjectileBase : MonoBehaviour
             target = other.gameObject.GetComponent<IBattle>();
 
             target.TakeDamage(attackPower);
+
+
+            //enemyAttackSpeed = enemy.GetComponent<DamageText>();
+            //currentAttackSpeed = enemyAttackSpeed.moveSpeed;
 
             // 2. 발사체 삭제
             Destroy(this.gameObject);
@@ -86,25 +92,7 @@ public class ProjectileBase : MonoBehaviour
         // 몬스터가 있으면
         if(enemy != null)
         {
-            //// 몬스터의 처음 이속, 공속을 저장
-            //float currentSpeed = enemy.speed;
-            //float currentAttackSpeed = enemy.attackSpeed;
-
-            //if (IsDebuffTime())  // 감속 유지 시간 동안 이속 공속 감속
-            //{
-            //    // Monster의 이속과 공속 감소
-            //    enemy.speed -= reduceSpeed;
-            //    enemy.attackSpeed -= reduceAttack;
-                
-            //    Debug.Log($" 이속 저하. 현재 이도  : {enemy.speed}");
-            //    Debug.Log($" 공속 저하. 현재 공도: {enemy.attackSpeed}");
-            //}
-            //else
-            //{
-            //    // 시간이 끝나면 몬스터의 이속과 공속 원상복구
-            //    enemy.speed = currentSpeed;
-            //    enemy.attackSpeed = currentAttackSpeed;
-            //}
+            StartCoroutine(IsEdbuffTime());
         }
     }
 
@@ -112,22 +100,13 @@ public class ProjectileBase : MonoBehaviour
     /// <summary>
     /// 유지 시간 확인
     /// </summary>
-    /// <returns>true면 공격이 지속되고, flase면 끝</returns>
-    bool IsDebuffTime()
+    IEnumerator IsEdbuffTime()
     {
-        // 감속시간이 아니다
-        bool holdTime = false;
+        enemyAttackSpeed.moveSpeed -= reduceSpeed;
+        yield return new WaitForSeconds(holdTime);
 
-        for(int i = 0; i < holdTiem; i++)     // 감속 시간
-        {
-            // 감속 유지
-            holdTime = true;
-
-            // 감속시간이 시간에 따라 줄어듬
-            holdTiem -= Time.deltaTime;
-        }
-
-        return holdTime;
+        enemyAttackSpeed.moveSpeed -= reduceSpeed;
+        yield return null;
     }
 
 }

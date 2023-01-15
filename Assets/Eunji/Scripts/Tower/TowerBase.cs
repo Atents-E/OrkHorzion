@@ -197,7 +197,8 @@ public class TowerBase : MonoBehaviour
     /// </summary>
     void Fire()
     {
-        GameObject obj = Instantiate(projectile, BulletPrefabPos);
+        GameObject obj = Instantiate(projectile,
+            BulletPrefabPos);
         obj.transform.SetParent(transform);
     }
 
