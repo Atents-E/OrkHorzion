@@ -328,6 +328,7 @@ public class RewardPanel : MonoBehaviour
             Debug.Log(selectCount);
         }
         RewardDescription();
+
     }
 
     private int SearchPanelIndex(ItemPanel itemPanel)

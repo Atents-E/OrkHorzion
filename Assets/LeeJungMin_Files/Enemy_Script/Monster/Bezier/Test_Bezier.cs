@@ -34,7 +34,7 @@ public class Test_Bezier : MonoBehaviour
         }
     }
 
-    // 3Â÷¿ø °î¼±
+    // 3ì°¨ì› ê³¡ì„ 
     public Vector3 BezierTest(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float value)
     {
         Vector3 A = Vector3.Lerp(P_1, P_2, value);
@@ -48,7 +48,7 @@ public class Test_Bezier : MonoBehaviour
         return F;
     }
 
-    // 2Â÷¿ø °î¼±
+    // 2ì°¨ì› ê³¡ì„ 
     public Vector3 BezierTest2(Vector3 P_1, Vector3 P_2, Vector3 P_3, float value)
     {
         Vector3 A = Vector3.Lerp(P_1, P_2, value);
@@ -60,6 +60,7 @@ public class Test_Bezier : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CanEditMultipleObjects]
 [CustomEditor(typeof(Test_Bezier))]
 public class Test2_Bezier : Editor
@@ -90,3 +91,4 @@ public class Test2_Bezier : Editor
     }
 
 }
+#endif

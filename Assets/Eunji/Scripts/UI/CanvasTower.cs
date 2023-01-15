@@ -20,9 +20,19 @@ public class CanvasTower : MonoBehaviour
     GameObject button_OK;
 
     /// <summary>
+    /// 삭제 확인 버튼
+    /// </summary>
+    GameObject button_NO;
+
+    /// <summary>
     /// ok버튼
     /// </summary>
     Button okButton;
+
+    /// <summary>
+    /// no버튼
+    /// </summary>
+    Button noButton;
 
     /// <summary>
     /// 선택한 타워
@@ -37,12 +47,16 @@ public class CanvasTower : MonoBehaviour
     private void Awake()
     {
         deletePanel = transform.GetChild(2).gameObject;
+        button_NO = transform.GetChild(2).GetChild(1).gameObject;
         button_OK = transform.GetChild(2).GetChild(2).gameObject;
         deletePanel.SetActive(false);
 
+        noButton = button_NO.GetComponentInChildren<Button>();
         okButton = button_OK.GetComponentInChildren<Button>();
+
         okButton.onClick.AddListener(() => thisTower.DeleteTower());
         okButton.onClick.AddListener(() => deletePanel.SetActive(false));
+        noButton.onClick.AddListener(() => deletePanel.SetActive(false));
 
         inputActions = new TowerInputActions();
     }

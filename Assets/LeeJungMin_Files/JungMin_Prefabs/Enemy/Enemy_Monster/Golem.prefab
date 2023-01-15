@@ -186,7 +186,8 @@ MonoBehaviour:
   defencePower: 0
   monsterHp: 100
   monsterMaxHp: 3000
-  gold: 100
+  gold: 200
+  dieCount: 0
   damageTextPos: {fileID: 8789956200388816565}
   damageTextPrefab: {fileID: 4265464385521353265, guid: 1bba39343326a3d448e55ab119b12031, type: 3}
   Rock: {fileID: 5358043002808634617, guid: 72d80d070e756c84cac1429825353eff, type: 3}

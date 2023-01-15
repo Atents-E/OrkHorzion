@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using JetBrains.Annotations;
 
 public class WaveSystem : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class WaveSystem : MonoBehaviour
 
     public Action onClear;
 
+    public Action onWaveStart;
+
     private void Start()
     {
         GameManager.Inst.RewardPanel.onSelect += StartWave;       
@@ -30,6 +33,7 @@ public class WaveSystem : MonoBehaviour
     {
         if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length -1)
         {
+            onWaveStart?.Invoke();
             // 인덱스의 시작이 -1이기 때문에 웨이브 인덱스 증가를 제일 먼저 함
             currentWaveIndex++;
             // EnemySpawner의 StartWave()함수 호출. 현재 웨이브 정보 제공
