@@ -18,7 +18,7 @@ MonoBehaviour:
   itemName: "\uC720\uB839\uC758 \uAC80"
   itemIcon: {fileID: 2036158569, guid: 2019903a35100a74ca086efb15d5c93f, type: 3}
   description: "\uCD94\uAC00 \uACF5\uACA9\uB825 +30\n(\uC911\uCCA9\uBD88\uAC00)"
-  maxStackCount: 3
+  maxStackCount: 1
   atkBonus: 0
   otherAtkBonus: 30
   criticalBonus: 0
