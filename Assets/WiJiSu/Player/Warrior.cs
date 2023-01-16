@@ -71,7 +71,6 @@ public class Warrior : Character
     public override void Die()
     {
         base.Die();
-        inven.DecreaseSlot(1);
         inven.PlayerRemoveItem();
     } 
     
