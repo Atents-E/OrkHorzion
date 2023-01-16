@@ -285,6 +285,10 @@ public class Inventory
         {
             for (int i = 0; i < amount; i++)
             {
+                if (!slots[slotEndIndex].IsEmpty)
+                {
+                    onSubSlotItemEffect?.Invoke(slots[slotEndIndex].ItemData, slots[slotEndIndex].ItemCount);
+                }
                 slots.RemoveAt(slotEndIndex);
                 slotEndIndex--;
             }
@@ -296,6 +300,10 @@ public class Inventory
             {
                 if (SlotCount != currentInventorySize)
                 {
+                    if (!slots[slotEndIndex].IsEmpty)
+                    {
+                        onSubSlotItemEffect?.Invoke(slots[slotEndIndex].ItemData, slots[slotEndIndex].ItemCount);
+                    }
                     slots.RemoveAt(slotEndIndex);
                     slotEndIndex--;
                 }
