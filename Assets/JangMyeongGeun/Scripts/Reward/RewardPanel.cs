@@ -120,8 +120,6 @@ public class RewardPanel : MonoBehaviour
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        inventory.IncreaseSlot();
-        SetReward();
     }
 
     bool a;

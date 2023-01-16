@@ -277,7 +277,7 @@ public class Inventory
     /// <summary>
     /// 슬롯을 제거하는 함수
     /// </summary>
-    /// <param name="amount">추가할 크기, 기본값은 1</param>
+    /// <param name="amount">제거할 크기, 기본값은 1</param>
     public void DecreaseSlot(int amount = 1)
     {
         int slotEndIndex = SlotCount - 1;
@@ -285,6 +285,12 @@ public class Inventory
         {
             for (int i = 0; i < amount; i++)
             {
+                //
+                if (!slots[slotEndIndex].IsEmpty)
+                {
+                    onSubSlotItemEffect?.Invoke(slots[slotEndIndex].ItemData, slots[slotEndIndex].ItemCount);
+                }
+                //
                 slots.RemoveAt(slotEndIndex);
                 slotEndIndex--;
             }
@@ -296,6 +302,12 @@ public class Inventory
             {
                 if (SlotCount != currentInventorySize)
                 {
+                    //
+                    if (!slots[slotEndIndex].IsEmpty)
+                    {
+                        onSubSlotItemEffect?.Invoke(slots[slotEndIndex].ItemData, slots[slotEndIndex].ItemCount);
+                    }
+                    //
                     slots.RemoveAt(slotEndIndex);
                     slotEndIndex--;
                 }
