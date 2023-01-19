@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &45269766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1420,6 +1420,10 @@ PrefabInstance:
     - target: {fileID: 4812183295958929369, guid: 434351460cf7f58458627ea2ba12abd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6688846580942100366, guid: 434351460cf7f58458627ea2ba12abd1, type: 3}
+      propertyPath: warrior_default_MaxHp
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6688846580942100371, guid: 434351460cf7f58458627ea2ba12abd1, type: 3}
       propertyPath: m_RootOrder
@@ -3505,7 +3509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1794393015
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4078,7 +4082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1918436104
 RectTransform:
   m_ObjectHideFlags: 0
