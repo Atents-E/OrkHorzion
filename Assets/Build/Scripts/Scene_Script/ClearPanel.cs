@@ -51,8 +51,7 @@ public class ClearPanel : MonoBehaviour
 
     private void Start()
     {
-        WaveSystem StartWave = GameManager.Inst.WaveSystem;
-        StartWave.onClear += Open;
+
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class ClearPanel : MonoBehaviour
     }
 
 
-    void Open()
+    public void Open()
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;

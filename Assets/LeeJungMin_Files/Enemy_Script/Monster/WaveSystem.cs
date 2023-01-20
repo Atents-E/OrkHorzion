@@ -21,15 +21,15 @@ public class WaveSystem : MonoBehaviour
     private void Start()
     {
         GameManager.Inst.RewardPanel.onSelect += StartWave;       
-        enemyspawner.onSpawnDragon += (dragon) => {
-            GameObject dg = dragon;
-            StartCoroutine(dragonDie(dg)) ;
-            };
+        //enemyspawner.onSpawnDragon += (dragon) => {
+        //    GameObject dg = dragon;
+        //    StartCoroutine(dragonDie(dg)) ;
+        //    };
     }
 
     public void StartWave()
     {
-        if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length -1)
+        if (!enemyspawner.IsPlaying  && currentWaveIndex < waves.Length)
         {
             // 인덱스의 시작이 -1이기 때문에 웨이브 인덱스 증가를 제일 먼저 함
             currentWaveIndex++;
@@ -38,26 +38,26 @@ public class WaveSystem : MonoBehaviour
         }
     }
 
-    private void LastRoundEnd()
-    {
-        GameManager.Inst.RewardPanel.Open(false);
-        Debug.Log("마지막 웨이브");
+    //private void LastRoundEnd()
+    //{
+    //    GameManager.Inst.RewardPanel.Open(false);
+    //    Debug.Log("마지막 웨이브");
 
-        onClear?.Invoke();
-    }
+    //    onClear?.Invoke();
+    //}
 
-    IEnumerator dragonDie(GameObject dragon)
-    {
-        while (true)
-        {
-            if (dragon.IsDestroyed())
-            {
-                LastRoundEnd();
-                break;
-            }
-            yield return null;
-        }
-    }
+    //IEnumerator dragonDie(GameObject dragon)
+    //{
+    //    while (true)
+    //    {
+    //        if (dragon.IsDestroyed())
+    //        {
+    //            LastRoundEnd();
+    //            break;
+    //        }
+    //        yield return null;
+    //    }
+    //}
 }
 
 

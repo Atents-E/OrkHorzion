@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class EnemySpawner : MonoBehaviour
     int spawnEnemyCount = 0;
 
     int result = 0;
+
+    public Action<bool> isLastRoundEnd;
+    bool isLastRound = false;
 
     public int Result
     {
@@ -166,7 +170,17 @@ public class EnemySpawner : MonoBehaviour
                         GameObject obj = Instantiate(currentWave.enemyPrefabs[3], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
                         onSpawnDragon?.Invoke(obj);
                     }
+                    if (index +1 > MaxEnemyCount)
+                    {
+                        isLastRound = true;
+                        isLastRoundEnd?.Invoke(isLastRound);
+                    }
                     break;
+                case 5:
+                    WaveSystem StartWave = GameManager.Inst.WaveSystem;
+                    ClearPanel clear = FindObjectOfType<ClearPanel>();
+                    StartWave.onClear += clear.Open;
+                    break;  
                 default:
                     break;
             }
@@ -193,7 +207,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (!IsPlaying && Result <= 0)
         {
-            GameManager.Inst.RewardPanel.Open(true);
+            GameManager.Inst.RewardPanel.Open();
         }
     }
 

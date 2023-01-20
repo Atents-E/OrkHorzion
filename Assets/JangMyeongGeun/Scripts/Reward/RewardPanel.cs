@@ -68,6 +68,7 @@ public class RewardPanel : MonoBehaviour
 
     [HideInInspector]
     public bool isRoundEnd = false;
+    bool isLastRound = false;
 
     int[] rewardGoldValue = { 500, 600, 700, 800, 900, 1000 };
 
@@ -106,6 +107,7 @@ public class RewardPanel : MonoBehaviour
     {
         itemManager = GameManager.Inst.ItemData;
         rewardItems = itemManager.ItemDatas;
+        GameManager.Inst.EnemySpawner.isLastRoundEnd += (isLastRound) => { this.isLastRound = isLastRound; };
         //EnemySpawner enemySpawner = GameManager.Inst.EnemySpawner;
         //enemySpawner.onRoundEnd += 
     }
@@ -115,19 +117,19 @@ public class RewardPanel : MonoBehaviour
         this.inventory = inventory;
     }
 
+    //public void Open()
+    //{
+    //    canvasGroup.alpha = 1.0f;
+    //    canvasGroup.interactable = true;
+    //    canvasGroup.blocksRaycasts = true;
+    //    inventory.IncreaseSlot();
+    //    SetReward();
+    //}
+
+    // bool a;
     public void Open()
     {
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        inventory.IncreaseSlot();
-        SetReward();
-    }
-
-    bool a;
-    public void Open(bool a)
-    {
-        if (a)
+        if (!isLastRound)
         {
             canvasGroup.alpha = 1.0f;
             canvasGroup.interactable = true;
