@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,8 +10,6 @@ public class EnemySpawner : MonoBehaviour
     List<EnemyBase> enemyList;  // 현재 맵에 존재하는 모든 적의 정보
 
     public List<EnemyBase> EnemyList => enemyList;
-
-    public Action<GameObject> onSpawnDragon;
 
     private Wave currentWave;   // 현재 웨이브 정보
 
@@ -68,21 +65,21 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Enemy"))
-    //    {
-    //        EnemyBase enemyBase = other.GetComponent<EnemyBase>();
-    //        DestroyEnemy(enemyBase);
-    //        SetDel();
-    //    }
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyBase enemyBase = other.GetComponent<EnemyBase>();
+            DestroyEnemy(enemyBase);
+            SetDel();
+        }
+    }
 
     IEnumerator SpawnEnemy()
     {
         // 현재 웨이브에서 생성한 적 숫자
         spawnEnemyCount = 0;
-        int index = 0;
+        int index = 0;      // while문이 실행이 되면 지역변수로 1씩 증가하고 몬스터 스폰을 완료하면 break를 만나 밖으로 나와서 다시 0으로 초기화
         isPlaying = true;        
         
         // 현재 웨이브에서 생성되어야 하는 적의 숫자만큼 적을 생성하고 코루틴 종료
@@ -167,26 +164,28 @@ public class EnemySpawner : MonoBehaviour
                     }
                     else if (index > 9 && index <= currentWave.maxEnemyCount)
                     {
-                        GameObject obj = Instantiate(currentWave.enemyPrefabs[3], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
-                        onSpawnDragon?.Invoke(obj);
+                        Instantiate(currentWave.enemyPrefabs[3], transform.position, Quaternion.Euler(0.0f, 90.0f, 0.0f));
                     }
-                    if (index +1 > MaxEnemyCount)
+
+                    if (index +1 > MaxEnemyCount )
                     {
                         isLastRound = true;
+                        Debug.Log("제발 ");
                         isLastRoundEnd?.Invoke(isLastRound);
                     }
                     break;
                 case 5:
-                    WaveSystem StartWave = GameManager.Inst.WaveSystem;
-                    ClearPanel clear = FindObjectOfType<ClearPanel>();
-                    StartWave.onClear += clear.Open;
-                    break;  
+                    //ClearPanel clear = FindObjectOfType<ClearPanel>();
+                    //clear.o
+                    Debug.Log("게임 클리어");
+                    break;
+
                 default:
                     break;
             }
 
-            //EnemyBase enemy = GetComponent<EnemyBase>();
-            //enemyList.Add(enemy);
+            EnemyBase enemy = GetComponent<EnemyBase>();
+            enemyList.Add(enemy);
 
             // 현재 웨이브에서 생성한 적의 숫자 +1
             spawnEnemyCount++;
@@ -202,8 +201,8 @@ public class EnemySpawner : MonoBehaviour
     /// <param name="enemy"></param>
     public void DestroyEnemy(EnemyBase enemy)
     {
+        enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
-        //enemyList.Remove(enemy);
 
         if (!IsPlaying && Result <= 0)
         {
@@ -212,7 +211,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void SetDel()
-    {        
+    {
         Result--;
     }
 }

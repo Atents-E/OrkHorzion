@@ -137,6 +137,10 @@ public class RewardPanel : MonoBehaviour
             inventory.IncreaseSlot();
             SetReward(); 
         }
+        else
+        {
+            onSelect?.Invoke();
+        }
     }
 
     public void Close()
