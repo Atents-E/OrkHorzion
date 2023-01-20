@@ -18,8 +18,8 @@ public class Warrior : Character
     protected override void Awake()
     {
         base.Awake();
-        hand_r = GetComponentInChildren<WeaponPosition>().transform;
-        weaponBlade = hand_r.GetComponentInChildren<Collider>();
+        hand_r = GetComponentInChildren<WeaponPosition>().transform; // 무기가 있는 위치 가져오기
+        weaponBlade = hand_r.GetComponentInChildren<Collider>(); // 무기 콜라이더 가져오기
         invenUI = FindObjectOfType<InventoryUI>();
         characterName = "전사";
     }
@@ -71,7 +71,7 @@ public class Warrior : Character
     public override void Die()
     {
         base.Die();
-        inven.PlayerRemoveItem();
+        inven.PlayerRemoveItem(); // 죽으면 아이템 1개 삭제
     } 
     
     public override void Recover() => base.Recover();

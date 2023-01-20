@@ -96,8 +96,8 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     protected virtual void Start()
     {
-        Vector3 spotPos = point.transform.position;
-        transform.position = spotPos;
+        Vector3 spotPos = point.transform.position; 
+        transform.position = spotPos; // 시작할때 SpawnPoint에서 위치이동
         hp = MaxHP;
         isAlive = true;
     }
@@ -108,10 +108,10 @@ public class Character : MonoBehaviour, IBattle, IHealth
         if (Random.Range(0.0f, 1.0f) < criticalChance)
         {
             Debug.Log("Critical★");
-            damage *= 1.5f;
+            damage *= 1.5f; // 플레이어는 공격력만큼 데미지를 주지만 치명타가 뜨면 1.5배의 데미지를 준다.
               
         }
-        target?.TakeDamage(damage);// 플레이어는 공격력만큼 데미지를 주지만 치명타가 뜨면 1.5배의 데미지를 준다.
+        target?.TakeDamage(damage);
     }
 
     public virtual void TakeDamage(float damage)
@@ -127,12 +127,12 @@ public class Character : MonoBehaviour, IBattle, IHealth
 
     public virtual void Die()
     {
-        dieCount++;
+        dieCount++; // 죽은횟수 더해주기 
         Debug.Log($"{gameObject.name}가 죽었습니다");
         isAlive = false;
         anim.SetBool("IsAlive", isAlive);   // 죽었다고 표시해서 사망 애니메이션 재생
         onDie?.Invoke();
-        Invoke("Recover", 3f);
+        Invoke("Recover", 3f); // 3초뒤 Recover
     }
 
     public virtual void Recover()
@@ -140,9 +140,9 @@ public class Character : MonoBehaviour, IBattle, IHealth
         bool on = true;
         if (spawnPS != null)
         {
-            if (on)
+            if (on) 
             {
-                spawnPS.Play();
+                spawnPS.Play(); // 파티클 재생
             }
             else
             {
@@ -150,13 +150,13 @@ public class Character : MonoBehaviour, IBattle, IHealth
             }
         }
         isAlive = true;
-        anim.SetBool("IsAlive", isAlive);
+        anim.SetBool("IsAlive", isAlive); // 살아있다고 표시해서 리스폰 애니메이션 재생
         anim.SetTrigger("Recover");
 
-        HP = maxHp;
+        HP = maxHp; // 체력을 최대체력으로 변경
 
         Vector3 spotPos = point.transform.position;
-        transform.position = spotPos;
+        transform.position = spotPos; // SpawnPoint 위치로 캐릭터 이동 
         Debug.Log($"{gameObject.name}가 다시 살아납니다");
        
     }

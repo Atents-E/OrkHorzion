@@ -36,9 +36,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        walkSpeed = character.MoveSpeed;
-        currentSpeed = character.MoveSpeed;
-        runSpeed = walkSpeed + 5.0f;
+        walkSpeed = character.MoveSpeed; // 걷는 속도를 캐릭터 이동속도로 설정
+        currentSpeed = character.MoveSpeed; // 현재 속도를 캐릭터 이동속도로 설정
+        runSpeed = walkSpeed + 5.0f; // 달리는 속도는 걷는 속도에 5를 더한 속도 
     }
 
     private void OnEnable()
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         inputDir.y = 0.0f;
         inputDir.z = input.y;
 
-        if (!context.canceled && character.isAlive)  
+        if (!context.canceled && character.isAlive)  // 입력이 들어왔을 때 && 살아있을 때만
         {
             Quaternion cameraYRotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
             inputDir = cameraYRotation * inputDir;
@@ -126,9 +126,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext _)
     {
-        if (character.isAlive)
+        if (character.isAlive) // 살아있을 때만
         {
-            anim.SetTrigger("Attack");
+            anim.SetTrigger("Attack"); // 공격 애니메이션 실행
         }
         
     }

@@ -9,10 +9,10 @@ public class CamController : MonoBehaviour
 
     void Start()
     {
-        target = GameManager.Inst.Character.transform;
-        offset = transform.position - target.transform.position;
+        target = GameManager.Inst.Character.transform; // 캐릭터 위치를 타겟으로 설정
+        offset = transform.position - target.transform.position; 
     }
-    // Update is called once per frame
+
     void LateUpdate()
     {
         transform.position = target.position + offset;

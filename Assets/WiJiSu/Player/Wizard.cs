@@ -13,7 +13,7 @@ public class Wizard :Character
     protected override void Awake()
     {
         base.Awake();
-        weaponPS = GetComponentInChildren<ParticleSystem>();
+        weaponPS = GetComponentInChildren<ParticleSystem>();  // 파티클 시스템 가져오기
         invenUI = FindObjectOfType<InventoryUI>();
         characterName = "마법사";
     }
@@ -35,6 +35,9 @@ public class Wizard :Character
         Debug.Log($"이동속도 : {moveSpeed}");
     }
 
+    /// <summary>
+    /// wizard가 공격 행동을 할 때 파티클 재생하는 함수
+    /// </summary>
     public void WeaponEffectEnable()
     {
         if (weaponPS != null)
@@ -42,23 +45,27 @@ public class Wizard :Character
             weaponPS.Play();    // 파티클 이팩트 재생 시작
         }
     }
+
+    /// <summary>
+    /// wizard가 공격 행동이 끝날 때 파티클 멈추는 함수
+    /// </summary>
     public void WeaponEffectDisable()
     {
         if (weaponPS != null)
         {
-            weaponPS.Stop();    // 파티클 이팩트 재생 시작
+            weaponPS.Stop();    // 파티클 이팩트 중지
         }
     }
 
 
     public override void Attack(IBattle target) => base.Attack(target);
 
-    //public override void TakeDamage(float damage) => base.TakeDamage(damage);
+    public override void TakeDamage(float damage) => base.TakeDamage(damage);
 
     public override void Die()
     {
         base.Die();
-        inven.PlayerRemoveItem();
+        inven.PlayerRemoveItem(); // 죽으면 아이템 1개 삭제
     }
 
     public override void Recover() => base.Recover();
